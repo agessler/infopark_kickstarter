@@ -372,7 +372,6 @@ a.ip_editing_button:active {
 .ip_tour_overlay {
   position: fixed;
   z-index: 222222;
-  opacity: 0;
   -webkit-transition: opacity 0.1s linear;
   -moz-transition: opacity 0.1s linear;
   -o-transition: opacity 0.1s linear;
@@ -385,6 +384,8 @@ a.ip_editing_button:active {
   background: -ms-radial-gradient(center, ellipse cover, #777777 10%, #333333 80%) fixed;
   background: radial-gradient(ellipse at center, #777777 10%, #333333 80%) fixed;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#777777', endColorstr='#333333', GradientType=1);
+  opacity: 0;
+  filter: alpha(opacity=0);
 }
 .ip_tour_overlay.show {
   top: 0;
@@ -433,6 +434,7 @@ a.ip_editing_button:active {
   -ms-transform: scale(0.7);
   transform: scale(0.7);
   opacity: 0;
+  filter: alpha(opacity=0);
   -webkit-transition: all 0.4s linear;
   -moz-transition: all 0.4s linear;
   -o-transition: all 0.4s linear;
@@ -445,6 +447,7 @@ a.ip_editing_button:active {
   -ms-transform: scale(1);
   transform: scale(1);
   opacity: 1;
+  filter: alpha(opacity=100);
 }
 .ip_tour_modal_content {
   overflow-y: auto;
@@ -557,8 +560,9 @@ a.ip_editing_button:active {
 .ip_tour_modal_content .ip_tab_contents .tab_content {
   visibility: hidden;
   overflow: hidden;
-  opacity: 0;
   height: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
   -webkit-transition: opacity ease-in-out .8s;
   -moz-transition: opacity ease-in-out .8s;
   -o-transition: opacity ease-in-out .8s;
@@ -567,8 +571,9 @@ a.ip_editing_button:active {
 .ip_tour_modal_content .ip_tab_contents .tab_content.active {
   visibility: visible;
   overflow: visible;
-  opacity: 1;
   height: auto;
+  opacity: 1;
+  filter: alpha(opacity=100);
 }
 .ip_tour_modal_content .ip_tab_contents h1,
 .ip_tour_modal_content .ip_tab_contents h2,
@@ -616,9 +621,10 @@ a.ip_editing_button:active {
   }
   .ip_tour_modal_content .ip_tab_contents .tab_content {
     height: auto;
-    opacity: 1;
     overflow: visible;
     visibility: visible;
+    opacity: 1;
+    filter: alpha(opacity=100);
   }
 }
 @media (max-width: 480px) {

@@ -263,9 +263,10 @@ a.ip_editing_button, a.ip_editing_button:active, a.ip_editing_button:active {tex
 
 // ---- ip_tour_overlay  ------------------------------------ //
 
-.ip_tour_overlay {position: fixed; z-index: 222222; opacity: 0;
+.ip_tour_overlay {position: fixed; z-index: 222222;
   .transition(opacity .1s linear);
   .ip_editing_overlay_gradient;
+  .opacity(0);
   }
 .ip_tour_overlay.show { top: 0; bottom: 0; left: 0; right: 0; z-index: 222222; .opacity(85);
   .transition(opacity .3s linear);
@@ -285,7 +286,7 @@ a.ip_editing_button, a.ip_editing_button:active, a.ip_editing_button:active {tex
   -moz-transform: scale(0.7);
   -ms-transform: scale(0.7);
   transform: scale(0.7);
-  opacity: 0;
+  .opacity(0);
   .transition(all .4s linear);
   }
 .ip_tour_modal.show { ;z-index:333333;
@@ -293,7 +294,7 @@ a.ip_editing_button, a.ip_editing_button:active, a.ip_editing_button:active {tex
   -moz-transform: scale(1);
   -ms-transform: scale(1);
   transform: scale(1);
-  opacity: 1;
+  .opacity(100);
   }
 
 
@@ -343,8 +344,8 @@ a.ip_editing_button, a.ip_editing_button:active, a.ip_editing_button:active {tex
   .box-sizing(border-box);
   }
 
-.ip_tour_modal_content .ip_tab_contents .tab_content { visibility:hidden; overflow: hidden; opacity:0; height:0; .transition(~"opacity ease-in-out .8s");}
-.ip_tour_modal_content .ip_tab_contents .tab_content.active { visibility:visible; overflow: visible; opacity:1; height:auto; }
+.ip_tour_modal_content .ip_tab_contents .tab_content { visibility:hidden; overflow: hidden; height:0; .opacity(0); .transition(~"opacity ease-in-out .8s");}
+.ip_tour_modal_content .ip_tab_contents .tab_content.active { visibility:visible; overflow: visible; height:auto; .opacity(100);}
 
 .ip_tour_modal_content .ip_tab_contents { h1, h2, h3, h4, h5, h6 {color:#3F5F85; font-size:16px; line-height:18px; font-family: Helvetica, Arial,sans-serif;}}
 .ip_tour_modal_content .ip_tab_contents h1 {font-size:27px; line-height:30px;}
@@ -383,7 +384,7 @@ a.ip_editing_button, a.ip_editing_button:active, a.ip_editing_button:active {tex
 .ip_sub_nav_vertical {display:none!important;}
 .ip_tour_modal_content .ip_tab_contents { width:100%; padding:10px;}
 .ip_tour_modal_content .ip_tab_contents .tab_content {
-  height:auto; opacity:1; overflow:visible; visibility:visible;
+  height:auto; overflow:visible; visibility:visible; .opacity(100);
   }
 
 }
