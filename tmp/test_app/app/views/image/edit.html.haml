@@ -1,2 +1,9 @@
-= cms_edit_label(@obj, :title)
-= cms_edit_html(@obj, :title)
+%h4
+  Inspector
+
+%a.btn.inspector-close
+  %i.icon-remove
+
+.object-inspector
+  Title:
+  = cms_tag(:div, @obj, :title)

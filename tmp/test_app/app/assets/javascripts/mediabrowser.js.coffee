@@ -1,5 +1,6 @@
 @Mediabrowser = do ->
   modal: '#ip-mediabrowser'
+  inspector: '.inspector'
 
   init: ->
     unless $(@modal).length
@@ -31,11 +32,19 @@
       @updateContent()
       @open()
 
-    $(document).on 'click', 'a.inspector', (event) =>
+    $(@modal).on 'click', 'a.inspect', (event) =>
       event.preventDefault()
 
-      id = event.target.data('id')
+      id = $(event.currentTarget).data('id')
       @renderInspector(id)
+
+    $(@modal).on 'click', 'a.inspector-close', (event) =>
+      event.preventDefault()
+
+      @closeInspector()
+
+  closeInspector: ->
+    $(@inspector).html('')
 
   renderInspector: (id) ->
     data =
@@ -46,7 +55,8 @@
         dataType: 'json'
         data: data
         success: (json) =>
-          $(@modal).find('inspector').html(json.content)
+          $(@modal).find(@inspector).html(json.content)
+          infopark.editing.refresh($(@inspector))
       )
 
 $ ->

@@ -14,13 +14,14 @@
         - @images.each do |image|
           %tr
             %td
-              %a.inspector{href: '', data: { id: image.id }}
+              %a.inspect{href: '', data: { id: image.id }}
                 = cms_image_tag(image)
 
             %td
               = image.title || image.id
 
     .span6
+      .inspector
 
 .modal-footer.clearfix
   .pull-left
