@@ -31,5 +31,23 @@
       @updateContent()
       @open()
 
+    $(document).on 'click', 'a.inspector', (event) =>
+      event.preventDefault()
+
+      id = event.target.data('id')
+      @renderInspector(id)
+
+  renderInspector: (id) ->
+    data =
+      id: id
+
+    $.ajax(
+        url: '/mediabrowser/edit'
+        dataType: 'json'
+        data: data
+        success: (json) =>
+          $(@modal).find('inspector').html(json.content)
+      )
+
 $ ->
   Mediabrowser.init()

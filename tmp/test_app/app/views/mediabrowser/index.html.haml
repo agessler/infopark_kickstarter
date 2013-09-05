@@ -8,6 +8,19 @@
         &times;
 
 .modal-body.clearfix
+  .row
+    .span6
+      %table.table
+        - @images.each do |image|
+          %tr
+            %td
+              %a.inspector{href: '', data: { id: image.id }}
+                = cms_image_tag(image)
+
+            %td
+              = image.title || image.id
+
+    .span6
 
 .modal-footer.clearfix
   .pull-left
