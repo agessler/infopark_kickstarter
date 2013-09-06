@@ -1,6 +1,7 @@
 @Mediabrowser = do ->
   modal: '#ip-mediabrowser'
   inspector: '.inspector'
+  loading: '.loading'
   selected: []
 
   init: ->
@@ -35,8 +36,9 @@
 
   updateContent: (data) ->
     data ||= {}
-
     data['selected'] = @selected
+
+    @showLoading()
 
     $.ajax(
       url: '/mediabrowser'
@@ -44,6 +46,8 @@
       data: data
       success: (json) =>
         $(@modal).html(json.content)
+
+        @hideLoading()
     )
 
   initializeBindings: ->
@@ -78,6 +82,14 @@
       event.preventDefault()
 
       @closeInspector()
+
+  showLoading: ->
+    $(@loading).show()
+    $(@modal).find('.content').hide()
+
+  hideLoading: ->
+    $(@loading).hide()
+    $(@modal).find('.content').show()
 
   closeInspector: ->
     $(@inspector).html('')
