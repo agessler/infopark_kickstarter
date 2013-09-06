@@ -47,12 +47,13 @@ module EditingHelper
 
             html << content_tag(:li, I18n.t('editing.linklist.title', title: link.title))
             html << content_tag(:li, I18n.t('editing.linklist.url', url: link.url))
-            html << content_tag(:a, 'Edit', {class: 'mediabrowser'})
 
             html
           end
         end
       end
+
+      out.concat(content_tag(:a, 'Edit', {class: 'mediabrowser'}))
 
       out
     end

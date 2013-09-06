@@ -15,15 +15,17 @@
   open: () ->
     $(@modal).modal('show')
 
-  updateContent: () ->
+  updateContent: (data) ->
+    data ||= {}
+
     $.ajax(
       url: '/mediabrowser'
       dataType: 'json'
+      data: data
       success: (json) =>
         $(@modal).html(json.content)
     )
 
-  # Events
   initializeBindings: ->
     $(document).on 'click', '.mediabrowser-close', =>
       @close()
@@ -31,6 +33,14 @@
     $(document).on 'click', 'a.mediabrowser', =>
       @updateContent()
       @open()
+
+    $(document).on 'click', 'li.previous a, li.next a', (event) =>
+      event.preventDefault()
+
+      page = $(event.currentTarget).data('page')
+
+      @updateContent
+        page: page
 
     $(@modal).on 'click', 'a.inspect', (event) =>
       event.preventDefault()

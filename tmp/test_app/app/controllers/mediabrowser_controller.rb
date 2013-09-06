@@ -2,14 +2,22 @@ class MediabrowserController < ApplicationController
   layout false
 
   def index
-    RailsConnector::Workspace.default.as_current do
-      @images = Obj.where(:_obj_class, :equals, 'Image')
-        .order(:id)
-        .offset(0)
-        .take(10)
+    @page = (params[:page].presence || 1).to_i
+    limit = (params[:limit].presence || 10).to_i
+    start = (@page - 1) * limit
+
+    @images, @total = RailsConnector::Workspace.default.as_current do
+      query = Obj.where(:_obj_class, :equals, 'Image')
+        .offset(start)
+        .order(:_last_changed)
+        .reverse_order
+
+      [query.take(limit), query.count]
     end
 
-    content = render_to_string 'index'
+    @maxPages = (@total / limit.to_f).ceil
+
+    content = render_to_string
 
     render json: { content: content }
   end

@@ -2,32 +2,51 @@
   .pull-left
     %h3
       Mediabrowser
+
   .pull-right
     %h3
       %button.close.mediabrowser-close
         &times;
 
 .modal-body.clearfix
-  .row
-    .span6
-      %table.table
-        - @images.each do |image|
-          %tr
-            %td
-              %a.inspect{href: '', data: { id: image.id }}
-                = cms_image_tag(image)
+  .content
+    .row-fluid
+      .span6
+        %ul.pager
+          - if @page > 1
+            %li.previous
+              %a{href: '', data: { page: @page - 1 }}
+                %span.arrow
+                  &lt;
 
-            %td
-              = image.title || image.id
+          %li
+            %span
+              Results
+              = @total
 
-    .span6
-      .inspector
+          - if @page < @maxPages
+            %li.next
+              %a{href: '', data: { page: @page + 1 }}
+                %span.arrow
+                  &gt;
+
+        %table.table
+          - @images.each do |image|
+            %tr
+              %td
+                %a.inspect{href: '', data: { id: image.id }}
+                  = cms_image_tag(image)
+
+              %td
+                = image.title || image.id
+
+      .span6
+        .inspector
 
 .modal-footer.clearfix
-  .pull-left
   .pull-right
     %button.btn.mediabrowser-save
       Save
+
     %button.btn.mediabrowser-close
       Close
-
