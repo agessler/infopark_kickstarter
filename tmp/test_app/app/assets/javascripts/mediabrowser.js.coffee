@@ -9,6 +9,17 @@
 
     @initializeBindings()
 
+  save: () ->
+    images = $('input.selected-images:checked')
+
+    if images.length
+      ids = $.map images, (image) ->
+        image.id
+
+      $('.mediabrowser-selected-items').html(ids.join(', '))
+
+    @close()
+
   close: () ->
     $(@modal).modal('hide')
 
@@ -27,6 +38,9 @@
     )
 
   initializeBindings: ->
+    $(document).on 'click', '.mediabrowser-save', =>
+      @save()
+
     $(document).on 'click', '.mediabrowser-close', =>
       @close()
 
