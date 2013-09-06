@@ -2,6 +2,7 @@ class MediabrowserController < ApplicationController
   layout false
 
   def index
+    @selected = params[:selected] || []
     @page = (params[:page].presence || 1).to_i
     limit = (params[:limit].presence || 10).to_i
     start = (@page - 1) * limit

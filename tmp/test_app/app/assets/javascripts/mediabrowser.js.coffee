@@ -1,6 +1,7 @@
 @Mediabrowser = do ->
   modal: '#ip-mediabrowser'
   inspector: '.inspector'
+  selected: []
 
   init: ->
     unless $(@modal).length
@@ -10,15 +11,21 @@
     @initializeBindings()
 
   save: () ->
+    images = @selected
+
+    if images.length
+      $('.mediabrowser-selected-items').html(images.join(', '))
+
+    @close()
+
+  updateSelectedImages: () ->
     images = $('input.selected-images:checked')
 
     if images.length
       ids = $.map images, (image) ->
         image.id
 
-      $('.mediabrowser-selected-items').html(ids.join(', '))
-
-    @close()
+    @selected = $.unique(@selected.concat(ids))
 
   close: () ->
     $(@modal).modal('hide')
@@ -29,6 +36,8 @@
   updateContent: (data) ->
     data ||= {}
 
+    data['selected'] = @selected
+
     $.ajax(
       url: '/mediabrowser'
       dataType: 'json'
@@ -38,6 +47,9 @@
     )
 
   initializeBindings: ->
+    $(document).on 'change', '#ip-mediabrowser input.selected-images:checked', =>
+      @updateSelectedImages()
+
     $(document).on 'click', '.mediabrowser-save', =>
       @save()
 
