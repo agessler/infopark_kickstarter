@@ -2,6 +2,7 @@ class MediabrowserController < ApplicationController
   layout false
 
   def index
+    @query = params[:query].presence || ''
     @selected = params[:selected] || []
     @page = (params[:page].presence || 1).to_i
     limit = (params[:limit].presence || 10).to_i
@@ -12,6 +13,10 @@ class MediabrowserController < ApplicationController
         .offset(start)
         .order(:_last_changed)
         .reverse_order
+
+      if @query.present?
+        query.and(:*, :contains_prefix, @query)
+      end
 
       [query.take(limit), query.count]
     end

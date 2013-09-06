@@ -3,6 +3,7 @@
   inspector: '.inspector'
   loading: '.loading'
   selected: []
+  query: ''
 
   init: ->
     unless $(@modal).length
@@ -37,6 +38,7 @@
   updateContent: (data) ->
     data ||= {}
     data['selected'] = @selected
+    data['query'] = @query
 
     @showLoading()
 
@@ -53,6 +55,11 @@
   initializeBindings: ->
     $(document).on 'change', '#ip-mediabrowser input.selected:checked', =>
       @updateSelected()
+
+    $(document).on 'keyup', '#ip-mediabrowser input.search', (event) =>
+      if event.keyCode == 13
+        @query = $(event.target).val()
+        @updateContent()
 
     $(document).on 'click', '.mediabrowser-save', =>
       @save()
