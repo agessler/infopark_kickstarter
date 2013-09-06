@@ -46,7 +46,7 @@
                 = image.title || image.id
 
               %td
-                = check_box_tag(image.id, image.id, @selected.include?(image.id), class: 'selected-images')
+                = check_box_tag(image.id, image.id, @selected.include?(image.id), class: 'selected')
 
       .span6
         .inspector

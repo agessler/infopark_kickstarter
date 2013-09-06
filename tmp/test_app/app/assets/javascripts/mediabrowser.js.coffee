@@ -15,12 +15,12 @@
     images = @selected
 
     if images.length
-      $('.mediabrowser-selected-items').html(images.join(', '))
+      $('.mediabrowser-selected').html(images.join(', '))
 
     @close()
 
-  updateSelectedImages: () ->
-    images = $('input.selected-images:checked')
+  updateSelected: () ->
+    images = $('#ip-mediabrowser input.selected:checked')
 
     if images.length
       ids = $.map images, (image) ->
@@ -51,8 +51,8 @@
     )
 
   initializeBindings: ->
-    $(document).on 'change', '#ip-mediabrowser input.selected-images:checked', =>
-      @updateSelectedImages()
+    $(document).on 'change', '#ip-mediabrowser input.selected:checked', =>
+      @updateSelected()
 
     $(document).on 'click', '.mediabrowser-save', =>
       @save()

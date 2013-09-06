@@ -54,7 +54,7 @@ module EditingHelper
       end
 
       out.concat(content_tag(:a, 'Edit', {class: 'mediabrowser'}))
-      out.concat(content_tag(:div, '', {class: 'mediabrowser-selected-items'}))
+      out.concat(content_tag(:div, '', {class: 'mediabrowser-selected'}))
 
       out
     end
