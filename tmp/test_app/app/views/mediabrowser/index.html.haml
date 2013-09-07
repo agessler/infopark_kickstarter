@@ -15,6 +15,17 @@
         &#61475;
 
   .content
+    .row-fluid.filter
+      .span12
+        %ul.nav.nav-pills
+          %li{class: ('active' if @obj_class == 'Image')}
+            %a{href: '', data: { 'obj-class' => 'Image' }}
+              Image
+
+          %li{class: ('active' if @obj_class == 'BlogPost')}
+            %a{href: '', data: { 'obj-class' => 'BlogPost' }}
+              BlogPost
+
     .row-fluid
       .span12
         .pull-right
@@ -40,18 +51,9 @@
                 %span.arrow
                   &gt;
 
-        %table.table
-          - @images.each do |image|
-            %tr
-              %td
-                %a.inspect{href: '', data: { id: image.id }}
-                  = cms_image_tag(image)
-
-              %td
-                = image.title || image.id
-
-              %td
-                = check_box_tag(image.id, image.id, @selected.include?(image.id), class: 'selected')
+        %table.table.table-striped.table-hover
+          - @hits.each do |hit|
+            = render @obj_class.underscore, hit: hit
 
       .span6
         .inspector
@@ -59,7 +61,7 @@
 .modal-footer.clearfix
   .pull-right
     %button.btn.mediabrowser-save
-      Save
+      Select
 
     %button.btn.mediabrowser-close
       Close

@@ -1,0 +1,10 @@
+%tr.inspect{data: { id: hit.id }}
+  %td
+    %a
+      = cms_image_tag(hit)
+
+  %td
+    = hit.title || hit.id
+
+  %td
+    = check_box_tag(hit.id, hit.id, @selected.include?(hit.id), class: 'selected')

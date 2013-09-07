@@ -53,7 +53,7 @@
     )
 
   initializeBindings: ->
-    $(document).on 'change', '#ip-mediabrowser input.selected:checked', =>
+    $(document).on 'change', '#ip-mediabrowser input.selected:checked', (event) =>
       @updateSelected()
 
     $(document).on 'keyup', '#ip-mediabrowser input.search', (event) =>
@@ -71,6 +71,14 @@
       @updateContent()
       @open()
 
+    $(document).on 'click', '.filter a', (event) =>
+      event.preventDefault()
+
+      objClass = $(event.currentTarget).data('obj-class')
+
+      @updateContent
+        obj_class: objClass
+
     $(document).on 'click', 'li.previous a, li.next a', (event) =>
       event.preventDefault()
 
@@ -79,16 +87,24 @@
       @updateContent
         page: page
 
-    $(@modal).on 'click', 'a.inspect', (event) =>
-      event.preventDefault()
+    $(@modal).on 'click', 'tr.inspect', (event) =>
+      unless $(event.target).is(':checkbox')
+        element = $(event.currentTarget)
+        id = element.data('id')
 
-      id = $(event.currentTarget).data('id')
-      @renderInspector(id)
+        @renderInspector(id)
 
     $(@modal).on 'click', 'a.inspector-close', (event) =>
       event.preventDefault()
 
       @closeInspector()
+
+  highlightSelected: (element) ->
+    @removeSelectionHighlight()
+    element.addClass('selected')
+
+  removeSelectionHighlight: ->
+    $(@modal).find('tr.selected').removeClass('selected')
 
   showLoading: ->
     $(@loading).show()
