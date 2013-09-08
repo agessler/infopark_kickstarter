@@ -27,6 +27,7 @@ describe Cms::Generators::Component::EditingGenerator do
     mkdir_p(javascripts_path)
     mkdir_p(stylesheets_path)
 
+    File.open("#{destination_root}/Gemfile", 'w')
     File.open("#{javascripts_path}/application.js", 'w') { |file| file.write("//= require infopark_rails_connector\n") }
     File.open("#{stylesheets_path}/application.css", 'w') { |file| file.write("*= require infopark_rails_connector\n") }
   end
@@ -35,10 +36,18 @@ describe Cms::Generators::Component::EditingGenerator do
     destination_root.should have_structure {
       directory 'app' do
         directory 'assets' do
+          directory 'fonts' do
+            file 'editing_icons-webfont.eot'
+            file 'editing_icons-webfont.ttf'
+            file 'editing_icons-webfont.woff'
+          end
+
           directory 'stylesheets' do
             file 'editing.css.less'
+            file 'editing_icons.css.less'
             file 'application.css' do
               contains '*= require editing'
+              contains '*= require bootstrap-datepicker'
             end
           end
 
@@ -49,6 +58,14 @@ describe Cms::Generators::Component::EditingGenerator do
             end
           end
         end
+
+        directory 'helpers' do
+          file 'editing_helper.rb'
+        end
+      end
+
+      file 'Gemfile' do
+        contains 'gem "bootstrap-datepicker-rails"'
       end
     }
   end

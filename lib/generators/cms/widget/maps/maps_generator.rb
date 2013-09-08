@@ -2,8 +2,6 @@ module Cms
   module Generators
     module Widget
       class MapsGenerator < ::Rails::Generators::Base
-        include Example
-
         source_root File.expand_path('../templates', __FILE__)
 
         SUPPORTED_PROVIDER = %w(google_maps)

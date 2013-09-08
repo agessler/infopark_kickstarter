@@ -1,4 +1,3 @@
-
 @font-face {
   font-family: 'editing_iconsregular';
   src: font-url('editing_icons-webfont.eot');
@@ -16,7 +15,6 @@
   font-style: normal;
 }
 
-/* widget gallery icons */
 
 .widget-icon,
 .obj-class-icon {
@@ -37,6 +35,7 @@
   -o-user-select: none;
   user-select: none;
 }
+
 .widget-icon:hover { cursor: pointer; }
 
 .editing-icon-ip:after { content: "\F000"; }
@@ -71,7 +70,7 @@
 .editing-icon-cancel:after { content: "\F028"; }
 
 
-/* placeholder icons */
+// placeholder icons
 
 .ip_field_editable:empty:before {
   font-family: 'editing_iconsregular';
@@ -93,13 +92,11 @@
   user-select: none;
 }
 
-.ip_field_editable[data-ip-field-type=string]:empty:before { content: '\F016';}
-.ip_field_editable[data-ip-field-type=text]:empty:before { content: '\F017';}
+.ip_field_editable[data-ip-field-type=string]:empty:before { content: '\F016'; }
+.ip_field_editable[data-ip-field-type=text]:empty:before { content: '\F017'; }
 .ip_field_editable[data-ip-field-type=html]:empty:before { content: '\F018'; }
-.ip_field_editable[data-ip-field-type=enum]:empty:before { content: '\F019';}
-.ip_field_editable[data-ip-field-type=multienum]:empty:before { content: '\F01A';}
+.ip_field_editable[data-ip-field-type=enum]:empty:before { content: '\F019'; }
+.ip_field_editable[data-ip-field-type=multienum]:empty:before { content: '\F01A'; }
 .ip_field_editable[data-ip-field-type=boolean]:empty:before { content: '\F01B'; }
-.ip_field_editable[data-ip-field-type=date]:empty:before { content: '\F01C';}
-.ip_field_editable[data-ip-field-type=linklist]:empty:before { content: '\F01D';}
-
-
+.ip_field_editable[data-ip-field-type=date]:empty:before { content: '\F01C'; }
+.ip_field_editable[data-ip-field-type=linklist]:empty:before { content: '\F01D'; }

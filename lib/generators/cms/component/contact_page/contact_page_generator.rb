@@ -1,57 +1,45 @@
+require_relative 'contact_page_description'
+
 module Cms
   module Generators
     module Component
       class ContactPageGenerator < ::Rails::Generators::Base
         include Migration
 
-        class_option :cms_path,
-          type: :string,
-          default: nil,
-          desc: 'CMS parent path where the example contact page should be placed under.'
-
         source_root File.expand_path('../templates', __FILE__)
 
         def create_migration
-          begin
-            Model::ApiGenerator.new(behavior: behavior) do |model|
-              model.name = class_name
-              model.title = 'Page: Contact'
-              model.page = true
-              model.attributes = [
-                {
-                  name: 'headline',
-                  type: :string,
-                  title: 'Headline',
-                },
-                {
-                  name: 'content',
-                  type: :html,
-                  title: 'Content',
-                },
-                {
-                  name: crm_activity_type_attribute_name,
-                  type: :string,
-                  title: 'CRM Activity Type',
-                },
-                {
-                  name: show_in_navigation_attribute_name,
-                  type: :boolean,
-                  title: 'Show in navigation',
-                },
-                {
-                  name: sort_key_attribute_name,
-                  type: :string,
-                  title: 'Sort key',
-                },
-              ]
-            end
-          rescue Cms::Generators::DuplicateResourceError
-          end
-        end
-
-        def create_example
-          if example?
-            migration_template('example_migration.rb', 'cms/migrate/create_contact_page_example.rb')
+          Model::ApiGenerator.new(behavior: behavior) do |model|
+            model.name = class_name
+            model.title = 'Page: Contact'
+            model.page = true
+            model.attributes = [
+              {
+                name: 'headline',
+                type: :string,
+                title: 'Headline',
+              },
+              {
+                name: 'content',
+                type: :html,
+                title: 'Content',
+              },
+              {
+                name: crm_activity_type_attribute_name,
+                type: :string,
+                title: 'CRM Activity Type',
+              },
+              {
+                name: show_in_navigation_attribute_name,
+                type: :boolean,
+                title: 'Show in navigation',
+              },
+              {
+                name: sort_key_attribute_name,
+                type: :string,
+                title: 'Sort key',
+              },
+            ]
           end
         end
 
@@ -84,33 +72,15 @@ module Cms
 
         private
 
-        def example?
-          cms_path.present?
+        def class_name
+          'ContactPage'
         end
 
         def cms_path
           options[:cms_path]
         end
 
-        def class_name
-          'ContactPage'
-        end
-
-        def crm_activity_type_attribute_name
-          'crm_activity_type'
-        end
-
-        def show_in_navigation_attribute_name
-          'show_in_navigation'
-        end
-
-        def sort_key_attribute_name
-          'sort_key'
-        end
-
-        def activity_type
-          'contact-form'
-        end
+        include ContactPageDescription
       end
     end
   end

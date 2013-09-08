@@ -5,33 +5,30 @@ module Cms
         source_root File.expand_path('../templates', __FILE__)
 
         def create_migration
-          begin
-            class_name = 'Redirect'
+          class_name = 'Redirect'
 
-            Model::ApiGenerator.new(behavior: behavior) do |model|
-              model.name = class_name
-              model.title = 'Redirect'
-              model.page = true
-              model.attributes = [
-                {
-                  name: 'show_in_navigation',
-                  type: :boolean,
-                  title: 'Show in Navigation',
-                },
-                {
-                  name: 'sort_key',
-                  type: :string,
-                  title: 'Sort key',
-                },
-                {
-                  name: 'redirect_link',
-                  type: :linklist,
-                  title: 'Redirect link',
-                  max_size: 1,
-                },
-              ]
-            end
-          rescue Cms::Generators::DuplicateResourceError
+          Model::ApiGenerator.new(behavior: behavior) do |model|
+            model.name = class_name
+            model.title = 'Redirect'
+            model.page = true
+            model.attributes = [
+              {
+                name: 'show_in_navigation',
+                type: :boolean,
+                title: 'Show in Navigation',
+              },
+              {
+                name: 'sort_key',
+                type: :string,
+                title: 'Sort key',
+              },
+              {
+                name: 'redirect_link',
+                type: :linklist,
+                title: 'Redirect link',
+                max_size: 1,
+              },
+            ]
           end
         end
 

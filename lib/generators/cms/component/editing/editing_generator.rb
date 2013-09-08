@@ -22,6 +22,16 @@ module Cms
           end
         end
 
+        def install_gems
+          gem_group(:assets) do
+            gem('bootstrap-datepicker-rails')
+          end
+
+          Bundler.with_clean_env do
+            run('bundle --quiet')
+          end
+        end
+
         def create_common_files
           directory('app')
         end
@@ -47,6 +57,7 @@ module Cms
           data = []
           data << ''
           data << ' *= require editing'
+          data << ' *= require bootstrap-datepicker'
 
           data = data.join("\n")
 

@@ -1,14 +1,16 @@
 @import "twitter/bootstrap/variables";
 @import "twitter/bootstrap/mixins";
 
+// inplace editing toggle styles
+
 a#edit-toggle {
+  margin-right: 10px;
+  margin-top: 10px;
   position: fixed;
   right: 0;
+  text-decoration: none;
   top: 0;
   z-index: 1031;
-  margin-top: 10px;
-  margin-right: 10px;
-  text-decoration: none;
 
   &:hover .editing-icon {
     color: #6e84a8;
@@ -22,59 +24,63 @@ body.ip_editing_active {
 }
 
 
-@ip_editing_menu_bar_height: 47px;
+// move navbar down, when editbar is active
+
+@infoparkEditingBarHeight: 47px;
 
 body.ip_editing_active {
-  padding-top: (@ip_editing_menu_bar_height + 60px);
-
-  .navbar {
-    padding-top: @ip_editing_menu_bar_height;
-  }
+  padding-top: @infoparkEditingBarHeight;
 }
 
 
+// structure widget styles
+
 body.ip_editing_active {
   div[data-ip-widget-obj-class] {
+    @nestedWidgetColor: #74e000;
+
     min-height: 30px;
-  }
 
-  div[data-ip-widget-obj-class*=Column] {
-    padding-top: 30px;
-    outline: 1px solid rgba(116, 224, 0, 0.2);
+    div[data-ip-field-type="widget"] {
+      .transition(~"outline-color ease-in-out .8s");
 
-    & > .ip_editing_marker {
-      margin-top: -30px;
-      border-color: rgb(116, 224, 0);
-    }
-
-    &:hover {
-      outline: 1px solid rgba(116, 224, 0, 1);
-    }
-
-    & *[class*=span] {
-      outline: 1px solid rgba(116, 224, 0, 0.2);
+      margin-top: 35px;
+      min-height: 30px;
+      outline: 2px dotted @nestedWidgetColor;
+      outline: 2px dotted fade(@nestedWidgetColor, 20%);
+      padding: 3px;
 
       &:hover {
-        outline: 1px solid rgba(116, 224, 0, 1);
+        .transition(~"outline-color ease-in-out .3s");
+
+        outline: 2px dotted @nestedWidgetColor;
+      }
+
+      & > .ip_editing_marker {
+        border-color: @nestedWidgetColor;
       }
     }
   }
 }
 
 
+// inplace editing field styles
+
 .ip_field_editable  {
+  @editableFieldColor: #ffa500;
+
  .transition(~"outline-color ease-in-out .8s");
 
-  outline: 2px dotted #ffa500;
-  outline: 2px dotted rgba(255, 165, 0, .03);
+  min-height: 35px;
+  outline: 2px dotted @editableFieldColor;
+  outline: 2px dotted fade(@editableFieldColor, 30%);
   text-shadow: none;
 
   &:hover,
   &:focus {
     .transition(~"outline-color ease-in-out .3s");
 
-    outline: 2px dotted #ffa500;
-    outline: 2px dotted rgba(255, 165, 0, 1);
+    outline: 2px dotted @editableFieldColor;
     text-shadow: none;
   }
 
@@ -88,7 +94,8 @@ body.ip_editing_active {
 }
 
 
-// --- quickfix for overlapped edit marker
+// fix for overlapped edit marker
+
 .redactor_box {
   z-index: 11112;
 }

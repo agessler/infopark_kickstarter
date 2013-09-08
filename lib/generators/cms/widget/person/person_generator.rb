@@ -2,33 +2,23 @@ module Cms
   module Generators
     module Widget
       class PersonGenerator < ::Rails::Generators::Base
-        include Example
-        include Migration
-
         source_root File.expand_path('../templates', __FILE__)
 
         def create_migration
-          begin
-            Widget::ApiGenerator.new(behavior: behavior) do |widget|
-              widget.name = obj_class_name
-              widget.icon = 'person'
-              widget.description = 'Displays a WebCRM person and shows their details.'
-              widget.attributes = [
-                {
-                  name: 'person',
-                  type: :string,
-                  title: 'Person identifier',
-                },
-              ]
-            end
-
-            directory('app', force: true)
-          rescue Cms::Generators::DuplicateResourceError
+          Widget::ApiGenerator.new(behavior: behavior) do |widget|
+            widget.name = obj_class_name
+            widget.icon = 'person'
+            widget.description = 'Displays a WebCRM person and shows their details.'
+            widget.attributes = [
+              {
+                name: 'person',
+                type: :string,
+                title: 'Person identifier',
+              },
+            ]
           end
-        end
 
-        def create_example
-          example_migration_template(obj_class_name.underscore)
+          directory('app', force: true)
         end
 
         def notice

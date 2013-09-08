@@ -54,6 +54,9 @@ gem "utf8-cleaner"
 gem "infopark_crm_connector"
 group :assets do
   gem "less-rails-bootstrap", "~> 2.3"
+end
+
+group :assets do
   gem "bootstrap-datepicker-rails"
 end
 

@@ -35,7 +35,6 @@ describe Cms::Generators::Widget::TextGenerator do
 
             directory 'migrate' do
               migration 'create_text_widget'
-              migration 'create_text_widget_example'
             end
           end
         end

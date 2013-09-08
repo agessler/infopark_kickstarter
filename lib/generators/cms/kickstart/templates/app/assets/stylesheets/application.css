@@ -10,7 +10,6 @@
  *
  *= require infopark_rails_connector
  *= require bootstrap_and_override
- *= require bootstrap-datepicker
 
  *= require_tree .
  */

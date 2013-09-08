@@ -3,7 +3,6 @@ module Cms
     module Widget
       class ApiGenerator < ::Rails::Generators::NamedBase
         include BasePaths
-        include Migration
         include Actions
 
         Rails::Generators.hide_namespace(self.namespace)
@@ -27,27 +26,24 @@ module Cms
         end
 
         def create
-          begin
-            Model::ApiGenerator.new(behavior: behavior) do |model|
-              model.name = name
-              model.title = title
-              model.description = description
-              model.type = :publication
-              model.migration_path = "#{widget_path}/migrate"
-              model.model_path = model_path
-              model.thumbnail = false
-              model.widget = true
-              model.attributes = attributes
-              model.preset_attributes = preset_attributes
-              model.mandatory_attributes = mandatory_attributes
-            end
-
-            template('en.locale.yml', "#{widget_path}/locales/en.#{file_name}.yml")
-            template('edit.html.haml', "#{widget_path}/views/edit.html.haml")
-            template('show.html.haml', "#{widget_path}/views/show.html.haml")
-            template('thumbnail.html.haml', "#{widget_path}/views/thumbnail.html.haml")
-          rescue Cms::Generators::DuplicateResourceError
+          Model::ApiGenerator.new(behavior: behavior) do |model|
+            model.name = name
+            model.title = title
+            model.description = description
+            model.type = :publication
+            model.migration_path = "#{widget_path}/migrate"
+            model.model_path = model_path
+            model.thumbnail = false
+            model.widget = true
+            model.attributes = attributes
+            model.preset_attributes = preset_attributes
+            model.mandatory_attributes = mandatory_attributes
           end
+
+          template('en.locale.yml', "#{widget_path}/locales/en.#{file_name}.yml")
+          template('edit.html.haml', "#{widget_path}/views/edit.html.haml")
+          template('show.html.haml', "#{widget_path}/views/show.html.haml")
+          template('thumbnail.html.haml', "#{widget_path}/views/thumbnail.html.haml")
         end
 
         private

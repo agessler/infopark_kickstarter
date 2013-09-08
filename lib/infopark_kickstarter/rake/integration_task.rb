@@ -11,7 +11,6 @@ module InfoparkKickstarter
           desc 'Run Kickstarter Integration Tests'
 
           task :integration do
-            prepare_directory
             create_application
             create_configuration_files
 
@@ -30,19 +29,15 @@ module InfoparkKickstarter
 
       private
 
-      def prepare_directory
-        rm_rf(app_path)
-        mkdir_p(config_path)
-      end
-
       def create_application
-        sh("rails new #{app_path} --skip-test-unit --skip-active-record --template template.rb")
+        rm_rf(app_path)
+
+        sh("rails new #{app_path} --skip-test-unit --skip-active-record --skip-bundle --template template.rb")
       end
 
       def create_configuration_files
-        test_app_config = File.expand_path('../../../../tmp/test_app/config', __FILE__)
-
-        ConfigurationHelper.new(test_app_config).copy
+        path = Pathname.new(app_path) + 'config'
+        ConfigurationHelper.new(path).copy
       end
 
       def bundle
@@ -62,17 +57,26 @@ module InfoparkKickstarter
           'cms:component:error_tracking --provider=honeybadger',
           'cms:component:monitoring "Test Website" --provider=newrelic',
           'cms:component:tracking --provider=google_analytics',
-          'cms:component:language_switch --example',
+          'cms:component:language_switch',
+          'cms:component:language_switch:example',
           'cms:component:form_builder --cms_path=/website/en',
-          'cms:component:social_sharing --example',
+          'cms:component:social_sharing',
+          'cms:component:social_sharing:example',
           'cms:component:breadcrumbs',
-          'cms:widget:video --example',
-          'cms:widget:person --example',
-          'cms:widget:slider --example',
-          'cms:widget:login --example',
-          'cms:widget:slideshare --example',
-          'cms:widget:column --columns=2 --example',
-          'cms:widget:column --columns=3 --example',
+          'cms:widget:video',
+          'cms:widget:video:example',
+          'cms:widget:person',
+          'cms:widget:person:example',
+          'cms:widget:slider',
+          'cms:widget:slider:example',
+          'cms:widget:login',
+          'cms:widget:login:example',
+          'cms:widget:slideshare',
+          'cms:widget:slideshare:example',
+          'cms:widget:column --columns=2',
+          'cms:widget:column:example --columns=2',
+          'cms:widget:column --columns=3',
+          'cms:widget:column:example --columns=3',
         ]
 
         generators.each do |generator|
@@ -89,11 +93,7 @@ module InfoparkKickstarter
       end
 
       def app_path
-        'tmp/test_app'
-      end
-
-      def config_path
-        "#{app_path}/config"
+        File.expand_path('../../../../tmp/test_app', __FILE__)
       end
     end
   end

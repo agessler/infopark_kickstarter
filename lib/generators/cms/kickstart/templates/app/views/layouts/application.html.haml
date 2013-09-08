@@ -23,9 +23,9 @@
   %body{body_attributes(@obj)}
     = render_cell(:edit_toggle, :show)
 
-    = render_cell(:main_navigation, :show, @obj)
-
     .container
+      = render_cell(:main_navigation, :show, @obj)
+
       .content
         .row
           .span12
@@ -33,7 +33,6 @@
 
           = yield
 
-    .container
       = render_cell(:footer, :show, @obj)
 
     = javascript_include_tag('application')

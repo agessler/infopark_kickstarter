@@ -32,31 +32,28 @@ module Cms
         end
 
         def create_migration
-          begin
-            class_name = 'SearchPage'
+          class_name = 'SearchPage'
 
-            Model::ApiGenerator.new(behavior: behavior) do |model|
-              model.name = class_name
-              model.title = 'Page: Search'
-              model.thumbnail = false
-              model.page = true
-              model.attributes = [
-                {
-                  name: show_in_navigation_attribute_name,
-                  type: :boolean,
-                  title: 'Show in navigation',
-                },
-                {
-                  name: headline_attribute_name,
-                  type: :string,
-                  title: 'Headline',
-                },
-              ]
-            end
-
-            Rails::Generators.invoke('cms:controller', [class_name])
-          rescue Cms::Generators::DuplicateResourceError
+          Model::ApiGenerator.new(behavior: behavior) do |model|
+            model.name = class_name
+            model.title = 'Page: Search'
+            model.thumbnail = false
+            model.page = true
+            model.attributes = [
+              {
+                name: show_in_navigation_attribute_name,
+                type: :boolean,
+                title: 'Show in navigation',
+              },
+              {
+                name: headline_attribute_name,
+                type: :string,
+                title: 'Headline',
+              },
+            ]
           end
+
+          Rails::Generators.invoke('cms:controller', [class_name])
 
           migration_template('example_migration.rb', 'cms/migrate/create_search_page_example.rb')
         end

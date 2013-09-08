@@ -9,6 +9,7 @@ module Cms
 
           def create_files
             directory('app')
+            directory('vendor')
           end
 
           def update_application_css

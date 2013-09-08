@@ -13,40 +13,37 @@ module Cms
           banner: 'LOCATION'
 
         def create_migration
-          begin
-            Model::ApiGenerator.new(behavior: behavior) do |model|
-              model.name = class_name
-              model.title = 'Page: FormBuilder'
-              model.page = true
-              model.attributes = [
-                {
-                  name: title_attribute_name,
-                  type: :string,
-                  title: 'Headline',
-                },
-                {
-                  name: body_attribute_name,
-                  type: :html,
-                  title: 'Content',
-                },
-                {
-                  name: crm_activity_type_attribute_name,
-                  type: :string,
-                  title: 'CRM Activity Type',
-                },
-                {
-                  name: show_in_navigation_attribute_name,
-                  type: :boolean,
-                  title: 'Show in navigation',
-                },
-                {
-                  name: sort_key_attribute_name,
-                  type: :string,
-                  title: 'Sort key',
-                },
-              ]
-            end
-          rescue Cms::Generators::DuplicateResourceError
+          Model::ApiGenerator.new(behavior: behavior) do |model|
+            model.name = class_name
+            model.title = 'Page: FormBuilder'
+            model.page = true
+            model.attributes = [
+              {
+                name: title_attribute_name,
+                type: :string,
+                title: 'Headline',
+              },
+              {
+                name: body_attribute_name,
+                type: :html,
+                title: 'Content',
+              },
+              {
+                name: crm_activity_type_attribute_name,
+                type: :string,
+                title: 'CRM Activity Type',
+              },
+              {
+                name: show_in_navigation_attribute_name,
+                type: :boolean,
+                title: 'Show in navigation',
+              },
+              {
+                name: sort_key_attribute_name,
+                type: :string,
+                title: 'Sort key',
+              },
+            ]
           end
         end
 

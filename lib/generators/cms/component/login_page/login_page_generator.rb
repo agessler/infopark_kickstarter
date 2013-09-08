@@ -8,68 +8,62 @@ module Cms
         source_root File.expand_path('../templates', __FILE__)
 
         def create_migration
-          begin
-            Model::ApiGenerator.new(behavior: behavior) do |model|
-              model.name = login_obj_class_name
-              model.title = 'Page: Login'
-              model.thumbnail = false
-              model.page = true
-              model.attributes = [
-                {
-                  name: 'headline',
-                  type: :string,
-                  title: 'Headline',
-                },
-                {
-                  name: 'content',
-                  type: :html,
-                  title: 'Content',
-                },
-                {
-                  name: 'show_in_navigation',
-                  type: :boolean,
-                  title: 'Show in Navigation',
-                },
-                {
-                  name: 'sort_key',
-                  type: :string,
-                  title: 'Sort key',
-                },
-              ]
-            end
-          rescue Cms::Generators::DuplicateResourceError
+          Model::ApiGenerator.new(behavior: behavior) do |model|
+            model.name = login_obj_class_name
+            model.title = 'Page: Login'
+            model.thumbnail = false
+            model.page = true
+            model.attributes = [
+              {
+                name: 'headline',
+                type: :string,
+                title: 'Headline',
+              },
+              {
+                name: 'content',
+                type: :html,
+                title: 'Content',
+              },
+              {
+                name: 'show_in_navigation',
+                type: :boolean,
+                title: 'Show in Navigation',
+              },
+              {
+                name: 'sort_key',
+                type: :string,
+                title: 'Sort key',
+              },
+            ]
           end
 
-          begin
-            Model::ApiGenerator.new(behavior: behavior) do |model|
-              model.name = reset_password_obj_class_name
-              model.title = 'Page: ResetPassword'
-              model.thumbnail = false
-              model.page = true
-              model.attributes = [
-                {
-                  name: 'headline',
-                  type: :string,
-                  title: 'Headline',
-                },
-                {
-                  name: 'content',
-                  type: :html,
-                  title: 'Content',
-                },
-                {
-                  name: 'show_in_navigation',
-                  type: :boolean,
-                  title: 'Show in Navigation',
-                },
-                {
-                  name: 'sort_key',
-                  type: :string,
-                  title: 'Sort key',
-                },
-              ]
-            end
-          rescue Cms::Generators::DuplicateResourceError
+          Model::ApiGenerator.new(behavior: behavior) do |model|
+            model.name = reset_password_obj_class_name
+            model.title = 'Page: ResetPassword'
+            model.thumbnail = false
+            model.page = true
+            model.attributes = [
+              {
+                name: 'headline',
+                type: :string,
+                title: 'Headline',
+              },
+              {
+                name: 'content',
+                type: :html,
+                title: 'Content',
+              },
+              {
+                name: 'show_in_navigation',
+                type: :boolean,
+                title: 'Show in Navigation',
+              },
+              {
+                name: 'sort_key',
+                type: :string,
+                title: 'Sort key',
+              },
+            ]
           end
         end
 

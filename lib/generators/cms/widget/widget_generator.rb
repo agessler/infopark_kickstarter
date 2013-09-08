@@ -32,17 +32,14 @@ module Cms
         desc: 'List of mandatory attributes.'
 
       def create_widget
-        begin
-          Widget::ApiGenerator.new(behavior: behavior) do |widget|
-            widget.name = class_name
-            widget.title = title
-            widget.description = description
-            widget.icon = icon
-            widget.attributes = attributes
-            widget.preset_attributes = preset_attributes
-            widget.mandatory_attributes = mandatory_attributes
-          end
-        rescue Cms::Generators::DuplicateResourceError
+        Widget::ApiGenerator.new(behavior: behavior) do |widget|
+          widget.name = class_name
+          widget.title = title
+          widget.description = description
+          widget.icon = icon
+          widget.attributes = attributes
+          widget.preset_attributes = preset_attributes
+          widget.mandatory_attributes = mandatory_attributes
         end
       end
 

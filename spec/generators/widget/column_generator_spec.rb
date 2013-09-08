@@ -7,6 +7,7 @@ describe Cms::Generators::Widget::ColumnGenerator do
   include GeneratorSpec::TestCase
 
   destination File.expand_path('../../../../tmp/generators', __FILE__)
+  arguments ['--columns=3', '--max_columns=9']
 
   before do
     prepare_destination
@@ -31,7 +32,6 @@ describe Cms::Generators::Widget::ColumnGenerator do
 
               directory 'migrate' do
                 migration 'create_column3_widget'
-                migration 'create_column3_widget_example'
               end
 
               directory 'views' do

@@ -25,7 +25,6 @@ describe Cms::Generators::Widget::HeadlineGenerator do
 
             directory 'migrate' do
               migration 'create_headline_widget'
-              migration 'create_headline_widget_example'
             end
 
             directory 'views' do

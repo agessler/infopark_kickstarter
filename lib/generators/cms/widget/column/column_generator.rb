@@ -3,9 +3,7 @@ module Cms
     module Widget
       class ColumnGenerator < ::Rails::Generators::Base
         include BasePaths
-        include Example
         include Actions
-        include Migration
 
         source_root File.expand_path('../templates', __FILE__)
 
@@ -20,36 +18,29 @@ module Cms
           desc: 'Maximum number of columns'
 
         def create_widget
-          begin
-            Widget::ApiGenerator.new(behavior: behavior) do |widget|
-              widget.name = obj_class_name
-              widget.icon = icon
-              widget.attributes = column_attributes + column_size_attributes
-            end
-
-            template(
-              'en.locale.yml',
-              "#{widget_path_for(folder_name)}/locales/en.#{folder_name}.yml",
-              force: true
-            )
-
-            template(
-              'show.html.haml',
-              "app/widgets/#{folder_name}/views/show.html.haml",
-              force: true
-            )
-
-            template(
-              'edit.html.haml',
-              "app/widgets/#{folder_name}/views/edit.html.haml",
-              force: true
-            )
-          rescue Cms::Generators::DuplicateResourceError
+          Widget::ApiGenerator.new(behavior: behavior) do |widget|
+            widget.name = obj_class_name
+            widget.icon = icon
+            widget.attributes = column_attributes + column_size_attributes
           end
-        end
 
-        def create_example
-          example_migration_template(obj_class_name.underscore)
+          template(
+            'en.locale.yml',
+            "#{widget_path_for(folder_name)}/locales/en.#{folder_name}.yml",
+            force: true
+          )
+
+          template(
+            'show.html.haml',
+            "app/widgets/#{folder_name}/views/show.html.haml",
+            force: true
+          )
+
+          template(
+            'edit.html.haml',
+            "app/widgets/#{folder_name}/views/edit.html.haml",
+            force: true
+          )
         end
 
         def notice

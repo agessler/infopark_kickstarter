@@ -8,7 +8,6 @@ describe Cms::Generators::Widget::LoginGenerator do
   include GeneratorSpec::TestCase
 
   destination File.expand_path('../../../../tmp/generators', __FILE__)
-  arguments ['--example']
 
   before do
     prepare_destination
@@ -48,7 +47,6 @@ describe Cms::Generators::Widget::LoginGenerator do
 
             directory 'migrate' do
               migration 'create_login_widget'
-              migration 'create_login_widget_example'
             end
           end
         end
