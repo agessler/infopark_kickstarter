@@ -48,13 +48,23 @@ module EditingHelper
             html << content_tag(:li, I18n.t('editing.linklist.title', title: link.title))
             html << content_tag(:li, I18n.t('editing.linklist.url', url: link.url))
 
+            if link.internal?
+              html << content_tag(:li, I18n.t('editing.linklist.id', id: link.destination_object.id))
+            end
+
             html
           end
         end
       end
 
-      out.concat(content_tag(:a, 'Edit', {class: 'mediabrowser'}))
-      out.concat(content_tag(:div, '', {class: 'mediabrowser-selected'}))
+      out << content_tag(:li) do
+        html = ''.html_safe
+
+        html << content_tag(:a, 'Edit', { class: 'mediabrowser' })
+        html << content_tag(:div, '', { class: 'mediabrowser-selected' })
+
+        html
+      end
 
       out
     end

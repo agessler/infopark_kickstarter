@@ -13,10 +13,8 @@
     @initializeBindings()
 
   save: () ->
-    images = @selected
-
-    if images.length
-      $('.mediabrowser-selected').html(images.join(', '))
+    if @selected.length
+      $('.mediabrowser-selected').html(@selected.join(', '))
 
     @close()
 

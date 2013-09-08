@@ -3,3 +3,4 @@ en:
     linklist:
       title: 'Title: %{title}'
       url: 'Url: %{url}'
+      id: 'Id: %{id}'
