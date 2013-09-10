@@ -1,8 +1,9 @@
-class @Mediabrowser.Inspector
+class @MediabrowserInspector
   containmentSelector = '.inspector'
 
   initializeBindings = ->
-    @modal.on 'click', 'tr.inspect', (event) => onInspect.call(@, event)
+    @modal.on 'click', 'tr.inspect', (event) =>
+      onInspect.call(@, event)
 
     @modal.on 'click', 'a.inspector-close', (event) =>
       event.preventDefault()

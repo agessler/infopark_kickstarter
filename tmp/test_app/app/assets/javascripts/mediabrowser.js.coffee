@@ -1,89 +1,70 @@
 @Mediabrowser = {}
 
-@Mediabrowser = do ->
-  modal: '#ip-mediabrowser'
-  inspector: undefined
-  loading: '.loading'
-  selected: []
-  query: ''
+class @MediabrowserGUI
+  modalSelector = '#ip-mediabrowser'
+  inspector = undefined
+  loading = '.loading'
+  selected = []
+  query = ''
 
-  onPageChange: (event) ->
+  onPageChange = (event) ->
     event.preventDefault()
 
     page = $(event.currentTarget).data('page')
 
-    @updateContent
+    updateContent.call @,
       page: page
 
-  onFilter: (event) ->
+  onFilter = (event) ->
     event.preventDefault()
 
     objClass = $(event.currentTarget).data('obj-class')
 
-    @updateContent
+    updateContent.call @,
       obj_class: objClass
 
-  init: ->
-    unless $(@modal).length
-      modalWindow = '<div id="ip-mediabrowser" class="modal hide"></div>'
-      appContainment = $('body').append modalWindow
-
-    @initializeBindings()
-
-  save: () ->
-    if @selected.length
-      $('.mediabrowser-selected').html(@selected.join(', '))
+  save = () ->
+    if selected.length
+      $('.mediabrowser-selected').html(selected.join(', '))
 
     @close()
 
-  updateSelected: () ->
-    images = $('#ip-mediabrowser input.selected:checked')
+  updateSelected = ->
+    images = @modal.find('input.selected:checked')
 
     if images.length
       ids = $.map images, (image) ->
         image.id
 
-    @selected = $.unique(@selected.concat(ids))
+    selected = $.unique(selected.concat(ids))
 
-  close: () ->
-    $(@modal).modal('hide')
-    @inspector = undefined
-
-  open: () ->
-    $(@modal).modal('show')
-
-    @updateContent()
-
-  updateContent: (data) ->
+  updateContent = (data) ->
     data ||= {}
-    data['selected'] = @selected
-    data['query'] = @query
+    data['selected'] = selected
+    data['query'] = query
 
-    @showLoading()
+    showLoading.call(@)
 
-    $.ajax(
+    $.ajax
       url: '/mediabrowser'
       dataType: 'json'
       data: data
       success: (json) =>
-        $(@modal).html(json.content)
+        @modal.html(json.content)
 
-        @inspector ||= new Mediabrowser.Inspector($(@modal))
+        hideLoading.call(@)
 
-        @hideLoading()
-    )
-
-  initializeBindings: ->
+  initializeBindings = ->
     $(document).on 'change', '#ip-mediabrowser input.selected:checked', (event) =>
-      @updateSelected()
+      updateSelected.call(@)
 
     $(document).on 'keyup', '#ip-mediabrowser input.search', (event) =>
       if event.keyCode == 13
-        @query = $(event.target).val()
-        @updateContent()
+        query = $(event.target).val()
+        updateContent()
 
     $(document).on 'click', '.mediabrowser-save', =>
-      @save()
+      save.call(@)
 
     $(document).on 'click', '.mediabrowser-close', =>
       @close()
@@ -92,25 +73,41 @@
       @open()
 
     $(document).on 'click', '.filter a', (event) =>
-      @onFilter(event)
+      onFilter.call(@, event)
 
     $(document).on 'click', 'li.previous a, li.next a', (event) =>
-      @onPageChange(event)
+      onPageChange.call(@, event)
 
-  highlightSelected: (element) ->
+  highlightSelected = (element) ->
     @removeSelectionHighlight()
     element.addClass('selected')
 
-  removeSelectionHighlight: ->
+  removeSelectionHighlight = ->
     $(@modal).find('tr.selected').removeClass('selected')
 
-  showLoading: ->
-    $(@loading).show()
-    $(@modal).find('.content').hide()
+  showLoading = ->
+    $(loading).show()
+    @modal.find('.content').hide()
 
-  hideLoading: ->
-    $(@loading).hide()
-    $(@modal).find('.content').show()
+  hideLoading = ->
+    $(loading).hide()
+    @modal.find('.content').show()
+
+  constructor: ->
+    unless $(modalSelector).length
+      @modal = $('<div id="ip-mediabrowser" class="modal hide"></div>')
+      appContainment = $('body').append @modal
+
+    initializeBindings.call(@)
+
+  close: () ->
+    @modal.modal('hide')
+
+  open: () ->
+    @modal.modal('show')
+
+    @inspector ||= new MediabrowserInspector(@modal)
+    updateContent.call(@)
 
 $ ->
-  Mediabrowser.init()
+  Mediabrowser.gui = new MediabrowserGUI()
