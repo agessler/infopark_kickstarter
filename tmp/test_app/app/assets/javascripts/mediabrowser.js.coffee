@@ -1,9 +1,27 @@
+@Mediabrowser = {}
+
 @Mediabrowser = do ->
   modal: '#ip-mediabrowser'
-  inspector: '.inspector'
+  inspector: undefined
   loading: '.loading'
   selected: []
   query: ''
+
+  onPageChange: (event) ->
+    event.preventDefault()
+
+    page = $(event.currentTarget).data('page')
+
+    @updateContent
+      page: page
+
+  onFilter: (event) ->
+    event.preventDefault()
+
+    objClass = $(event.currentTarget).data('obj-class')
+
+    @updateContent
+      obj_class: objClass
 
   init: ->
     unless $(@modal).length
@@ -29,9 +47,12 @@
 
   close: () ->
     $(@modal).modal('hide')
+    @inspector = undefined
 
   open: () ->
     $(@modal).modal('show')
+
+    @updateContent()
 
   updateContent: (data) ->
     data ||= {}
@@ -46,6 +67,8 @@
       data: data
       success: (json) =>
         $(@modal).html(json.content)
+
+        @inspector ||= new Mediabrowser.Inspector($(@modal))
 
         @hideLoading()
     )
@@ -66,36 +89,13 @@
       @close()
 
     $(document).on 'click', 'a.mediabrowser', =>
-      @updateContent()
       @open()
 
     $(document).on 'click', '.filter a', (event) =>
-      event.preventDefault()
-
-      objClass = $(event.currentTarget).data('obj-class')
-
-      @updateContent
-        obj_class: objClass
+      @onFilter(event)
 
     $(document).on 'click', 'li.previous a, li.next a', (event) =>
-      event.preventDefault()
-
-      page = $(event.currentTarget).data('page')
-
-      @updateContent
-        page: page
-
-    $(@modal).on 'click', 'tr.inspect', (event) =>
-      unless $(event.target).is(':checkbox')
-        element = $(event.currentTarget)
-        id = element.data('id')
-
-        @renderInspector(id)
-
-    $(@modal).on 'click', 'a.inspector-close', (event) =>
-      event.preventDefault()
-
-      @closeInspector()
+      @onPageChange(event)
 
   highlightSelected: (element) ->
     @removeSelectionHighlight()
@@ -111,22 +111,6 @@
   hideLoading: ->
     $(@loading).hide()
     $(@modal).find('.content').show()
-
-  closeInspector: ->
-    $(@inspector).html('')
-
-  renderInspector: (id) ->
-    data =
-      id: id
-
-    $.ajax(
-        url: '/mediabrowser/edit'
-        dataType: 'json'
-        data: data
-        success: (json) =>
-          $(@modal).find(@inspector).html(json.content)
-          infopark.editing.refresh($(@inspector))
-      )
 
 $ ->
   Mediabrowser.init()
