@@ -78,6 +78,18 @@ class @MediabrowserGUI
     $(document).on 'click', 'li.previous a, li.next a', (event) =>
       onPageChange.call(@, event)
 
+  initializeUploader = ->
+    @uploader = new MediabrowserUploader(@modal)
+
+    @uploader.onUploadStart = (obj) =>
+      showLoading.call(@)
+
+    @uploader.onUploadFailure = (error) =>
+      console.log('Error:', error)
+
+    @uploader.onUploadSuccess = (obj) =>
+      updateContent.call(@)
+
   highlightSelected = (element) ->
     @removeSelectionHighlight()
     element.addClass('selected')
@@ -99,6 +111,9 @@ class @MediabrowserGUI
       appContainment = $('body').append @modal
 
     initializeBindings.call(@)
+    initializeUploader.call(@)
+
+    @inspector = new MediabrowserInspector(@modal)
 
   close: () ->
     @modal.modal('hide')
@@ -106,7 +121,6 @@ class @MediabrowserGUI
   open: () ->
     @modal.modal('show')
 
-    @inspector ||= new MediabrowserInspector(@modal)
     updateContent.call(@)
 
 $ ->
