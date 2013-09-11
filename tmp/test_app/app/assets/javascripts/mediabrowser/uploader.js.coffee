@@ -1,17 +1,18 @@
 class @MediabrowserUploader
   containmentSelector = '.modal-body'
+  dropOverCssClass = 'uploader-drag-over'
 
   initializeBindings = ->
-    @modal.on 'dragover.image_upload', containmentSelector, (event) ->
-      $(event.currentTarget).addClass('ip_editing_dragover')
+    @modal.on 'dragover', containmentSelector, (event) ->
+      $(event.currentTarget).addClass(dropOverCssClass)
       false
 
-    @modal.on 'dragleave.image_upload', containmentSelector, (event) ->
-      $(event.currentTarget).removeClass('ip_editing_dragover')
+    @modal.on 'dragleave', containmentSelector, (event) ->
+      $(event.currentTarget).removeClass(dropOverCssClass)
       false
 
-    @modal.on 'drop.image_upload', containmentSelector, (event) =>
-      $(event.currentTarget).removeClass('ip_editing_dragover')
+    @modal.on 'drop', containmentSelector, (event) =>
+      $(event.currentTarget).removeClass(dropOverCssClass)
       onDrop.call(@, event)
       false
 
@@ -19,10 +20,11 @@ class @MediabrowserUploader
     dataTransfer = event.originalEvent.dataTransfer
 
     unless dataTransfer?
-      return false
+      return
 
     files = dataTransfer.files
-    return if files.length == 0
+    if files.length == 0
+      return
 
     file = files[0]
 
@@ -33,11 +35,23 @@ class @MediabrowserUploader
     .fail (data) =>
       @onUploadFailure(data)
 
+  randomResourceId = ->
+    hex = Math.floor(Math.random() * Math.pow(16, 8)).toString(16)
+
+    while (hex.length < 8)
+      hex = "0" + hex
+
+    hex
+
+
   createImage = (file) ->
     obj_name = file.name.replace(/[^a-z0-9_.$\-]/ig, '-')
-    path = "_resources/#{infopark.random_hex()}/#{obj_name}"
+    path = "_resources/#{randomResourceId()}/#{obj_name}"
 
-    infopark.obj.create({blob: file, _path: path, _obj_class: 'Image'})
+    infopark.create_obj
+      blob: file
+      _path: path
+      _obj_class: 'Image'
 
   constructor: (@modal) ->
     initializeBindings.call(@)
@@ -49,6 +63,4 @@ class @MediabrowserUploader
     # hook for 3rd parties
 
   onUploadSuccess: (obj) ->
-    console.log('created blob', obj, obj.id())
-    console.log 'deleting prev. uploaded obj'
-    obj.destroy()
+    # hook for 3rd parties
