@@ -1,5 +1,6 @@
 @MediabrowserInspector = do ->
   containerSelector: '.inspector'
+  container: undefined
 
   _initializeBindings: ->
     @modal.on 'click', 'tr.inspect', (event) =>
@@ -9,6 +10,8 @@
       event.preventDefault()
       @close()
 
+    @container = @modal.find(@containerSelector)
+
   _onInspect: (event) ->
     unless $(event.target).is(':checkbox')
       element = $(event.currentTarget)
@@ -16,16 +19,11 @@
 
       @open(id)
 
-  _findContainer: ->
-    @modal.find(@containerSelector)
-
   init: (modal) ->
     @modal = modal
     @_initializeBindings()
 
   open: (id) ->
-    container = @_findContainer()
-
     data =
       id: id
 
@@ -34,8 +32,8 @@
       dataType: 'json'
       data: data
       success: (json) =>
-        container.html(json.content)
-        infopark.editing.refresh(container)
+        @container.html(json.content)
+        infopark.editing.refresh(@container)
 
   close: ->
-    @_findContainer().html('')
+    @container.html('')

@@ -1,0 +1,21 @@
+%ul.pager
+  - if @page > 1
+    %li.previous
+      %a{href: '', data: { page: @page - 1 }}
+        %span.arrow
+          &lt;
+
+  %li
+    %span
+      Results
+      = @total
+
+  - if @page < @maxPages
+    %li.next
+      %a{href: '', data: { page: @page + 1 }}
+        %span.arrow
+          &gt;
+
+%table.table.table-striped.table-hover
+  - @hits.each do |hit|
+    = render @obj_class.underscore, hit: hit

@@ -2,6 +2,10 @@ class MediabrowserController < ApplicationController
   layout false
 
   def index
+    render json: { content: render_to_string }
+  end
+
+  def items
     @query = params[:query].presence || ''
     @obj_class = params[:obj_class] || 'Image'
     @selected = params[:selected] || []

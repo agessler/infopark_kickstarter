@@ -18,44 +18,22 @@
     .row-fluid.filter
       .span12
         %ul.nav.nav-pills
-          %li{class: ('active' if @obj_class == 'Image')}
-            %a{href: '', data: { 'obj-class' => 'Image' }}
+          %li
+            %a{href: '', data: { obj_class: 'Image' }}
               Image
 
-          %li{class: ('active' if @obj_class == 'BlogPost')}
-            %a{href: '', data: { 'obj-class' => 'BlogPost' }}
+          %li
+            %a{href: '', data: { obj_class: 'BlogPost' }}
               BlogPost
 
     .row-fluid
       .span12
-        = text_field_tag('query', @query, class: 'search')
+        = text_field_tag('query', '', class: 'search')
 
     .row-fluid
-      .span6
-        %ul.pager
-          - if @page > 1
-            %li.previous
-              %a{href: '', data: { page: @page - 1 }}
-                %span.arrow
-                  &lt;
+      .span6.items
 
-          %li
-            %span
-              Results
-              = @total
-
-          - if @page < @maxPages
-            %li.next
-              %a{href: '', data: { page: @page + 1 }}
-                %span.arrow
-                  &gt;
-
-        %table.table.table-striped.table-hover
-          - @hits.each do |hit|
-            = render @obj_class.underscore, hit: hit
-
-      .span6
-        .inspector
+      .span6.inspector
 
 .modal-footer.clearfix
   .pull-right

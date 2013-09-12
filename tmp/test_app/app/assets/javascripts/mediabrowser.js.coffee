@@ -1,25 +1,33 @@
 @Mediabrowser = do ->
   modalSelector: '#ip-mediabrowser'
-  inspector: undefined
   loading: '.loading'
-  selected: []
-  query: ''
+  _setDefaults: ->
+    @selected = []
+    @query = ''
+    @objClass = 'Image'
 
   _onPageChange: (event) ->
     event.preventDefault()
 
     page = $(event.currentTarget).data('page')
 
-    @_updateContent
+    @_updateItems
       page: page
+
+  _setFilterSelection: () ->
+    target = @modal.find(".filter a[data-obj-class='#{@objClass}']")
+
+    target.closest('ul').find('li').removeClass('active')
+    target.closest('li').addClass('active')
 
   _onFilter: (event) ->
     event.preventDefault()
 
-    objClass = $(event.currentTarget).data('obj-class')
+    target = $(event.currentTarget)
+    @objClass = target.data('obj-class')
 
-    @_updateContent
-      obj_class: objClass
+    @_setFilterSelection()
+    @_updateItems()
 
   _save: () ->
     if @selected.length
@@ -36,19 +44,20 @@
 
     @selected = $.unique(@selected.concat(ids))
 
-  _updateContent: (data) ->
+  _updateItems: (data) ->
+    @_showLoading()
+
     data ||= {}
     data['selected'] = @selected
     data['query'] = @query
-
-    @_showLoading()
+    data['obj_class'] = @objClass
 
     $.ajax
-      url: '/mediabrowser'
+      url: '/mediabrowser/items'
       dataType: 'json'
       data: data
       success: (json) =>
-        @modal.html(json.content)
+        @modal.find('.items').html(json.content)
 
         @_hideLoading()
 
@@ -59,7 +68,7 @@
     $(document).on 'keyup', '#ip-mediabrowser input.search', (event) =>
       if event.keyCode == 13
         @query = $(event.target).val()
-        @_updateContent()
+        @_updateItems()
 
     $(document).on 'click', '.mediabrowser-save', =>
       @_save()
@@ -92,6 +101,21 @@
     @_removeSelectionHighlight()
     element.addClass('selected')
 
+  _loadModalMarkup: ->
+    @modal.html('')
+
+    $.ajax
+      url: '/mediabrowser'
+      dataType: 'json'
+      success: (json) =>
+        @modal.html(json.content)
+
+        @_setFilterSelection()
+        @_updateItems()
+
+        MediabrowserInspector.init(@modal)
+        @_initializeUploader()
+
   _removeSelectionHighlight: ->
     @modal.find('tr.selected').removeClass('selected')
 
@@ -108,18 +132,17 @@
       @modal = $('<div id="ip-mediabrowser" class="modal hide"></div>')
       appContainment = $('body').append @modal
 
+    @_setDefaults()
     @_initializeBindings()
-    @_initializeUploader()
-
-    @inspector = MediabrowserInspector.init(@modal)
 
   close: () ->
+    @_setDefaults()
     @modal.modal('hide')
 
   open: () ->
+    @_loadModalMarkup()
     @modal.modal('show')
 
-    @_updateContent()
 
 $ ->
   Mediabrowser.init()
