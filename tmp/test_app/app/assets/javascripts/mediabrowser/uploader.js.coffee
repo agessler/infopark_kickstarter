@@ -16,6 +16,22 @@
       @_onDrop(event)
       event.preventDefault()
 
+  _processQueue: (queue, createdObjs, promise) ->
+    promise.then (data) =>
+      @onUploadSuccess(data)
+
+    file = queue.pop()
+
+    if file?
+      @_createImage(file).then (obj) =>
+        createdObjs.push(obj)
+
+        @_processQueue(queue, createdObjs, promise)
+
+      return promise
+    else
+      return promise.resolve(createdObjs)
+
   _onDrop: (event) ->
     dataTransfer = event.originalEvent.dataTransfer
 
@@ -27,14 +43,15 @@
     if files.length == 0
       return
 
-    file = files[0]
+    promise = $.Deferred()
 
-    @onUploadStart(file)
+    queue = for file in files
+      file
 
-    @_createImage(file).done (data) =>
-      @onUploadSuccess(data)
-    .fail (data) =>
-      @onUploadFailure(data)
+    @onUploadStart(queue)
+    @_processQueue(queue, [], promise)
+
+    promise
 
   _randomResourceId: ->
     hex = Math.floor(Math.random() * Math.pow(16, 8)).toString(16)
@@ -56,11 +73,11 @@
   init: (@modal) ->
     @_initializeBindings()
 
-  onUploadStart: (file) ->
+  onUploadStart: (files) ->
     # hook for 3rd parties
 
   onUploadFailure: (error) ->
     # hook for 3rd parties
 
-  onUploadSuccess: (obj) ->
+  onUploadSuccess: (objs) ->
     # hook for 3rd parties

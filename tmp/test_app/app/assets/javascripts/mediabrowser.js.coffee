@@ -94,8 +94,8 @@
     MediabrowserUploader.onUploadFailure = (error) =>
       console.log('Mediabrowser Uploader Error:', error)
 
-    MediabrowserUploader.onUploadSuccess = (obj) =>
-      @_updateContent()
+    MediabrowserUploader.onUploadSuccess = (objs) =>
+      @_updateItems()
 
   _highlightSelected: (element) ->
     @_removeSelectionHighlight()
