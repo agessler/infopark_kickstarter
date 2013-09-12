@@ -1,49 +1,47 @@
-@Mediabrowser = {}
+@Mediabrowser = do ->
+  modalSelector: '#ip-mediabrowser'
+  inspector: undefined
+  loading: '.loading'
+  selected: []
+  query: ''
 
-class @MediabrowserGUI
-  modalSelector = '#ip-mediabrowser'
-  inspector = undefined
-  loading = '.loading'
-  selected = []
-  query = ''
-
-  onPageChange = (event) ->
+  _onPageChange: (event) ->
     event.preventDefault()
 
     page = $(event.currentTarget).data('page')
 
-    updateContent.call @,
+    @_updateContent
       page: page
 
-  onFilter = (event) ->
+  _onFilter: (event) ->
     event.preventDefault()
 
     objClass = $(event.currentTarget).data('obj-class')
 
-    updateContent.call @,
+    @_updateContent
       obj_class: objClass
 
-  save = () ->
-    if selected.length
-      $('.mediabrowser-selected').html(selected.join(', '))
+  _save: () ->
+    if @selected.length
+      $('.mediabrowser-selected').html(@selected.join(', '))
 
     @close()
 
-  updateSelected = ->
+  _updateSelected: ->
     images = @modal.find('input.selected:checked')
 
     if images.length
       ids = $.map images, (image) ->
         image.id
 
-    selected = $.unique(selected.concat(ids))
+    @selected = $.unique(@selected.concat(ids))
 
-  updateContent = (data) ->
+  _updateContent: (data) ->
     data ||= {}
-    data['selected'] = selected
-    data['query'] = query
+    data['selected'] = @selected
+    data['query'] = @query
 
-    showLoading.call(@)
+    @_showLoading()
 
     $.ajax
       url: '/mediabrowser'
@@ -52,19 +50,19 @@ class @MediabrowserGUI
       success: (json) =>
         @modal.html(json.content)
 
-        hideLoading.call(@)
+        @_hideLoading()
 
-  initializeBindings = ->
+  _initializeBindings: ->
     $(document).on 'change', '#ip-mediabrowser input.selected:checked', (event) =>
-      updateSelected.call(@)
+      @_updateSelected()
 
     $(document).on 'keyup', '#ip-mediabrowser input.search', (event) =>
       if event.keyCode == 13
-        query = $(event.target).val()
-        updateContent()
+        @query = $(event.target).val()
+        @_updateContent()
 
     $(document).on 'click', '.mediabrowser-save', =>
-      save.call(@)
+      @_save()
 
     $(document).on 'click', '.mediabrowser-close', =>
       @close()
@@ -73,47 +71,47 @@ class @MediabrowserGUI
       @open()
 
     $(document).on 'click', '.filter a', (event) =>
-      onFilter.call(@, event)
+      @_onFilter(event)
 
     $(document).on 'click', 'li.previous a, li.next a', (event) =>
-      onPageChange.call(@, event)
+      @_onPageChange(event)
 
-  initializeUploader = ->
-    @uploader = new MediabrowserUploader(@modal)
+  _initializeUploader: ->
+    MediabrowserUploader.init(@modal)
 
-    @uploader.onUploadStart = (obj) =>
-      showLoading.call(@)
+    MediabrowserUploader.onUploadStart = (obj) =>
+      @_showLoading()
 
-    @uploader.onUploadFailure = (error) =>
-      console.log('Error:', error)
+    MediabrowserUploader.onUploadFailure = (error) =>
+      console.log('Mediabrowser Uploader Error:', error)
 
-    @uploader.onUploadSuccess = (obj) =>
-      updateContent.call(@)
+    MediabrowserUploader.onUploadSuccess = (obj) =>
+      @_updateContent()
 
-  highlightSelected = (element) ->
-    @removeSelectionHighlight()
+  _highlightSelected: (element) ->
+    @_removeSelectionHighlight()
     element.addClass('selected')
 
-  removeSelectionHighlight = ->
-    $(@modal).find('tr.selected').removeClass('selected')
+  _removeSelectionHighlight: ->
+    @modal.find('tr.selected').removeClass('selected')
 
-  showLoading = ->
-    $(loading).show()
+  _showLoading: ->
+    $(@loading).show()
     @modal.find('.content').hide()
 
-  hideLoading = ->
-    $(loading).hide()
+  _hideLoading: ->
+    $(@loading).hide()
     @modal.find('.content').show()
 
-  constructor: ->
-    unless $(modalSelector).length
+  init: ->
+    unless $(@modalSelector).length
       @modal = $('<div id="ip-mediabrowser" class="modal hide"></div>')
       appContainment = $('body').append @modal
 
-    initializeBindings.call(@)
-    initializeUploader.call(@)
+    @_initializeBindings()
+    @_initializeUploader()
 
-    @inspector = new MediabrowserInspector(@modal)
+    @inspector = MediabrowserInspector.init(@modal)
 
   close: () ->
     @modal.modal('hide')
@@ -121,7 +119,7 @@ class @MediabrowserGUI
   open: () ->
     @modal.modal('show')
 
-    updateContent.call(@)
+    @_updateContent()
 
 $ ->
-  Mediabrowser.gui = new MediabrowserGUI()
+  Mediabrowser.init()

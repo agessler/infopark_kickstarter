@@ -32,7 +32,7 @@ class MediabrowserController < ApplicationController
 
     content = begin
       render_to_string(@obj.mediabrowser_edit_view_path, layout: false)
-    rescue ActionView::MissingTemplate => error
+    rescue ActionView::MissingTemplate
       render_to_string('obj/edit', layout: false)
     end
 

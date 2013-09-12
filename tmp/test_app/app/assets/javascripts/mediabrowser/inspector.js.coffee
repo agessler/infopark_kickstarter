@@ -1,29 +1,30 @@
-class @MediabrowserInspector
-  containmentSelector = '.inspector'
+@MediabrowserInspector = do ->
+  containerSelector: '.inspector'
 
-  initializeBindings = ->
+  _initializeBindings: ->
     @modal.on 'click', 'tr.inspect', (event) =>
-      onInspect.call(@, event)
+      @_onInspect(event)
 
     @modal.on 'click', 'a.inspector-close', (event) =>
       event.preventDefault()
       @close()
 
-  onInspect = (event) ->
+  _onInspect: (event) ->
     unless $(event.target).is(':checkbox')
       element = $(event.currentTarget)
       id = element.data('id')
 
       @open(id)
 
-  findContainment = ->
-    @modal.find(containmentSelector)
+  _findContainer: ->
+    @modal.find(@containerSelector)
 
-  constructor: (@modal) ->
-    initializeBindings.call(@)
+  init: (modal) ->
+    @modal = modal
+    @_initializeBindings()
 
   open: (id) ->
-    containment = findContainment.call(@)
+    container = @_findContainer()
 
     data =
       id: id
@@ -33,10 +34,8 @@ class @MediabrowserInspector
       dataType: 'json'
       data: data
       success: (json) =>
-        containment.html(json.content)
-        infopark.editing.refresh(containment)
+        container.html(json.content)
+        infopark.editing.refresh(container)
 
   close: ->
-    containment = findContainment.call(@)
-
-    containment.html('')
+    @_findContainer().html('')
