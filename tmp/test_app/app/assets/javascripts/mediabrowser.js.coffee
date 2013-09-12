@@ -1,6 +1,7 @@
 @Mediabrowser = do ->
   modalSelector: '#ip-mediabrowser'
-  loading: '.loading'
+  loadingSelector: '.loading'
+  itemsSelector: '.items'
   _setDefaults: ->
     @selected = []
     @query = ''
@@ -120,12 +121,12 @@
     @modal.find('tr.selected').removeClass('selected')
 
   _showLoading: ->
-    $(@loading).show()
-    @modal.find('.content').hide()
+    @modal.find(@loadingSelector).show()
+    @modal.find(@itemsSelector).hide()
 
   _hideLoading: ->
-    $(@loading).hide()
-    @modal.find('.content').show()
+    @modal.find(@loadingSelector).hide()
+    @modal.find(@itemsSelector).show()
 
   init: ->
     unless $(@modalSelector).length

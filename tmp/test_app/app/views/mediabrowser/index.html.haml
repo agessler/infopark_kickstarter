@@ -9,31 +9,29 @@
         &times;
 
 .modal-body.clearfix
-  .row-fluid.loading
+  .row-fluid.filter
     .span12
+      %ul.nav.nav-pills
+        %li
+          %a{href: '', data: { obj_class: 'Image' }}
+            Image
+
+        %li
+          %a{href: '', data: { obj_class: 'BlogPost' }}
+            BlogPost
+
+  .row-fluid
+    .span12
+      = text_field_tag('query', '', class: 'search')
+
+  .row-fluid
+    .span6.items
+
+    .span6.loading
       %i.ip_icon.ip_spinning
         &#61475;
 
-  .content
-    .row-fluid.filter
-      .span12
-        %ul.nav.nav-pills
-          %li
-            %a{href: '', data: { obj_class: 'Image' }}
-              Image
-
-          %li
-            %a{href: '', data: { obj_class: 'BlogPost' }}
-              BlogPost
-
-    .row-fluid
-      .span12
-        = text_field_tag('query', '', class: 'search')
-
-    .row-fluid
-      .span6.items
-
-      .span6.inspector
+    .span6.inspector
 
 .modal-footer.clearfix
   .pull-right
