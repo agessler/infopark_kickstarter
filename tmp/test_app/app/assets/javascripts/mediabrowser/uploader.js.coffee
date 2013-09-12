@@ -1,6 +1,11 @@
 @MediabrowserUploader = do ->
   dropZoneSelector: '.modal-body'
   dropOverCssClass: 'uploader-drag-over'
+  mimeTypeMapping:
+    'image/*': 'Image'
+    'audio/*': 'Audio'
+    'video/*': 'Video'
+    'application/pdf': 'Pdf'
 
   _initializeBindings: ->
     @modal.on 'dragover', @dropZoneSelector, (event) =>
@@ -16,6 +21,12 @@
       @_onDrop(event)
       event.preventDefault()
 
+  _objClassForMimeType: (mimeType) ->
+    for mime, objClass of @mimeTypeMapping
+      return objClass if mimeType.match(mime)
+
+    undefined
+
   _processQueue: (queue, createdObjs, promise) ->
     promise.then (data) =>
       @onUploadSuccess(data)
@@ -23,9 +34,9 @@
     file = queue.pop()
 
     if file?
-      @_createImage(file).then (obj) =>
+      @_createResource(file).then (obj) =>
         createdObjs.push(obj)
-
+      .always =>
         @_processQueue(queue, createdObjs, promise)
 
       return promise
@@ -61,14 +72,14 @@
 
     hex
 
-  _createImage: (file) ->
+  _createResource: (file) ->
     objName = file.name.replace(/[^a-z0-9_.$\-]/ig, '-')
     path = "_resources/#{@_randomResourceId()}/#{objName}"
 
     infopark.create_obj
       blob: file
       _path: path
-      _obj_class: 'Image'
+      _obj_class: @_objClassForMimeType(file.type)
 
   init: (@modal) ->
     @_initializeBindings()
