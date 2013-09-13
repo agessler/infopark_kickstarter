@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <title>editing_media_browser</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="http://localhost:3000/assets/editing_icons.css" rel="stylesheet">
+    <link href="http://localhost:3000/assets/editing_mediabrowser.css" rel="stylesheet">
+
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon.png">
+
+
+    <!-- javascript  -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+    <script type="text/javascript" src="alex.js"></script>
+
+
+
+
+
+  </head>
+
+
+
+  <body>
+
+
+
+    <div>
+
+      <span class="editing-button">Button</span>
+
+      <span class="editing-button" onClick="editing_mediabrowser_toggle();">Media Browser Button</span>
+
+    </div>
+
+
+
+
+
+    <!-- ip_tour_overlay:start -->
+    <div class="editing-overlay" onClick="editing_mediabrowser_toggle();"></div>
+    <!-- ip_tour_overlay:end -->
+
+
+
+
+    <!-- modal_big:start -->
+    <div class="editing-mediabrowser" id="editing-mediabrowser">
+
+
+
+      <div class="editing-mediabrowser-body">
+
+        <div class="editing-mediabrowser-wrapper">
+
+          <div class="editing-mediabrowser-search">
+            <input type="text"class="search_field" placeholder="Suchbergiff eingeben...">
+
+            <span class="editing-button-view">
+              <i class="editing-icon" title="table view">&#xF03E;</i>
+            </span>
+
+            <span class="editing-button-view"
+              onClick="$('.editing-mediabrowser-thumbnails').removeClass('small big large').addClass('large');$('.editing-button-view').removeClass('active');$(this).addClass('active');">
+              <i class="editing-icon" title="large tumbnails">&#xF042;</i>
+            </span>
+           <span class="editing-button-view"
+              onClick="$('.editing-mediabrowser-thumbnails').removeClass('small big large').addClass('big');$('.editing-button-view').removeClass('active');$(this).addClass('active');">
+              <i class="editing-icon" title="big tumbnails">&#xF041;</i>
+            </span>
+            <span class="editing-button-view active"
+              onClick="$('.editing-mediabrowser-thumbnails').removeClass('small big large');$('.editing-button-view').removeClass('active');$(this).addClass('active');">
+              <i class="editing-icon" title="normal tumbnails">&#xF040;</i>
+            </span>
+            <span class="editing-button-view"
+              onClick="$('.editing-mediabrowser-thumbnails').removeClass('small big large').addClass('small');$('.editing-button-view').removeClass('active');$(this).addClass('active');">
+              <i class="editing-icon" title="small tumbnails">&#xF03F;</i>
+            </span>
+
+
+
+
+          </div>
+          <div class="editing-mediabrowser-filter">
+            <ul class="editing-mediabrowser-filter-items" >
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="Bilder">&#xF02D;</i>
+                <span class="editing-mediabrowser-filter-name">Bilder</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="Kontakte">&#xF02C;</i>
+                <span class="editing-mediabrowser-filter-name">Kontakte</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="generic">&#xF02E;</i>
+                <span class="editing-mediabrowser-filter-name">generic</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="PDF">&#xF02F;</i>
+                <span class="editing-mediabrowser-filter-name">PDF</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="Texte">&#xF030;</i>
+                <span class="editing-mediabrowser-filter-name">Texte</span>
+              </li>
+
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="ZIP">&#xF031;</i>
+                <span class="editing-mediabrowser-filter-name">ZIP</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="DOC">&#xF032;</i>
+                <span class="editing-mediabrowser-filter-name">DOC</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="XLS">&#xF033;</i>
+                <span class="editing-mediabrowser-filter-name">XLS</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="PPT">&#xF034;</i>
+                <span class="editing-mediabrowser-filter-name">PPT</span>
+              </li>
+
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="Video">&#xF036;</i>
+                <span class="editing-mediabrowser-filter-name">Video</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="Audio">&#xF037;</i>
+                <span class="editing-mediabrowser-filter-name">Audio</span>
+              </li>
+
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="Uploads">&#xF035;</i>
+                <span class="editing-mediabrowser-filter-name">Uploads</span>
+              </li>
+            </ul>
+
+
+
+
+
+          </div>
+
+          <div class="editing-mediabrowser-items">
+
+            <ul class="editing-mediabrowser-thumbnails">
+
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_01.jpg" alt="office_01" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Couch Möbel</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+
+
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/kart.jpg" alt="kart" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Kart</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/small_cat.jpg" alt="small_cat" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Small Cat</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/poster.png" alt="poster" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Poster</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_02.jpg" alt="office_02" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Lorem Möbel Lorem</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_03.jpg" alt="office_03" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Lorem LoremLorem</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_04.jpg" alt="office_04" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Lorem </span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_05.jpg" alt="office_05" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Möbel</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_06.jpg" alt="office_06" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Couch</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_07.jpg" alt="office_07" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Couch Möbel Lorem</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_08.jpg" alt="office_08" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Möbel</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_09.jpg" alt="office_09" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Lorem Lorem</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_10.jpg" alt="office_10" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Couch Möbel</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_11.jpg" alt="office_11" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Couch Lorem</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_12.jpg" alt="office_12" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Sowas aber auch </span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_13.jpg" alt="office_13" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Couch Möbel</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_14.jpg" alt="office_14" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Lorem Möbel</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><img src="img/office_15.jpg" alt="office_15" /></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Couch Lorem</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+
+
+
+
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><i class="editing-icon" title="Bilder">&#xF02D;</i></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Couch Prospekt</span>
+                  <span class="editing-mediabrowser-thumbnails-size">33 Seiten</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><i class="editing-icon" title="Kontakt">&#xF02C;</i></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Max Muster</span>
+                  <span class="editing-mediabrowser-thumbnails-size">Chef</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><i class="editing-icon" title="Generic">&#xF02E;</i></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Prospekt</span>
+                  <span class="editing-mediabrowser-thumbnails-size">33 Seiten</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><i class="editing-icon" title="PDF">&#xF02F;</i></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Couch Prospekt</span>
+                  <span class="editing-mediabrowser-thumbnails-size">33 Seiten</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><i class="editing-icon" title="TXT">&#xF030;</i></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">TXT Prospekt</span>
+                  <span class="editing-mediabrowser-thumbnails-size">2 Seiten</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><i class="editing-icon" title="ZIP">&#xF031;</i></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">ZIP Prospekt</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 kB</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><i class="editing-icon" title="DOC">&#xF032;</i></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">DOC Prospekt</span>
+                  <span class="editing-mediabrowser-thumbnails-size">2 Seiten</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><i class="editing-icon" title="XLS">&#xF033;</i></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">XLS Prospekt</span>
+                  <span class="editing-mediabrowser-thumbnails-size">3 Kilogramm</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><i class="editing-icon" title="PPT">&#xF034;</i></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">PPT Messe</span>
+                  <span class="editing-mediabrowser-thumbnails-size">232 Seiten</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+
+              <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><i class="editing-icon" title="Video">&#xF036;</i></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Video</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 MB</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+               <li onClick="$(this).toggleClass('active');">
+                <div class="editing-mediabrowser-preview"><i class="editing-icon" title="Audio">&#xF037;</i></div>
+                <div class="editing-mediabrowser-meta">
+                  <span class="editing-mediabrowser-thumbnails-name">Audio Pressekonferenz</span>
+                  <span class="editing-mediabrowser-thumbnails-size">33 Minuten</span>
+                  <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
+                </div>
+              </li>
+
+
+            </ul>
+
+
+
+
+
+
+          </div>
+
+        </div>
+
+        <div class="editing-mediabrowser-inspector">
+          <h4>
+            <i class="editing-icon" title="Details">&#xF029;</i>
+            Details
+            <i class="editing-icon editing-right" title="delete">&#xF038;</i>
+          </h4>
+
+          <p>One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+
+      <div class="editing-mediabrowser-footer">
+        <a href="#" class="editing-button" onClick="editing_mediabrowser_toggle();">Close</a>
+        <a href="#" class="editing-button editing-red"><i class="editing-icon" title="Objekt löschen">&#61464;</i>Delete changes</a>
+      </div>
+
+    </div>
+    <!-- modal_big:end -->
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
