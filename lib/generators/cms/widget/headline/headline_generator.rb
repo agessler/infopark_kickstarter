@@ -2,33 +2,23 @@ module Cms
   module Generators
     module Widget
       class HeadlineGenerator < ::Rails::Generators::Base
-        include Example
-        include Migration
-
         source_root File.expand_path('../templates', __FILE__)
 
         def create_widget
-          begin
-            Widget::ApiGenerator.new(behavior: behavior) do |widget|
-              widget.name = obj_class_name
-              widget.icon = 'headline'
-              widget.description = 'The headline widget displays a title on the page.'
-              widget.attributes = [
-                {
-                  name: 'headline',
-                  type: :string,
-                  title: 'Headline',
-                },
-              ]
-            end
-
-            directory('app', force: true)
-          rescue Cms::Generators::DuplicateResourceError
+          Api::WidgetGenerator.new(behavior: behavior) do |widget|
+            widget.name = obj_class_name
+            widget.icon = 'headline'
+            widget.description = 'The headline widget displays a title on the page.'
+            widget.attributes = [
+              {
+                name: 'headline',
+                type: :string,
+                title: 'Headline',
+              },
+            ]
           end
-        end
 
-        def create_example
-          example_migration_template(obj_class_name.underscore)
+          directory('app', force: true)
         end
 
         def notice

@@ -76,7 +76,6 @@ describe Cms::Generators::Widget::VideoGenerator do
 
             directory 'migrate' do
               migration 'create_video_widget'
-              migration 'create_video_widget_example'
             end
           end
         end

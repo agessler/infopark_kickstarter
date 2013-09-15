@@ -50,7 +50,6 @@ describe Cms::Generators::Component::ContactPageGenerator do
       directory 'cms' do
         directory 'migrate' do
           migration 'create_contact_page'
-          migration 'create_contact_page_example'
         end
       end
     }

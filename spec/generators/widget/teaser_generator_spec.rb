@@ -8,7 +8,6 @@ describe Cms::Generators::Widget::TeaserGenerator do
   include GeneratorSpec::TestCase
 
   destination File.expand_path('../../../../tmp/generators', __FILE__)
-  arguments ['--example']
 
   before do
     prepare_destination
@@ -35,7 +34,6 @@ describe Cms::Generators::Widget::TeaserGenerator do
 
             directory 'migrate' do
               migration 'create_teaser_widget'
-              migration 'create_teaser_widget_example'
             end
           end
         end

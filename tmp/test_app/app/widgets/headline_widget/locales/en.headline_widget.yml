@@ -1,5 +1,6 @@
+---
 en:
   widgets:
     headline_widget:
-      title: 'Headline widget'
-      description: 'The headline widget displays a title on the page.'
+      title: Headline widget
+      description: The headline widget displays a title on the page.

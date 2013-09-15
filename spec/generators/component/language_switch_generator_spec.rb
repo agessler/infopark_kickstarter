@@ -7,7 +7,6 @@ describe Cms::Generators::Component::LanguageSwitchGenerator do
   include GeneratorSpec::TestCase
 
   destination File.expand_path('../../../../tmp/generators', __FILE__)
-  arguments ['--example']
 
   before do
     prepare_destination
@@ -32,14 +31,6 @@ describe Cms::Generators::Component::LanguageSwitchGenerator do
           directory 'language_switch' do
             file 'show.html.haml'
             file 'entry.html.haml'
-          end
-        end
-
-        directory 'views' do
-          directory 'layouts' do
-            file 'application.html.haml' do
-              contains '= render_cell(:language_switch, :show, @obj.homepages, @obj.homepage)'
-            end
           end
         end
       end

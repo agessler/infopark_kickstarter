@@ -1,5 +1,6 @@
+---
 en:
   widgets:
     image_widget:
-      title: 'Image widget'
-      description: 'Widget that holds an image.'
+      title: Image widget
+      description: Widget that holds an image.

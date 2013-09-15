@@ -32,10 +32,10 @@ Gem::Specification.new do |gem|
   ]
 
   gem.add_dependency 'bundler'
-  gem.add_dependency 'rails', '>= 3.2'
+  gem.add_dependency 'rails'
   gem.add_dependency 'launchy'
-  gem.add_dependency 'infopark_rails_connector', '>= 6.9.3.1.36404185'
-  gem.add_dependency 'infopark_cloud_connector', '>= 6.9.3.1.36404185'
+  gem.add_dependency 'infopark_rails_connector', '>= 6.9.4'
+  gem.add_dependency 'infopark_cloud_connector', '>= 6.9.4'
 
   gem.add_development_dependency 'yard'
   gem.add_development_dependency 'pry'

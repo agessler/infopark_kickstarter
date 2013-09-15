@@ -1,4 +1,22 @@
+# v3.2.0
+  * Added support for page edit views. An earlier release already had built in support for
+    automatically generated widget edit views and we extended it now to also support all object
+    classes. Like the widget edit view, the generated edit view holds all object class attributes.
+
+# v3.1.1
+  * Bugfix: Initial migration failed on newly created projects, because the `Image` obj class
+    already existed.
+
 # v3.1.0
+  * Updated to Infopark SDK (infopark_rails_connector and infopark_cloud_connector) version 6.9.4.
+  * We changed the general way to create examples for certain generators. Before you could pass in
+    the option `--example` and then add some other options like `--cms_path` to further configure
+    the examples. We have moved all examples into their own generator, which means you can now call
+    them independent from the associated generator. The example generators are called by adding
+    `:example` to the generator. For example, `rails generate cms:widget:slideshare:example`.
+    (Thanks @cedrics)
+  * Turned fixed navbar into a normal navbar, which seems to be a more sensible default.
+    (Thanks @thomasritz)
   * Added an editing icon font that is independend from the Infopark RailsConnector. This allows the
     project developer to add arbitrary project specific icons that should be used for editing views.
   * Extracted dashboard into its own gem
@@ -11,7 +29,7 @@
     of integrating the editor, we moved all inplace editing files into their own generator. We hope
     that this makes it easier to update this part in the future. Get more details running
     `rails generate cms:component:editing --help`.
-  * Added inline editing for CMS date attributes. (Thanks @cedrics)
+  * Added inplace editing for CMS date attributes. (Thanks @cedrics)
   * Bugfix: Made slideshare widget more robust against invalid slideshare API responses.
   * Removed `.widget` and `.editing` CSS classes in the `show.html.haml` and `edit.html.haml` of
     widgets. They were not needed and we switched to use the public API provided by the

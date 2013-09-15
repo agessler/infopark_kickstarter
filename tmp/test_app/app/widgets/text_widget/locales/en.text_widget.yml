@@ -1,5 +1,6 @@
+---
 en:
   widgets:
     text_widget:
-      title: 'Text widget'
-      description: 'Creates a simple widget with content.'
+      title: Text widget
+      description: Creates a simple widget with content.

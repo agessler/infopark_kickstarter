@@ -2,9 +2,6 @@ module Cms
   module Generators
     module Widget
       class VideoGenerator < ::Rails::Generators::Base
-        include Example
-        include Migration
-
         source_root File.expand_path('../templates', __FILE__)
 
         def video_tools
@@ -45,52 +42,45 @@ module Cms
         end
 
         def create_migration
-          begin
-            Widget::ApiGenerator.new(behavior: behavior) do |widget|
-              widget.name = obj_class_name
-              widget.icon = 'video'
-              widget.description = 'Displays a video player for the given video file.'
-              widget.attributes = [
-                {
-                  name: 'source',
-                  type: :linklist,
-                  title: 'Source',
-                  max_size: 1,
-                },
-                {
-                  name: 'poster',
-                  type: :linklist,
-                  title: 'Poster',
-                  max_size: 1,
-                },
-                {
-                  name: 'width',
-                  type: :integer,
-                  title: 'Width',
-                  default: 660,
-                },
-                {
-                  name: 'height',
-                  type: :string,
-                  title: 'Height',
-                  default: 430,
-                },
-                {
-                  name: 'autoplay',
-                  type: :boolean,
-                  title: 'Autoplay this video?',
-                  default: 'No',
-                },
-              ]
-            end
-
-            directory('app', force: true)
-          rescue Cms::Generators::DuplicateResourceError
+          Api::WidgetGenerator.new(behavior: behavior) do |widget|
+            widget.name = obj_class_name
+            widget.icon = 'video'
+            widget.description = 'Displays a video player for the given video file.'
+            widget.attributes = [
+              {
+                name: 'source',
+                type: :linklist,
+                title: 'Source',
+                max_size: 1,
+              },
+              {
+                name: 'poster',
+                type: :linklist,
+                title: 'Poster',
+                max_size: 1,
+              },
+              {
+                name: 'width',
+                type: :integer,
+                title: 'Width',
+                default: 660,
+              },
+              {
+                name: 'height',
+                type: :string,
+                title: 'Height',
+                default: 430,
+              },
+              {
+                name: 'autoplay',
+                type: :boolean,
+                title: 'Autoplay this video?',
+                default: 'No',
+              },
+            ]
           end
-        end
 
-        def create_example
-          example_migration_template(obj_class_name.underscore)
+          directory('app', force: true)
         end
 
         def notice

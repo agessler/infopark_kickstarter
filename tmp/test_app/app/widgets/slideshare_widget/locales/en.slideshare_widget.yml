@@ -1,5 +1,6 @@
+---
 en:
   widgets:
     slideshare_widget:
-      title: 'Slideshare widget'
-      description: 'Creates a widget that shows a slide from slideshare.'
+      title: Slideshare widget
+      description: Creates a widget that shows a slide from slideshare.

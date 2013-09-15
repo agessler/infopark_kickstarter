@@ -6,44 +6,12 @@ module Cms
       include Migration
       include BasePaths
 
-      class_option :configuration_path,
-        type: :string,
-        default: nil,
-        desc: 'Path to a JSON configuration file.'
-
       class_option :examples,
         type: :boolean,
         default: false,
         desc: 'Creates example content along with setting up your project.'
 
       source_root File.expand_path('../templates', __FILE__)
-
-      def initialize(args = [], options = {}, config = {})
-        options << '--force'
-
-        super(args, options, config)
-      end
-
-      def read_config_file
-        path = options[:configuration_path]
-
-        if path
-          contents = if URI(path).is_a?(URI::HTTP)
-            open(path, 'Accept' => 'application/json') { |io| io.read }
-          else
-            File.read(path)
-          end
-
-          configuration = JSON(contents)
-
-          configuration.each do |generator|
-            name = generator['name']
-            options = Array(generator['options'])
-
-            Rails::Generators.invoke(name, options, behavior: behavior)
-          end
-        end
-      end
 
       def remove_index_html
         path = Rails.root + 'public/index.html'
@@ -76,7 +44,6 @@ module Cms
 
         gem_group(:assets) do
           gem('less-rails-bootstrap', '~> 2.3')
-          gem('bootstrap-datepicker-rails')
         end
 
         Bundler.with_clean_env do
@@ -120,129 +87,112 @@ module Cms
         append_file('.gitignore', "config/custom_cloud.yml\n")
       end
 
+      # TODO: remove special migration once the CMS tenant is properly reset after signup. This
+      # should also allow to remove the "migration" variable on Api::ObjClassGenerator.
+      def create_special_case_image
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+          model.name = 'Image'
+          model.type = :generic
+          model.title = 'Image'
+          model.thumbnail = false
+          model.migration = false
+        end
+
+        migration_template('create_image.rb', 'cms/migrate/create_image')
+      end
+
       def create_structure_migration_file
-        begin
-          Model::ApiGenerator.new(behavior: behavior) do |model|
-            model.name = 'Image'
-            model.type = :generic
-            model.title = 'Resource: Image'
-            model.thumbnail = false
-          end
-        rescue Cms::Generators::DuplicateResourceError
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+          model.name = 'Video'
+          model.type = :generic
+          model.title = 'Video'
+          model.thumbnail = false
+          model.attributes = [
+            title_attribute,
+          ]
         end
 
-        begin
-          Model::ApiGenerator.new(behavior: behavior) do |model|
-            model.name = 'Video'
-            model.type = :generic
-            model.title = 'Resource: Video'
-            model.thumbnail = false
-            model.attributes = [
-              title_attribute,
-            ]
-          end
-        rescue Cms::Generators::DuplicateResourceError
+        class_name = 'Homepage'
+
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+          model.name = class_name
+          model.title = 'Homepage'
+          model.thumbnail = false
+          model.attributes = [
+            title_attribute,
+            main_content_attribute,
+            show_in_navigation_attribute,
+            sort_key_attribute,
+            {
+              name: 'error_not_found_page_link',
+              type: :linklist,
+              title: 'Error Not Found Page',
+              max_size: 1,
+            },
+            {
+              name: 'locale',
+              type: :string,
+              title: 'Locale',
+            },
+          ]
         end
 
-        begin
-          class_name = 'Homepage'
+        Rails::Generators.invoke('cms:controller', [class_name])
 
-          Model::ApiGenerator.new(behavior: behavior) do |model|
-            model.name = class_name
-            model.title = 'Page: Homepage'
-            model.thumbnail = false
-            model.attributes = [
-              title_attribute,
-              main_content_attribute,
-              show_in_navigation_attribute,
-              sort_key_attribute,
-              {
-                name: 'error_not_found_page_link',
-                type: :linklist,
-                title: 'Error Not Found Page',
-                max_size: 1,
-              },
-              {
-                name: 'locale',
-                type: :string,
-                title: 'Locale',
-              },
-            ]
-          end
-
-          Rails::Generators.invoke('cms:controller', [class_name])
-        rescue Cms::Generators::DuplicateResourceError
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+          model.name = 'Root'
+          model.title = 'Root'
+          model.thumbnail = false
         end
 
-        begin
-          Model::ApiGenerator.new(behavior: behavior) do |model|
-            model.name = 'Root'
-            model.title = 'Root'
-            model.thumbnail = false
-          end
-        rescue Cms::Generators::DuplicateResourceError
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+          model.name = 'Website'
+          model.title = 'Website'
+          model.thumbnail = false
         end
 
-        begin
-          Model::ApiGenerator.new(behavior: behavior) do |model|
-            model.name = 'Website'
-            model.title = 'Website'
-            model.thumbnail = false
-          end
-        rescue Cms::Generators::DuplicateResourceError
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+          model.name = 'Container'
+          model.title = 'Container'
+          model.thumbnail = false
+          model.attributes = [
+            title_attribute,
+            show_in_navigation_attribute,
+          ]
         end
 
-        begin
-          Model::ApiGenerator.new(behavior: behavior) do |model|
-            model.name = 'Container'
-            model.title = 'Container'
-            model.thumbnail = false
-            model.attributes = [
-              title_attribute,
-              show_in_navigation_attribute,
-            ]
-          end
-        rescue Cms::Generators::DuplicateResourceError
+        class_name = 'ContentPage'
+
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+          model.name = class_name
+          model.title = 'Content'
+          model.page = true
+          model.attributes = [
+            title_attribute,
+            show_in_navigation_attribute,
+            sort_key_attribute,
+            main_content_attribute,
+            sidebar_content_attribute
+          ]
         end
 
-        begin
-          class_name = 'ContentPage'
+        Rails::Generators.invoke('cms:controller', [class_name])
 
-          Model::ApiGenerator.new(behavior: behavior) do |model|
-            model.name = class_name
-            model.title = 'Page: Content'
-            model.page = true
-            model.attributes = [
-              title_attribute,
-              show_in_navigation_attribute,
-              sort_key_attribute,
-              main_content_attribute,
-              sidebar_content_attribute
-            ]
-          end
+        class_name = 'ErrorPage'
 
-          Rails::Generators.invoke('cms:controller', [class_name])
-        rescue Cms::Generators::DuplicateResourceError
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+          model.name = class_name
+          model.title = 'Error'
+          model.thumbnail = false
+          model.page = true
+          model.attributes = [
+            title_attribute,
+            content_attribute,
+            show_in_navigation_attribute,
+          ]
         end
 
-        begin
-          class_name = 'ErrorPage'
-
-          Model::ApiGenerator.new(behavior: behavior) do |model|
-            model.name = class_name
-            model.title = 'Page: Error'
-            model.thumbnail = false
-            model.page = true
-            model.attributes = [
-              title_attribute,
-              content_attribute,
-              show_in_navigation_attribute,
-            ]
-          end
-
-          Rails::Generators.invoke('cms:controller', [class_name])
-        rescue Cms::Generators::DuplicateResourceError
-        end
+        Rails::Generators.invoke('cms:controller', [class_name])
 
         migration_template('create_structure.rb', 'cms/migrate/create_structure.rb')
       end
@@ -267,15 +217,7 @@ module Cms
 
       def create_example_content
         if examples?
-          Rails::Generators.invoke('cms:widget:teaser', ['--example'])
-          Rails::Generators.invoke('cms:widget:image', ['--example'])
-          Rails::Generators.invoke('cms:widget:headline', ['--example'])
-          Rails::Generators.invoke('cms:widget:maps', ['--example'])
-          Rails::Generators.invoke('cms:widget:text', ['--example'])
-
-          Rails::Generators.invoke('cms:component:profile_page', ['--cms_path=/website/en'])
-          Rails::Generators.invoke('cms:component:contact_page', ['--cms_path=/website/en'])
-          Rails::Generators.invoke('cms:component:blog', ['--cms_path=/website/en'])
+          Rails::Generators.invoke('cms:kickstart:example')
         end
       end
 

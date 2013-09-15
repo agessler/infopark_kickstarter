@@ -1,12 +1,12 @@
 PATH
   remote: ../../../
   specs:
-    infopark_kickstarter (3.0.0)
+    infopark_kickstarter (3.1.1)
       bundler
-      infopark_cloud_connector (>= 6.9.3.1.36404185)
-      infopark_rails_connector (>= 6.9.3.1.36404185)
+      infopark_cloud_connector (>= 6.9.4)
+      infopark_rails_connector (>= 6.9.4)
       launchy
-      rails (>= 3.2)
+      rails
 
 GEM
   remote: https://rubygems.org/
@@ -85,7 +85,7 @@ GEM
     honeybadger (1.8.0)
       json
     i18n (0.6.5)
-    infopark_cloud_connector (6.9.3.1.36404185)
+    infopark_cloud_connector (6.9.4)
       addressable (~> 2.3.2)
       nokogiri (~> 1.5.6)
       rest-client (~> 1.6)
@@ -100,7 +100,7 @@ GEM
       infopark_rails_connector (>= 6.9.2.1.125136549)
       less-rails-bootstrap (~> 2.3)
       rails (>= 3.2)
-    infopark_rails_connector (6.9.3.1.36404185)
+    infopark_rails_connector (6.9.4)
       jquery-rails (~> 2.2.1)
       json (>= 1.7.7)
       maruku (~> 0.6.0)
@@ -128,7 +128,7 @@ GEM
       syntax (>= 1.0.0)
     method_source (0.8.2)
     mime-types (1.25)
-    multi_json (1.7.9)
+    multi_json (1.8.0)
     newrelic_rpm (3.6.6.147)
     nokogiri (1.5.10)
     polyglot (0.3.3)

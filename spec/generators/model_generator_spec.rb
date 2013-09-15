@@ -48,8 +48,8 @@ describe Cms::Generators::ModelGenerator do
             contains "name: 'News'"
             contains "title: 'Test News Title'"
             contains "type: 'generic'"
-            contains '{:name=>"foo", :type=>"html"},'
-            contains '{:name=>"bar", :type=>"enum"},'
+            contains '{:name=>"foo", :type=>"html"}'
+            contains '{:name=>"bar", :type=>"enum"}'
             contains 'mandatory_attributes: ["foo", "bar"]'
             contains 'preset_attributes: {"foo"=>"f", "bar"=>"b"}'
           end
@@ -60,8 +60,8 @@ describe Cms::Generators::ModelGenerator do
         directory 'locales' do
           file 'en.obj_classes.yml' do
             contains 'news:'
-            contains "title: 'Test News Title'"
-            contains "description: 'Test News Description'"
+            contains "title: Test News Title"
+            contains "description: Test News Description"
           end
         end
       end

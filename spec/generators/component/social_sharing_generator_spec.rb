@@ -37,14 +37,6 @@ describe Cms::Generators::Component::SocialSharingGenerator do
             file 'twitter.html.haml'
           end
         end
-
-        directory 'views' do
-          directory 'layouts' do
-            file 'application.html.haml' do
-              contains '= render_cell(:social_sharing, :show, cms_url(@obj))'
-            end
-          end
-        end
       end
     }
   end

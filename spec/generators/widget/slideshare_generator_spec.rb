@@ -8,7 +8,6 @@ describe Cms::Generators::Widget::SlideshareGenerator do
   include GeneratorSpec::TestCase
 
   destination File.expand_path('../../../../tmp/generators', __FILE__)
-  arguments ['--example']
 
   before do
     prepare_destination
@@ -35,7 +34,6 @@ describe Cms::Generators::Widget::SlideshareGenerator do
 
             directory 'migrate' do
               migration 'create_slideshare_widget'
-              migration 'create_slideshare_widget_example'
             end
           end
         end
