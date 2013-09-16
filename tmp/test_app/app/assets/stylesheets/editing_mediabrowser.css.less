@@ -362,6 +362,17 @@ a.editing-button, a.editing-button:active, a.editing-button:active {text-decorat
 .editing-mediabrowser ul.editing-mediabrowser-filter-items .editing-mediabrowser-filter-name {
   font-size:10px; line-height:20px; font-weight:bold; color:#666; display:inline-block;
   }
+.editing-mediabrowser ul.editing-mediabrowser-filter-items .editing-mediabrowser-counter {
+   font-size:10px; line-height:11px; font-weight:bold; color:#fff; display:inline-block;
+   background:#666; padding:2px 6px; margin:0 0 0 5px;
+   .border-radius(15px);
+  }
+
+.editing-mediabrowser ul.editing-mediabrowser-filter-items li:hover .editing-mediabrowser-counter ,
+.editing-mediabrowser ul.editing-mediabrowser-filter-items li.active .editing-mediabrowser-counter {
+  background:#fff; color:#5A8BD1; text-shadow:0 0 0 #fff;
+  }
+
 
 // --- editing-mediabrowser-thumbnails ---  //
 
@@ -397,9 +408,11 @@ a.editing-button, a.editing-button:active, a.editing-button:active {text-decorat
 
 .editing-mediabrowser ul.editing-mediabrowser-thumbnails li .editing-mediabrowser-thumbnails-name {
   font-size:11px; line-height: 15px; font-weight:bold; color:#555; display:block;
+  white-space:nowrap; overflow: hidden; text-overflow: ellipsis;
   }
 .editing-mediabrowser ul.editing-mediabrowser-thumbnails li .editing-mediabrowser-thumbnails-size {
   font-size:10px; line-height: 15px; font-weight:bold; color:#aaa; display:block;
+  white-space:nowrap; overflow: hidden; text-overflow: ellipsis;
   }
 
 .editing-mediabrowser ul.editing-mediabrowser-thumbnails li .editing-mediabrowser-thumbnails-select:before {
@@ -429,13 +442,21 @@ a.editing-button, a.editing-button:active, a.editing-button:active {text-decorat
   content: '\F02B';
   }
 
+.editing-mediabrowser .editing-mediabrowser-inspector h3 { font-size:14px;line-height:32px; color:#666;}
+.editing-mediabrowser .editing-mediabrowser-inspector h3 .editing-icon { font-size: 12px; line-height: 32px; padding:0 5px 0 ; color:#666;}
+
 
 // --- editing-mediabrowser-thumbnails - sizes ---  //
 
-
 .editing-mediabrowser ul.editing-mediabrowser-thumbnails.small li { height:100px; width:130px; .transition(all .5s ease-in-out); }
-.editing-mediabrowser ul.editing-mediabrowser-thumbnails.small li .editing-mediabrowser-preview { height:60px; }
-.editing-mediabrowser ul.editing-mediabrowser-thumbnails.small li .editing-mediabrowser-preview .editing-icon {line-height:60px;font-size:20px;}
+.editing-mediabrowser ul.editing-mediabrowser-thumbnails.small li .editing-mediabrowser-preview { height:70px; }
+.editing-mediabrowser ul.editing-mediabrowser-thumbnails.small li .editing-mediabrowser-preview .editing-icon {line-height:70px;font-size:20px;}
+.editing-mediabrowser ul.editing-mediabrowser-thumbnails.small li .editing-mediabrowser-meta {height: 30px; padding: 2px 25px 0px 5px;}
+.editing-mediabrowser ul.editing-mediabrowser-thumbnails.small li .editing-mediabrowser-thumbnails-name {font-size:10px; line-height:13px;}
+.editing-mediabrowser ul.editing-mediabrowser-thumbnails.small li .editing-mediabrowser-thumbnails-size {font-size:9px; line-height:13px;}
+.editing-mediabrowser ul.editing-mediabrowser-thumbnails.small li .editing-mediabrowser-thumbnails-select:before {
+  height:30px; width:30px; font-size: 9px; line-height: 32px;
+  }
 
 .editing-mediabrowser ul.editing-mediabrowser-thumbnails.big li { height:300px; width:300px; .transition(all .5s ease-in-out); }
 .editing-mediabrowser ul.editing-mediabrowser-thumbnails.big li .editing-mediabrowser-preview { height:260px; }
@@ -444,6 +465,41 @@ a.editing-button, a.editing-button:active, a.editing-button:active {text-decorat
 .editing-mediabrowser ul.editing-mediabrowser-thumbnails.large li { height:400px; width:400px; .transition(all .5s ease-in-out); }
 .editing-mediabrowser ul.editing-mediabrowser-thumbnails.large li .editing-mediabrowser-preview { height:360px; }
 .editing-mediabrowser ul.editing-mediabrowser-thumbnails.large li .editing-mediabrowser-preview .editing-icon {line-height:360px;font-size:70px;}
+
+// ---- editing-mediabrowser-loading ------------------------------------ //
+
+.editing-mediabrowser-loading {clear:both; position:relative; height:100%; overflow:hidden;}
+.editing-mediabrowser-loading .editing-icon {display:block;margin:0 auto;
+  text-align:center; position:absolute; left:0; top:46%; width:100%;
+  font-size:25px; color:#ddd;
+  -webkit-animation: editing-rotation 5s infinite linear;
+  -moz-animation: editing-rotation 5s infinite linear;
+  -o-animation: editing-rotation 5s infinite linear;
+  animation: editing-rotation 5s infinite linear;
+  }
+@-webkit-keyframes editing-rotation {
+  0% {-webkit-transform: rotate(0deg);}
+  100%   {-webkit-transform: rotate(359deg);}
+  }
+@-moz-keyframes editing-rotation {
+  from {-moz-transform: rotate(0deg);}
+  to   {-moz-transform: rotate(359deg);}
+  }
+@-o-keyframes editing-rotation {
+  from {-o-transform: rotate(0deg);}
+  to   {-o-transform: rotate(359deg);}
+  }
+@keyframes editing-rotation {
+  0% {transform: rotate(0deg);}
+  100%   {transform: rotate(359deg);}
+  }
+
+.editing-mediabrowser-items .editing-mediabrowser-loading .editing-icon {color:#666;}
+
+.editing-mediabrowser ul.editing-mediabrowser-thumbnails .editing-mediabrowser-loading .editing-icon {top:38%; font-size:25px; color:#ddd;}
+.editing-mediabrowser ul.editing-mediabrowser-thumbnails.small .editing-mediabrowser-loading .editing-icon {top:35%; font-size:15px;}
+.editing-mediabrowser ul.editing-mediabrowser-thumbnails.big .editing-mediabrowser-loading .editing-icon {font-size:40px;}
+.editing-mediabrowser ul.editing-mediabrowser-thumbnails.large .editing-mediabrowser-loading .editing-icon {font-size:50px;}
 
 
 // --------------------------------------------------------- //

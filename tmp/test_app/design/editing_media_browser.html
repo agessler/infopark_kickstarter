@@ -95,6 +95,10 @@
           <div class="editing-mediabrowser-filter">
             <ul class="editing-mediabrowser-filter-items" >
               <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="Bilder">&#xF043;</i>
+                <span class="editing-mediabrowser-filter-name">Alle Ergebnisse<span class="editing-mediabrowser-counter">1233</span></span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
                 <i class="editing-icon" title="Bilder">&#xF02D;</i>
                 <span class="editing-mediabrowser-filter-name">Bilder</span>
               </li>
@@ -188,8 +192,8 @@
               <li onClick="$(this).toggleClass('active');">
                 <div class="editing-mediabrowser-preview"><img src="img/poster.png" alt="poster" /></div>
                 <div class="editing-mediabrowser-meta">
-                  <span class="editing-mediabrowser-thumbnails-name">Poster</span>
-                  <span class="editing-mediabrowser-thumbnails-size">300 x 500</span>
+                  <span class="editing-mediabrowser-thumbnails-name">Poster mit zu langem Namen der nicht passt</span>
+                  <span class="editing-mediabrowser-thumbnails-size">300 x 500 (auch hier zu viel Text der abgeschnitten wird)</span>
                   <span class="editing-mediabrowser-thumbnails-select" onClick="$(this).toggleClass('active');"></span>
                 </div>
               </li>
@@ -403,10 +407,20 @@
               </li>
 
 
+               <li onClick="$(this).toggleClass('active');">
+                 <div class="editing-mediabrowser-loading">
+                   <i class="editing-icon">&#xF03D;</i>
+                 </div>
+              </li>
+
+
+
             </ul>
 
 
-
+          <div class="editing-mediabrowser-loading">
+            <i class="editing-icon">&#xF03D;</i>
+          </div>
 
 
 
@@ -415,29 +429,39 @@
         </div>
 
         <div class="editing-mediabrowser-inspector">
-          <h4>
-            <i class="editing-icon" title="Details">&#xF029;</i>
-            Details
-            <i class="editing-icon editing-right" title="delete">&#xF038;</i>
-          </h4>
 
-          <p>One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          One fine body One fine body One fine body One fine body One fine body One fine body One fine body One fine body
-          </p>
+          <h3>
+            <i class="editing-icon" title="Details">&#xF029;</i>
+            Details for...
+            <i class="editing-icon editing-right" title="delete">&#xF038;</i>
+          </h3>
+
+          <div class="editing-mediabrowser-loading">
+            <i class="editing-icon">&#xF03D;</i>
+          </div>
+
+          <form>
+            <div class="control-group">
+              <label for="inputEmail" class="control-label">Label</label>
+              <div class="controls">
+                <input type="text" placeholder="Email" id="inputEmail">
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="inputPassword" class="control-label">Password</label>
+              <div class="controls">
+                <input type="password" placeholder="Password" id="inputPassword">
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <label class="checkbox">
+                  <input type="checkbox"> Remember me
+                </label>
+              </div>
+            </div>
+          </form>
+
 
         </div>
 
