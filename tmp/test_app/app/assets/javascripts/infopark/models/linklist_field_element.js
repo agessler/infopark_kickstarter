@@ -1,4 +1,4 @@
-(function() {
+$(function() {
   $.extend(infopark, {
     linklist_field_element: {
       create_instance: function(cms_element) {
@@ -16,4 +16,4 @@
   });
 
   infopark.cms_element.definitions.push(infopark.linklist_field_element);
-}());
+});
