@@ -1,6 +1,14 @@
 PATH
   remote: ../../../
   specs:
+    infopark_dashboard (0.0.1)
+      bundler
+      haml
+      infopark_cloud_connector (>= 6.9.2.1.125136549)
+      infopark_crm_connector (>= 1.0.1)
+      infopark_rails_connector (>= 6.9.2.1.125136549)
+      less-rails-bootstrap (~> 2.3)
+      rails (>= 3.2)
     infopark_kickstarter (3.1.1)
       bundler
       infopark_cloud_connector (>= 6.9.4)
@@ -46,8 +54,8 @@ GEM
       builder
       json
     arel (3.0.2)
-    backports (3.3.3)
-    better_errors (0.9.0)
+    backports (3.3.4)
+    better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
@@ -92,14 +100,6 @@ GEM
     infopark_crm_connector (1.0.1)
       activeresource (>= 3)
       backports (>= 2.3)
-    infopark_dashboard (0.0.1)
-      bundler
-      haml
-      infopark_cloud_connector (>= 6.9.2.1.125136549)
-      infopark_crm_connector (>= 1.0.1)
-      infopark_rails_connector (>= 6.9.2.1.125136549)
-      less-rails-bootstrap (~> 2.3)
-      rails (>= 3.2)
     infopark_rails_connector (6.9.4)
       jquery-rails (~> 2.2.1)
       json (>= 1.7.7)
@@ -129,7 +129,7 @@ GEM
     method_source (0.8.2)
     mime-types (1.25)
     multi_json (1.8.0)
-    newrelic_rpm (3.6.6.147)
+    newrelic_rpm (3.6.7.152)
     nokogiri (1.5.10)
     polyglot (0.3.3)
     projekktor-rails (0.0.5)
@@ -212,7 +212,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     utf8-cleaner (0.0.4)
-    video_info (1.4.0)
+    video_info (1.5.0)
       addressable
       multi_json
 

@@ -1,4 +1,10 @@
 # v3.2.0
+  * All string attributes now use a string editor on edit pages and no longer the redactor. The
+    string editor is a simple input field, that handles ESC and Enter key commands.
+    (Thanks @spiderpug)
+  * Bugfix: Generated search component now uses the new search query API instead of the deprecated
+    `SearchRequest` class, which is no longer part of the Infopark Rails Connector.
+    (Thanks @marcelgo)
   * Added support for page edit views. An earlier release already had built in support for
     automatically generated widget edit views and we extended it now to also support all object
     classes. Like the widget edit view, the generated edit view holds all object class attributes.

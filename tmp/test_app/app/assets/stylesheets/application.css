@@ -10,7 +10,8 @@
  *
  *= require infopark_rails_connector
  *= require projekktor
- *= require redactor
+ *= require editors/redactor
+ *= require editors/string_editor
  *= require editing
  *= require bootstrap-datepicker
  *= require bootstrap_and_override

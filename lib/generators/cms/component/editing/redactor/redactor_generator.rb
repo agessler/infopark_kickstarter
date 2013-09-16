@@ -18,7 +18,7 @@ module Cms
 
             data = []
             data << ''
-            data << ' *= require redactor'
+            data << ' *= require editors/redactor'
 
             data = data.join("\n")
 
@@ -33,7 +33,7 @@ module Cms
 
             data << ''
             data << '//= require redactor'
-            data << '//= require redactor.config'
+            data << '//= require editors/redactor.config'
 
             data = data.join("\n")
 

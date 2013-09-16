@@ -14,9 +14,10 @@ class SearchCell < Cell::Rails
     end
   end
 
-  def results(query, hits)
+  def results(query, hits, total)
     @query = query
     @hits = hits
+    @total = total
 
     if @hits.present?
       render(view: 'hits')
