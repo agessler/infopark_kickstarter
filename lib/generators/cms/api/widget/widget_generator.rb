@@ -4,6 +4,7 @@ module Cms
       class WidgetGenerator < ::Rails::Generators::NamedBase
         Rails::Generators.hide_namespace(self.namespace)
 
+        include Attributes
         include BasePaths
         include Migration
 
@@ -34,6 +35,8 @@ module Cms
         end
 
         def create_migration
+          transform_attributes!(attributes, preset_attributes)
+
           path = "#{widget_path}/migrate/create_#{file_name}.rb"
 
           migration_template('migration.rb', path)
@@ -100,6 +103,10 @@ module Cms
 
         def attributes
           @attributes ||= []
+        end
+
+        def preset_attributes
+          @preset_attributes ||= {}
         end
 
         def widget_path

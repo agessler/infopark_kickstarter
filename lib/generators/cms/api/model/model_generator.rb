@@ -25,26 +25,6 @@ module Cms
           template('model.rb', path)
         end
 
-        def handle_attributes
-          attributes.each do |definition|
-            name = definition[:name]
-            type = definition[:type]
-            default = definition.delete(:default)
-
-            if default.present?
-              preset_attributes[name] = default
-            end
-
-            case type.to_s
-              when 'boolean'
-                definition[:type] = :enum
-                definition[:values] = ['Yes', 'No']
-              when 'integer'
-                definition[:type] = :string
-            end
-          end
-        end
-
         def turn_model_into_page
           if page?
             uncomment_lines(path, 'include Page')

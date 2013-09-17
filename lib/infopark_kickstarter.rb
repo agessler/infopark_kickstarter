@@ -3,6 +3,7 @@ require 'rails/generators'
 require 'infopark_kickstarter/engine'
 
 require 'generators/cms/actions'
+require 'generators/cms/attributes'
 require 'generators/cms/base_paths'
 require 'generators/cms/migration'
 require 'generators/cms/widget/example'
