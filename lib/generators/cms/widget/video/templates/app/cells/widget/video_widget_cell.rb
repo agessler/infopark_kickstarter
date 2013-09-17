@@ -1,16 +1,20 @@
 class Widget::VideoWidgetCell < WidgetCell
   helper :cms
 
+  def show(page, widget)
+    return unless widget.source.present?
+
+    @width = widget.width
+    @height = widget.height
+    @src = widget.embed_url
+
+    super(page, widget)
+  end
+
   # Cell states:
   # The following states assume @widget to be given.
 
   def video
-    return unless @widget.source.present?
-
-    @width = @widget.width
-    @height = @widget.height
-    @src = @widget.embed_url
-
     render(state: @widget.provider.downcase)
   end
 
