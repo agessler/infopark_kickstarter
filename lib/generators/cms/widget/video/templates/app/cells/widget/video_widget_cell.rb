@@ -12,12 +12,6 @@ class Widget::VideoWidgetCell < WidgetCell
   end
 
   # Cell states:
-  # The following states assume @widget to be given.
-
-  def video
-    render(state: @widget.provider.downcase)
-  end
-
   # The following states assume @widget, @width, @height and @src to be given.
 
   def projekktor

@@ -60,6 +60,8 @@ describe Cms::Generators::Widget::VideoGenerator do
             file 'application.css' do
               contains '*= require projekktor'
             end
+
+            file 'video_widget.css.less'
           end
         end
 
