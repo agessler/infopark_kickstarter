@@ -43,24 +43,3 @@ $ ->
         date.setHours(12)
 
         $(cmsEditDate).infopark('save', date)
-
-  # Define editor behavior for linklist attributes.
-
-  infopark.on 'new_content', (root) ->
-    cmsEditLinklists = $(root).find('[data-ip-field-type=linklist]')
-
-    for cmsEditLinklist in cmsEditLinklists
-      $(cmsEditLinklist).on 'focusout', ->
-        titleInputs = $(cmsEditLinklist).find("[name='title[]']")
-        urlInputs = $(cmsEditLinklist).find("[name='url[]']")
-        values = []
-
-        for i in [0..titleInputs.length - 1]
-          values[i] = {'title': titleInputs[i].value, 'url': urlInputs[i].value, 'target': '_blank'}
-
-        $(cmsEditLinklist).infopark('save', values)
-
-    $(cmsEditLinklists).find('button').on 'click', ->
-      template = $(cmsEditLinklists).data('fields-template')
-
-      $(cmsEditLinklists).find('ul').append(template)
