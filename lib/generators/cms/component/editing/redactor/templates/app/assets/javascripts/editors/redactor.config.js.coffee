@@ -1,25 +1,24 @@
 $ ->
-  saveAction = (buttonName, buttonDom, buttonObject) ->
-    editor = @
-    editor.getBox().addClass('saving')
+  timeout = undefined
+  savedContent = undefined
+  originalContent = ''
 
-    if !editor.opts.visual
-      editor.toggle(true)
+  saveAction = ->
+    @getBox().addClass('saving')
+    saveContents(@, true)
 
-    value = editor.get()
+  cancelAction = ->
+    cancelEditing(@)
 
-    editor.$element.infopark('save', value)
-    .done ->
-      editor.destroy()
-    .fail ->
-      editor.getBox().removeClass('saving')
+  autosaveAction = (editor) ->
+    if timeout
+      clearTimeout(timeout)
 
-  cancelAction = (buttonName, buttonDom, buttonObject) ->
-    editor = @
-    editor.set(editor.$element.infopark('content') || '')
-    editor.destroy()
+    timeout = setTimeout ( ->
+      saveContents(editor)
+    ), 3000
 
-  redactorOptions = () ->
+  redactorOptions = ->
     customButtonDefinition =
       saveButton:
         title: 'Save'
@@ -43,6 +42,49 @@ $ ->
       ]
       removeEmptyTags: false
       linebreaks: false
+
+      initCallback: ->
+        originalContent = @get()
+
+      changeCallback: ->
+        autosaveAction(@)
+
+      blurCallback: ->
+        saveContents(@)
+
+      keyupCallback: (event) ->
+        key = event.keyCode || event.which
+
+        if key == 27
+          cancelEditing(@)
+        else
+          autosaveAction(@)
+
+      pasteAfterCallback: (html) ->
+        autosaveAction(@)
+        html
+
+  saveContents = (editor, closeEditor = false) ->
+    content = editor.get()
+
+    if savedContent != content
+      editor.$element.infopark('save', content).done( ->
+        savedContent = content
+        # close editor after safe
+        if closeEditor
+          editor.destroy()
+      ).fail( ->
+        editor.getBox().removeClass('saving')
+      )
+    else
+      # close editor in case of no save needed
+      if closeEditor
+        editor.destroy()
+
+  cancelEditing = (editor) ->
+    editor.set(originalContent)
+    saveContents(editor)
+    editor.destroy()
 
   htmlFields = (content, fieldType) ->
     content.find("[data-ip-field-type='html']")

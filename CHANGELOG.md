@@ -1,4 +1,7 @@
 # v3.2.0
+  * We implemented autosave for the redactor html editor. Every 3 seconds when the content has
+    changed it is saved automatically. You can still use the "save" and "cancel" button and also use
+    "ESC" to close the editor. (Thanks @marcelgo)
   * All string attributes now use a string editor on edit pages and no longer the redactor. The
     string editor is a simple input field, that handles ESC and Enter key commands.
     (Thanks @spiderpug)
