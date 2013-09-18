@@ -1,4 +1,6 @@
 # v3.2.0
+  * The video widget is now more responsive to browser size changes and adopts accordingly.
+    (Thanks @gertimon and @marcelgo)
   * We implemented autosave for the redactor html editor. Every 3 seconds when the content has
     changed it is saved automatically. You can still use the "save" and "cancel" button and also use
     "ESC" to close the editor. (Thanks @marcelgo)
