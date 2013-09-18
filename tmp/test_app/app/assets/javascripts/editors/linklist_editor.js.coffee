@@ -14,10 +14,7 @@ $ ->
   getCmsField = (element) ->
     element.closest('[data-ip-field-type=linklist]')
 
-  save = (event) ->
-    field = $(event.currentTarget)
-    cmsField = getCmsField(field)
-
+  save = (cmsField) ->
     items = cmsField.find('li')
 
     value =
@@ -57,44 +54,10 @@ $ ->
 
       item.html(content)
 
-  dragged_item = undefined
+  onBlur = (event) ->
+    cmsField = getCmsField($(event.currentTarget))
 
-  dragstart_reorder = (event) ->
-    console.log 'dragstart'
-    dragged_item = event.currentTarget
-    value = $(event.currentTarget).html()
-    dataTransfer = event.originalEvent.dataTransfer
-
-    console.log 'value', value
-
-    dataTransfer.effectAllowed = 'move'
-    dataTransfer.setData('text', value)
-
-  dragleave_reorder = (event) ->
-    console.log 'dragleave'
-    event.preventDefault()
-
-    event.currentTarget.style.border = '5px solid #FFF'
-
-  dragenter_reorder = (event) ->
-    console.log 'dragenter'
-    event.preventDefault()
-
-  dragover_reorder = (event) ->
-    console.log 'dragover'
-    event.preventDefault()
-
-    event.currentTarget.style.border = '5px dashed #FF0000'
-
-  dropped_reorder = (event) ->
-    console.log 'dropped'
-    event.preventDefault()
-
-    console.log 'value2', $(event.currentTarget).html()
-    dragged_item.innerHTML = event.currentTarget.innerHTML
-
-    event.currentTarget.innerHTML = event.originalEvent.dataTransfer.getData('text')
-    event.currentTarget.style.border = '5px solid #FFF'
+    save(cmsField)
 
   infopark.on 'new_content', (root) ->
     linklistElements = $(root).find('[data-ip-field-type=linklist]')
@@ -102,12 +65,13 @@ $ ->
     if linklistElements.length
       transformLinks(linklistElements)
 
-      linklistElements.on 'blur', 'li input', save
+      linklistElements.on 'blur', 'li input', onBlur
       linklistElements.on 'click', 'li a', removeLink
       linklistElements.on 'click', 'a.add-link', addLink
 
-      linklistElements.on 'dragstart', 'li', dragstart_reorder
-      linklistElements.on 'dragleave', 'li', dragleave_reorder
-      linklistElements.on 'dragenter', 'li', dragenter_reorder
-      linklistElements.on 'dragover', 'li', dragover_reorder
-      linklistElements.on 'drop', 'li', dropped_reorder
+      linklistElements.find('ul').sortable(
+        stop: (event) ->
+          cmsField = getCmsField($(event.target))
+
+          save(cmsField)
+      )

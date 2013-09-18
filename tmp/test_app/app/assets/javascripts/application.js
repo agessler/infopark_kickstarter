@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.sortable
 //= require twitter/bootstrap
 //= require infopark_rails_connector
 //= require projekktor
