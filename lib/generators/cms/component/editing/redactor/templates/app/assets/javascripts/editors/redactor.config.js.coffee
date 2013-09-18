@@ -3,14 +3,22 @@ $ ->
   savedContent = undefined
   originalContent = ''
 
-  saveAction = (buttonName, buttonDom, buttonObject) ->
+  saveAction = ->
     @getBox().addClass('saving')
     saveContents(@, true)
 
-  cancelAction = (buttonName, buttonDom, buttonObject) ->
+  cancelAction = ->
     cancelEditing(@)
 
-  redactorOptions = () ->
+  autosaveAction = (editor) ->
+    if timeout
+      clearTimeout(timeout)
+
+    timeout = setTimeout ( ->
+      saveContents(editor)
+    ), 3000
+
+  redactorOptions = ->
     customButtonDefinition =
       saveButton:
         title: 'Save'
@@ -34,12 +42,16 @@ $ ->
       ]
       removeEmptyTags: false
       linebreaks: false
-      initCallback: (_) ->
+
+      initCallback: ->
         originalContent = @get()
-      changeCallback: (_) ->
+
+      changeCallback: ->
         autosaveAction(@)
-      blurCallback: (_) ->
+
+      blurCallback: ->
         saveContents(@)
+
       keyupCallback: (event) ->
         key = event.keyCode || event.which
 
@@ -47,12 +59,14 @@ $ ->
           cancelEditing(@)
         else
           autosaveAction(@)
+
       pasteAfterCallback: (html) ->
         autosaveAction(@)
         html
 
   saveContents = (editor, closeEditor = false) ->
     content = editor.get()
+
     if savedContent != content
       editor.$element.infopark('save', content).done( ->
         savedContent = content
@@ -71,13 +85,6 @@ $ ->
     editor.set(originalContent)
     saveContents(editor)
     editor.destroy()
-
-  autosaveAction = (editor) ->
-    if timeout
-      clearTimeout(timeout)
-    timeout = setTimeout ( ->
-      saveContents(editor)
-    ), 3000
 
   htmlFields = (content, fieldType) ->
     content.find("[data-ip-field-type='html']")
