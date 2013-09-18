@@ -18,6 +18,12 @@ $ ->
       saveContents(editor)
     ), 3000
 
+  undoAction = ->
+    @execCommand('undo')
+
+  redoAction = ->
+    @execCommand('redo')
+
   redactorOptions = ->
     customButtonDefinition =
       saveButton:
@@ -26,6 +32,12 @@ $ ->
       cancelButton:
         title: 'Cancel'
         callback: cancelAction
+      undoButton:
+        title: 'Undo'
+        callback: undoAction
+      redoButton:
+        title: 'Redo'
+        callback: redoAction
 
     return {} =
       buttonsCustom: customButtonDefinition,
@@ -33,6 +45,7 @@ $ ->
       convertDivs: false
       linebreaks: true
       buttons: ['saveButton', 'cancelButton',
+        '|', 'undoButton', 'redoButton',
         '|', 'formatting',
         '|', 'bold', 'italic', 'deleted', 'underline',
         '|', 'unorderedlist', 'orderedlist',
