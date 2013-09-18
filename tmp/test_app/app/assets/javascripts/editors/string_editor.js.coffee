@@ -1,7 +1,7 @@
 $ ->
-  ###
   # This file integrates a simple text input field to edit string attributes.
-  ###
+
+  timeout = undefined
 
   infopark.on 'editing', ->
     template = ->
@@ -25,23 +25,33 @@ $ ->
     keyUp = (event) ->
       key = event.keyCode || event.which
 
+      if timeout
+        clearTimeout(timeout)
+
       switch key
         when 13 # Enter
-          save(event)
+          save(event, true)
         when 27 # Esc
           cancel(event)
+        else
+          timeout = setTimeout ( ->
+            save(event)
+          ), 3000
 
-    save = (event) ->
+
+    save = (event, closeInput = false) ->
       inputField = $(event.currentTarget)
       content = inputField.val()
       box = getBox(inputField)
       cmsField = box.data('cmsField')
 
-      box.addClass('saving')
+      if closeInput
+        box.addClass('saving')
 
       cmsField.infopark('save', content).done ->
-        cmsField.html(content)
-        disableEditMode(box)
+        if closeInput
+          cmsField.html(content)
+          disableEditMode(box)
       .fail ->
         box.removeClass('saving')
 
@@ -49,6 +59,9 @@ $ ->
       box = getBox($(event.currentTarget))
 
       disableEditMode(box)
+
+    onBlur = (event) ->
+      save(event, true)
 
     $('body').on 'click', '[data-ip-field-type=string]', (event) ->
       event.preventDefault()
@@ -60,7 +73,7 @@ $ ->
         .insertAfter(cmsField)
         .find('input')
         .val(cmsField.infopark('content') || '')
-        .focusout(save)
+        .focusout(onBlur)
         .keyup(keyUp)
         .focus()
 
