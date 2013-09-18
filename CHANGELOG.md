@@ -3,8 +3,9 @@
     changed it is saved automatically. You can still use the "save" and "cancel" button and also use
     "ESC" to close the editor. (Thanks @marcelgo)
   * All string attributes now use a string editor on edit pages and no longer the redactor. The
-    string editor is a simple input field, that handles ESC and Enter key commands.
-    (Thanks @spiderpug)
+    string editor is a simple input field, that handles ESC and Enter key commands. It also supports
+    autosave every 3 seconds, so that your changes don't get lost.
+    (Thanks @spiderpug and @marcelgo)
   * Bugfix: Generated search component now uses the new search query API instead of the deprecated
     `SearchRequest` class, which is no longer part of the Infopark Rails Connector.
     (Thanks @marcelgo)
