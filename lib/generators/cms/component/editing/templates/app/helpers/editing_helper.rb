@@ -42,14 +42,24 @@ module EditingHelper
   def cms_edit_linklist(object, attribute_name)
     linklist = object.send(attribute_name)
 
-    template = ''
-    template << cms_link_inputs
+    cms_tag(:div, object, attribute_name) do
+      out = ''.html_safe
 
-    cms_tag(:div, object, attribute_name, 'data-fields-template' => template) do
-      out = cms_linklist_inputs(linklist)
-      out << button_tag('+', class: 'btn')
+      out << content_tag(:ul) do
+        html = ''.html_safe
 
-      out.html_safe
+        linklist.each do |link|
+          html << content_tag(:li, link.title, 'data-title' => link.title, 'data-url' => link.url)
+        end
+
+        html
+      end
+
+      out << button_tag(class: 'editing-button editing-green add-link') do
+        content_tag(:i, '', class: 'editing-icon editing-icon-ok')
+      end
+
+      out
     end
   end
 
@@ -59,20 +69,5 @@ module EditingHelper
     attribute_definition = obj.cms_attribute_definition(attribute)
 
     options_for_select(attribute_definition['values'], obj.send(attribute))
-  end
-
-  def cms_linklist_inputs(linklist)
-    out = linklist.inject('<ul>') do |string, link|
-      string << cms_link_inputs(link.title, link.url)
-    end
-
-    out << '</ul>'
-  end
-
-  def cms_link_inputs(link_title = '', link_url = '')
-    value = '<li>'
-    value << text_field_tag('title[]', link_title)
-    value << url_field_tag('url[]', link_url)
-    value << '</li>'
   end
 end

@@ -45,27 +45,36 @@ describe Cms::Generators::Component::EditingGenerator do
           directory 'stylesheets' do
             directory 'editors' do
               file 'string_editor.css.less'
+              file 'linklist_editor.css.less'
             end
 
-            file 'mixins.less'
+            directory 'editing' do
+              file 'mixins.less'
+              file 'icons.css.less'
+              file 'buttons.css.less'
+            end
+
             file 'editing.css.less'
-            file 'editing_icons.css.less'
             file 'application.css' do
               contains '*= require editing'
               contains '*= require bootstrap-datepicker'
               contains '*= require editors/string_editor'
+              contains '*= require editors/linklist_editor'
             end
           end
 
           directory 'javascripts' do
             directory 'editors' do
               file 'string_editor.js.coffee'
+              file 'linklist_editor.js.coffee'
             end
 
             file 'editing.js.coffee'
             file 'application.js' do
               contains '//= require editing'
               contains '//= require editors/string_editor'
+              contains '//= require editors/linklist_editor'
+              contains '//= require jquery.ui.sortable'
             end
           end
         end
@@ -77,6 +86,7 @@ describe Cms::Generators::Component::EditingGenerator do
 
       file 'Gemfile' do
         contains 'gem "bootstrap-datepicker-rails"'
+        contains 'gem "jquery-ui-rails"'
       end
     }
   end

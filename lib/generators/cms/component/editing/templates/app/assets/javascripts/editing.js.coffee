@@ -43,21 +43,3 @@ $ ->
         date.setHours(12)
 
         $(cmsEditDate).infopark('save', date)
-
-
-    cmsEditLinklists = $('[data-ip-field-type=linklist]')
-
-    for cmsEditLinklist in cmsEditLinklists
-      $(cmsEditLinklist).on 'focusout', ->
-        titleInputs = $(cmsEditLinklist).find("[name='title[]']")
-        urlInputs = $(cmsEditLinklist).find("[name='url[]']")
-        values = []
-
-        for i in [0..titleInputs.length - 1]
-          values[i] = {'title': titleInputs[i].value, 'url': urlInputs[i].value}
-
-        $(cmsEditLinklist).infopark('save', values)
-
-    $(cmsEditLinklists).find('button').click ->
-      template = $(cmsEditLinklists).data('fields-template')
-      $(cmsEditLinklists).find('ul').append(template)
