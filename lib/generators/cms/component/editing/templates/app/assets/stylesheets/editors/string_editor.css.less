@@ -1,0 +1,20 @@
+@import "mixins";
+
+body.ip_editing_active.ip_editable_workspace {
+  .string-editor {
+    &.saving {
+      .opacity(40);
+      .background-size(40px 40px);
+      #gradient > .hatched(#aaa);
+      #animation > .progress-bar-stripes(1s);
+
+      input {
+        .opacity(10);
+      }
+    }
+
+    input {
+      width: 98%;
+    }
+  }
+}

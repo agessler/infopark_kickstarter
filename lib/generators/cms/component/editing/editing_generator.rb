@@ -43,6 +43,7 @@ module Cms
           data = []
 
           data << ''
+          data << '//= require editors/string_editor'
           data << '//= require editing'
 
           data = data.join("\n")
@@ -56,6 +57,7 @@ module Cms
 
           data = []
           data << ''
+          data << ' *= require editors/string_editor'
           data << ' *= require editing'
           data << ' *= require bootstrap-datepicker'
 

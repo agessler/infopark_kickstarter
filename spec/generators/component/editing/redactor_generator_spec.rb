@@ -36,18 +36,23 @@ describe Cms::Generators::Component::Editing::RedactorGenerator do
           end
 
           directory 'stylesheets' do
-            file 'redactor.css.less'
+            directory 'editors' do
+              file 'redactor.css.less'
+            end
+
             file 'application.css' do
-              contains '*= require redactor'
+              contains '*= require editors/redactor'
             end
           end
 
           directory 'javascripts' do
-            file 'redactor.config.js'
+            directory 'editors' do
+              file 'redactor.config.js.coffee'
+            end
 
             file 'application.js' do
               contains '//= require redactor'
-              contains '//= require redactor.config'
+              contains '//= require editors/redactor.config'
             end
           end
         end

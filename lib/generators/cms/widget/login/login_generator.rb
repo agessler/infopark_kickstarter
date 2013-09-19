@@ -5,7 +5,7 @@ module Cms
         source_root File.expand_path('../templates', __FILE__)
 
         def create_widget
-          Widget::ApiGenerator.new(behavior: behavior) do |widget|
+          Api::WidgetGenerator.new(behavior: behavior) do |widget|
             widget.name = obj_class_name
             widget.icon = 'login'
             widget.description = 'Displays a login form.'

@@ -42,7 +42,7 @@ module Cms
         end
 
         def create_migration
-          Widget::ApiGenerator.new(behavior: behavior) do |widget|
+          Api::WidgetGenerator.new(behavior: behavior) do |widget|
             widget.name = obj_class_name
             widget.icon = 'video'
             widget.description = 'Displays a video player for the given video file.'

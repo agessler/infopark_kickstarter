@@ -6,44 +6,12 @@ module Cms
       include Migration
       include BasePaths
 
-      class_option :configuration_path,
-        type: :string,
-        default: nil,
-        desc: 'Path to a JSON configuration file.'
-
       class_option :examples,
         type: :boolean,
         default: false,
         desc: 'Creates example content along with setting up your project.'
 
       source_root File.expand_path('../templates', __FILE__)
-
-      def initialize(args = [], options = {}, config = {})
-        options << '--force'
-
-        super(args, options, config)
-      end
-
-      def read_config_file
-        path = options[:configuration_path]
-
-        if path
-          contents = if URI(path).is_a?(URI::HTTP)
-            open(path, 'Accept' => 'application/json') { |io| io.read }
-          else
-            File.read(path)
-          end
-
-          configuration = JSON(contents)
-
-          configuration.each do |generator|
-            name = generator['name']
-            options = Array(generator['options'])
-
-            Rails::Generators.invoke(name, options, behavior: behavior)
-          end
-        end
-      end
 
       def remove_index_html
         path = Rails.root + 'public/index.html'
@@ -119,18 +87,25 @@ module Cms
         append_file('.gitignore', "config/custom_cloud.yml\n")
       end
 
-      def create_structure_migration_file
-        Model::ApiGenerator.new(behavior: behavior) do |model|
+      # TODO: remove special migration once the CMS tenant is properly reset after signup. This
+      # should also allow to remove the "migration" variable on Api::ObjClassGenerator.
+      def create_special_case_image
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
           model.name = 'Image'
           model.type = :generic
-          model.title = 'Resource: Image'
+          model.title = 'Image'
           model.thumbnail = false
+          model.migration = false
         end
 
-        Model::ApiGenerator.new(behavior: behavior) do |model|
+        migration_template('create_image.rb', 'cms/migrate/create_image')
+      end
+
+      def create_structure_migration_file
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
           model.name = 'Video'
           model.type = :generic
-          model.title = 'Resource: Video'
+          model.title = 'Video'
           model.thumbnail = false
           model.attributes = [
             title_attribute,
@@ -139,9 +114,9 @@ module Cms
 
         class_name = 'Homepage'
 
-        Model::ApiGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
           model.name = class_name
-          model.title = 'Page: Homepage'
+          model.title = 'Homepage'
           model.thumbnail = false
           model.attributes = [
             title_attribute,
@@ -164,19 +139,19 @@ module Cms
 
         Rails::Generators.invoke('cms:controller', [class_name])
 
-        Model::ApiGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
           model.name = 'Root'
           model.title = 'Root'
           model.thumbnail = false
         end
 
-        Model::ApiGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
           model.name = 'Website'
           model.title = 'Website'
           model.thumbnail = false
         end
 
-        Model::ApiGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
           model.name = 'Container'
           model.title = 'Container'
           model.thumbnail = false
@@ -188,9 +163,9 @@ module Cms
 
         class_name = 'ContentPage'
 
-        Model::ApiGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
           model.name = class_name
-          model.title = 'Page: Content'
+          model.title = 'Content'
           model.page = true
           model.attributes = [
             title_attribute,
@@ -205,9 +180,9 @@ module Cms
 
         class_name = 'ErrorPage'
 
-        Model::ApiGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
           model.name = class_name
-          model.title = 'Page: Error'
+          model.title = 'Error'
           model.thumbnail = false
           model.page = true
           model.attributes = [

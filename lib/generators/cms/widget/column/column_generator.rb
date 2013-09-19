@@ -18,7 +18,7 @@ module Cms
           desc: 'Maximum number of columns'
 
         def create_widget
-          Widget::ApiGenerator.new(behavior: behavior) do |widget|
+          Api::WidgetGenerator.new(behavior: behavior) do |widget|
             widget.name = obj_class_name
             widget.icon = icon
             widget.attributes = column_attributes + column_size_attributes
@@ -33,12 +33,6 @@ module Cms
           template(
             'show.html.haml',
             "app/widgets/#{folder_name}/views/show.html.haml",
-            force: true
-          )
-
-          template(
-            'edit.html.haml',
-            "app/widgets/#{folder_name}/views/edit.html.haml",
             force: true
           )
         end
@@ -68,13 +62,19 @@ module Cms
 
         def column_attributes
           (1..columns).inject([]) do |array, index|
-            array << {
+            array + [{
               name: column_name(index),
               type: :widget,
               title: column_title(index),
-            }
+            }]
+          end
+        end
 
-            array
+        def column_size_edit_view_attributes
+          column_size_attributes.map do |definition|
+            definition[:object_name] = '@widget'
+
+            definition
           end
         end
 

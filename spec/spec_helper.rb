@@ -10,8 +10,6 @@ require File.expand_path('../dummy/config/environment.rb', __FILE__)
 require 'rspec/rails'
 
 require 'support/test_destination_root'
-require 'generators/cms/model/api/api_generator'
-require 'generators/cms/widget/api/api_generator'
 require 'generators/cms/controller/controller_generator'
 
 Rails.backtrace_cleaner.remove_silencers!
@@ -25,8 +23,12 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.before do
-    Cms::Generators::Model::ApiGenerator.send(:include, TestDestinationRoot)
     Cms::Generators::ControllerGenerator.send(:include, TestDestinationRoot)
-    Cms::Generators::Widget::ApiGenerator.send(:include, TestDestinationRoot)
+    Cms::Generators::Api::EditViewGenerator.send(:include, TestDestinationRoot)
+    Cms::Generators::Api::LocaleGenerator.send(:include, TestDestinationRoot)
+    Cms::Generators::Api::ModelGenerator.send(:include, TestDestinationRoot)
+    Cms::Generators::Api::ObjClassGenerator.send(:include, TestDestinationRoot)
+    Cms::Generators::Api::ThumbnailGenerator.send(:include, TestDestinationRoot)
+    Cms::Generators::Api::WidgetGenerator.send(:include, TestDestinationRoot)
   end
 end

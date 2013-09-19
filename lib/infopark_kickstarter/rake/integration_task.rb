@@ -80,7 +80,7 @@ module InfoparkKickstarter
         ]
 
         generators.each do |generator|
-          sh("bundle exec rails generate #{generator}")
+          sh("rails generate #{generator}")
         end
       end
 

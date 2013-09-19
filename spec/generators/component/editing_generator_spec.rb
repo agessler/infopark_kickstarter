@@ -43,18 +43,29 @@ describe Cms::Generators::Component::EditingGenerator do
           end
 
           directory 'stylesheets' do
+            directory 'editors' do
+              file 'string_editor.css.less'
+            end
+
+            file 'mixins.less'
             file 'editing.css.less'
             file 'editing_icons.css.less'
             file 'application.css' do
               contains '*= require editing'
               contains '*= require bootstrap-datepicker'
+              contains '*= require editors/string_editor'
             end
           end
 
           directory 'javascripts' do
+            directory 'editors' do
+              file 'string_editor.js.coffee'
+            end
+
             file 'editing.js.coffee'
             file 'application.js' do
               contains '//= require editing'
+              contains '//= require editors/string_editor'
             end
           end
         end

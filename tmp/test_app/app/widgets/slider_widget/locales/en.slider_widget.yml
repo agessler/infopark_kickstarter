@@ -1,5 +1,6 @@
+---
 en:
   widgets:
     slider_widget:
-      title: 'Slider widget'
-      description: 'Creates a rotating slider galerie from a list of images.'
+      title: Slider widget
+      description: Creates a rotating slider galerie from a list of images.

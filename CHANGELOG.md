@@ -1,4 +1,26 @@
+# v3.2.0
+  * The video widget is now more responsive to browser size changes and adopts accordingly.
+    (Thanks @gertimon and @marcelgo)
+  * We implemented autosave for the redactor html editor. Every 3 seconds when the content has
+    changed it is saved automatically. You can still use the "save" and "cancel" button and also use
+    "ESC" to close the editor. (Thanks @marcelgo)
+  * All string attributes now use a string editor on edit pages and no longer the redactor. The
+    string editor is a simple input field, that handles ESC and Enter key commands. It also supports
+    autosave every 3 seconds, so that your changes don't get lost.
+    (Thanks @spiderpug and @marcelgo)
+  * Bugfix: Generated search component now uses the new search query API instead of the deprecated
+    `SearchRequest` class, which is no longer part of the Infopark Rails Connector.
+    (Thanks @marcelgo)
+  * Added support for page edit views. An earlier release already had built in support for
+    automatically generated widget edit views and we extended it now to also support all object
+    classes. Like the widget edit view, the generated edit view holds all object class attributes.
+
+# v3.1.1
+  * Bugfix: Initial migration failed on newly created projects, because the `Image` obj class
+    already existed.
+
 # v3.1.0
+  * Updated to Infopark SDK (infopark_rails_connector and infopark_cloud_connector) version 6.9.4.
   * We changed the general way to create examples for certain generators. Before you could pass in
     the option `--example` and then add some other options like `--cms_path` to further configure
     the examples. We have moved all examples into their own generator, which means you can now call

@@ -5,7 +5,7 @@ module Cms
         source_root File.expand_path('../templates', __FILE__)
 
         def create_migration
-          Widget::ApiGenerator.new(behavior: behavior) do |widget|
+          Api::WidgetGenerator.new(behavior: behavior) do |widget|
             widget.name = obj_class_name
             widget.icon = 'slider'
             widget.description = 'Creates a rotating slider galerie from a list of images.'

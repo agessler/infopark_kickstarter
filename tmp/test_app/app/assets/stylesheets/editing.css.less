@@ -1,7 +1,6 @@
-@import "twitter/bootstrap/variables";
-@import "twitter/bootstrap/mixins";
+@import "mixins";
 
-// inplace editing toggle styles
+// Inplace editing toggle styles
 
 a#edit-toggle {
   margin-right: 10px;
@@ -24,7 +23,7 @@ body.ip_editing_active {
 }
 
 
-// move navbar down, when editbar is active
+// Move navbar down, when editbar is active
 
 @infoparkEditingBarHeight: 47px;
 
@@ -33,15 +32,18 @@ body.ip_editing_active {
 }
 
 
-// structure widget styles
+// Inplace editing styles when editing is active and an editable working copy
+// is selected.
 
-body.ip_editing_active {
+body.ip_editing_active.ip_editable_workspace {
+  // Widget inplace editing field styles
+
   div[data-ip-widget-obj-class] {
     @nestedWidgetColor: #74e000;
 
     min-height: 30px;
 
-    div[data-ip-field-type="widget"] {
+    div[data-ip-field-type=widget] {
       .transition(~"outline-color ease-in-out .8s");
 
       margin-top: 35px;
@@ -61,41 +63,32 @@ body.ip_editing_active {
       }
     }
   }
-}
 
+  // HTML and String inplace editing field styles
 
-// inplace editing field styles
+  [data-ip-field-type=html],
+  [data-ip-field-type=string] {
+    @editableFieldColor: #ffa500;
 
-.ip_field_editable  {
-  @editableFieldColor: #ffa500;
+   .transition(~"outline-color ease-in-out .8s");
 
- .transition(~"outline-color ease-in-out .8s");
-
-  min-height: 35px;
-  outline: 2px dotted @editableFieldColor;
-  outline: 2px dotted fade(@editableFieldColor, 30%);
-  text-shadow: none;
-
-  &:hover,
-  &:focus {
-    .transition(~"outline-color ease-in-out .3s");
-
+    min-height: 35px;
     outline: 2px dotted @editableFieldColor;
+    outline: 2px dotted fade(@editableFieldColor, 30%);
     text-shadow: none;
+
+    &:hover,
+    &:focus {
+      .transition(~"outline-color ease-in-out .3s");
+
+      outline: 2px dotted @editableFieldColor;
+      text-shadow: none;
+    }
   }
 
-  &[data-ip-field-type=html]:empty:before {
-    content: '\F04F';
+  // fix for overlapped edit marker
+
+  .redactor_box {
+    z-index: 11112;
   }
-
-  &[data-ip-field-type=string]:empty:before {
-    content: '\F058';
-  }
-}
-
-
-// fix for overlapped edit marker
-
-.redactor_box {
-  z-index: 11112;
 }

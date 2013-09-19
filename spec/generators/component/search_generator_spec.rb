@@ -46,7 +46,7 @@ describe Cms::Generators::Component::SearchGenerator do
         directory 'views' do
           directory 'search_page' do
             file 'index.html.haml' do
-              contains 'render_cell(:search, :results, @query, @hits)'
+              contains 'render_cell(:search, :results, @query, @hits, @total)'
             end
           end
         end

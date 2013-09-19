@@ -1,5 +1,5 @@
 %p
-  = t('search.hits_found_html', query: h(@query), count: @hits.size)
+  = t('search.hits_found_html', query: h(@query), count: @total)
 
 %ul
   - @hits.each do |hit|

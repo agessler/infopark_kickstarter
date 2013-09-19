@@ -51,8 +51,8 @@ describe Cms::Generators::WidgetGenerator do
 
             directory 'locales' do
               file 'en.news_widget.yml' do
-                contains "title: 'Test News Title'"
-                contains "description: 'Test News Description'"
+                contains "title: Test News Title"
+                contains "description: Test News Description"
               end
             end
 
@@ -61,8 +61,8 @@ describe Cms::Generators::WidgetGenerator do
                 contains "name: 'NewsWidget'"
                 contains "title: 'Test News Title'"
                 contains "type: 'publication'"
-                contains '{:name=>"foo", :type=>"html"},'
-                contains '{:name=>"bar", :type=>"enum"},'
+                contains '{:name=>"foo", :type=>"html"}'
+                contains '{:name=>"bar", :type=>"enum"}'
                 contains 'mandatory_attributes: ["foo", "bar"]'
                 contains 'preset_attributes: {"foo"=>"f", "bar"=>"b"}'
               end

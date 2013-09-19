@@ -47,23 +47,23 @@ module Cms
         default: false,
         desc: 'Turn the model into a page object'
 
-      class_option :widget,
-        type: :boolean,
-        default: false,
-        desc: 'Turn the model into a widget object'
+      class_option :icon,
+        type: :string,
+        default: 'box',
+        desc: 'Icon CSS class name'
 
       def create
-        Model::ApiGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(behavior: behavior) do |model|
           model.name = name
           model.title = title
           model.description = description
           model.type = type
+          model.icon = icon
           model.attributes = attributes
           model.preset_attributes = preset_attributes
           model.mandatory_attributes = mandatory_attributes
           model.thumbnail = thumbnail?
           model.page = page?
-          model.widget = widget?
         end
       end
 
@@ -77,12 +77,12 @@ module Cms
         options[:page]
       end
 
-      def widget?
-        options[:widget]
-      end
-
       def type
         options[:type]
+      end
+
+      def icon
+        options[:icon]
       end
 
       def title

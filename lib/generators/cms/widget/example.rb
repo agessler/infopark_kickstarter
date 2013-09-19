@@ -4,7 +4,6 @@ module Cms
       module Example
         class Base < ::Rails::Generators::Base
           include BasePaths
-          include BaseAttributes
           include Migration
 
           class_option :cms_path,
@@ -24,6 +23,10 @@ module Cms
           end
 
           protected
+
+          def homepage_widget_attribute
+            'main_content'
+          end
 
           def example_cms_path
             options[:cms_path] || homepage_path
