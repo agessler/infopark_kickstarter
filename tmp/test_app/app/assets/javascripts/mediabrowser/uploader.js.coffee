@@ -1,5 +1,5 @@
 @MediabrowserUploader = do ->
-  dropZoneSelector: '.modal-body'
+  dropZoneSelector: '.editing-mediabrowser-body'
   dropOverCssClass: 'uploader-drag-over'
   mimeTypeMapping:
     'image/*': 'Image'

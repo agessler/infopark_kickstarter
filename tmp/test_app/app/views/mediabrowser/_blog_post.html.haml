@@ -1,6 +1,9 @@
-%tr.inspect{data: { id: hit.id }}
-  %td
-    = hit.title || hit.id
-
-  %td
-    = check_box_tag(hit.id, hit.id, @selected.include?(hit.id), class: 'selected')
+.editing-mediabrowser-preview
+  %i.editing-icon
+    &#xF02E;
+.editing-mediabrowser-meta
+  %span.editing-mediabrowser-thumbnails-name
+    = hit.title || hit.name
+  %span.editing-mediabrowser-thumbnails-size
+    Not x Possible
+  %span.editing-mediabrowser-thumbnails-select.select-item{class: ('active' if @selected.include?(hit.id))}

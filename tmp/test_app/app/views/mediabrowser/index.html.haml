@@ -1,42 +1,4 @@
-.modal-header.clearfix
-  .pull-left
-    %h3
-      Mediabrowser
-
-  .pull-right
-    %h3
-      %button.close.mediabrowser-close
-        &times;
-
-.modal-body.clearfix
-  .row-fluid.filter
-    .span12
-      %ul.nav.nav-pills
-        %li
-          %a{href: '', data: { obj_class: 'Image' }}
-            Image
-
-        %li
-          %a{href: '', data: { obj_class: 'BlogPost' }}
-            BlogPost
-
-  .row-fluid
-    .span12
-      = text_field_tag('query', '', class: 'search')
-
-  .row-fluid
-    .span6.items
-
-    .span6.loading
-      %i.ip_icon.ip_spinning
-        &#61475;
-
-    .span6.inspector
-
-.modal-footer.clearfix
-  .pull-right
-    %button.btn.mediabrowser-save
-      Select
-
-    %button.btn.mediabrowser-close
-      Close
+%ul.items.editing-mediabrowser-thumbnails{class: @thumbnail_size}
+  - @hits.each do |hit|
+    %li.mediabrowser-item{data: { id: hit.id }}
+      = render hit.obj_class.underscore, hit: hit

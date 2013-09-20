@@ -1,11 +1,14 @@
 @Mediabrowser = do ->
-  modalSelector: '#ip-mediabrowser'
-  loadingSelector: '.loading'
+  modalSelector: '#editing-mediabrowser'
+  overlayBackgroundSelector: '.editing-overlay'
+  loadingSelector: '.editing-mediabrowser-loading'
   itemsSelector: '.items'
+  itemSelector: '.select-item'
   _setDefaults: ->
     @selected = []
     @query = ''
-    @objClass = 'Image'
+    @objClass = undefined
+    @thumbnailSize = 'small'
 
   _onPageChange: (event) ->
     event.preventDefault()
@@ -16,16 +19,23 @@
       page: page
 
   _setFilterSelection: () ->
-    target = @modal.find(".filter a[data-obj-class='#{@objClass}']")
+    if @objClass
+      current = @modal.find("li.filter[data-obj-class='#{@objClass}']")
+    else if @showSelection
+      current = @modal.find("li.filter.selected-items")
+    else
+      current = @modal.find("li.filter.all")
 
-    target.closest('ul').find('li').removeClass('active')
-    target.closest('li').addClass('active')
+    current.closest('ul').find('li').removeClass('active')
+    current.addClass('active')
 
   _onFilter: (event) ->
     event.preventDefault()
 
     target = $(event.currentTarget)
     @objClass = target.data('obj-class')
+
+    @showSelection = $(event.currentTarget).hasClass('selected-items')
 
     @_setFilterSelection()
     @_updateItems()
@@ -37,13 +47,19 @@
     @close()
 
   _updateSelected: ->
-    images = @modal.find('input.selected:checked')
+    items = @modal.find('li.mediabrowser-item .select-item.active')
 
-    if images.length
-      ids = $.map images, (image) ->
-        image.id
+    if items.length
+      ids = $.map items, (item) ->
+        $(item).closest('.mediabrowser-item').data('id')
 
-    @selected = $.unique(@selected.concat(ids))
+    @selected = $.unique(@selected.concat(ids || []))
+    @modal.find('.selected-total').html(@selected.length)
+
+  _removeItem: (element) ->
+    @selected = @selected.filter (item) ->
+      item != $(element).closest('.mediabrowser-item').data('id')
+    @modal.find('.selected-total').html(@selected.length)
 
   _updateItems: (data) ->
     @_showLoading()
@@ -52,24 +68,40 @@
     data['selected'] = @selected
     data['query'] = @query
     data['obj_class'] = @objClass
+    data['thumbnail_size'] = @thumbnailSize
+
+    url = '/mediabrowser'
+
+    if @showSelection
+      url = '/mediabrowser/selection'
 
     $.ajax
-      url: '/mediabrowser/items'
+      url: url
       dataType: 'json'
       data: data
       success: (json) =>
-        @modal.find('.items').html(json.content)
-
-        @_hideLoading()
+        @modal.find('.editing-mediabrowser-items').html(json.content)
+        if json.meta
+          @modal.find('.result-total').html(json.meta.total)
 
   _initializeBindings: ->
-    $(document).on 'change', '#ip-mediabrowser input.selected:checked', (event) =>
-      @_updateSelected()
-
-    $(document).on 'keyup', '#ip-mediabrowser input.search', (event) =>
+    $(document).on 'keyup', '#editing-mediabrowser input.search_field', (event) =>
       if event.keyCode == 13
         @query = $(event.target).val()
         @_updateItems()
+
+    $(document).on 'click', 'li.mediabrowser-item', (event) =>
+      unless $(event.target).hasClass('select-item')
+        @_highlightSelected($(event.currentTarget))
+
+    $(document).on 'click', 'li.mediabrowser-item .select-item', (event) =>
+      $current = $(event.currentTarget)
+      $current.toggleClass('active')
+
+      if $current.hasClass('active')
+        @_updateSelected()
+      else
+        @_removeItem($current)
 
     $(document).on 'click', '.mediabrowser-save', =>
       @_save()
@@ -77,14 +109,18 @@
     $(document).on 'click', '.mediabrowser-close', =>
       @close()
 
+    $(document).on 'click', '.mediabrowser-reset', =>
+      @_reset()
+
     $(document).on 'click', 'a.mediabrowser', =>
       @open()
 
-    $(document).on 'click', '.filter a', (event) =>
+    $(document).on 'click', 'li.filter', (event) =>
       @_onFilter(event)
 
-    $(document).on 'click', 'li.previous a, li.next a', (event) =>
-      @_onPageChange(event)
+    $(document).on 'click', '.editing-button-view', (event) =>
+      @thumbnailSize = $(event.currentTarget).data('size')
+      @_changeThumbnailSize()
 
   _initializeUploader: ->
     MediabrowserUploader.init(@modal)
@@ -98,15 +134,11 @@
     MediabrowserUploader.onUploadSuccess = (objs) =>
       @_updateItems()
 
-  _highlightSelected: (element) ->
-    @_removeSelectionHighlight()
-    element.addClass('selected')
-
   _loadModalMarkup: ->
     @modal.html('')
 
     $.ajax
-      url: '/mediabrowser'
+      url: '/mediabrowser/modal'
       dataType: 'json'
       success: (json) =>
         @modal.html(json.content)
@@ -117,33 +149,68 @@
         MediabrowserInspector.init(@modal)
         @_initializeUploader()
 
-  _removeSelectionHighlight: ->
-    @modal.find('tr.selected').removeClass('selected')
-
   _showLoading: ->
-    @modal.find(@loadingSelector).show()
-    @modal.find(@itemsSelector).hide()
+    @modal.find('.editing-mediabrowser-items').html('
+      <div class="editing-mediabrowser-loading">
+        <i class="editing-icon">&#xF03D;</i>
+      </div>')
 
-  _hideLoading: ->
-    @modal.find(@loadingSelector).hide()
-    @modal.find(@itemsSelector).show()
+  _changeThumbnailSize: ->
+    size = @thumbnailSize
+    $('.editing-mediabrowser-thumbnails')
+      .removeClass('small big large')
+      .addClass(size)
+    $('.editing-button-view').removeClass('active')
+    $(".editing-button-view[data-size='#{size}']").addClass('active')
+
+  _removeSelectionHighlight: ->
+    @modal.find('li.mediabrowser-item.active').removeClass('active')
+
+  _highlightSelected: (element) ->
+    @_removeSelectionHighlight()
+    element.addClass('active')
 
   init: ->
+    unless $(@overlayBackgroundSelector).length
+      @overlay = $('<div class="editing-overlay hide"></div>')
+      $('body').append @overlay
+
     unless $(@modalSelector).length
-      @modal = $('<div id="ip-mediabrowser" class="modal hide"></div>')
-      appContainment = $('body').append @modal
+      @modal = $('<div id="editing-mediabrowser" class="editing-mediabrowser hide"></div>')
+      $('body').append @modal
 
     @_setDefaults()
     @_initializeBindings()
+    @_changeThumbnailSize()
+
+  _reset: () ->
+    @_setDefaults()
+    @_updateItems()
+    @_setFilterSelection()
+    @_updateSelected()
+    @_changeThumbnailSize()
+    MediabrowserInspector.close()
 
   close: () ->
     @_setDefaults()
-    @modal.modal('hide')
+    $(@overlayBackgroundSelector).toggleClass('show', false)
+    $(@modalSelector).toggleClass('show', false)
 
   open: () ->
     @_loadModalMarkup()
-    @modal.modal('show')
-
+    $(@overlayBackgroundSelector).toggleClass('show', true)
+    $(@modalSelector).toggleClass('show', true)
+    $(@modalSelector).center()
 
 $ ->
   Mediabrowser.init()
+
+jQuery.fn.center = ->
+  if @length == 1
+    @css
+      marginLeft: -this.innerWidth() / 2
+      marginTop: -this.innerHeight() / 2
+      left: '50%'
+
+$(window).resize ->
+  $('#editing-mediabrowser.show').center()
