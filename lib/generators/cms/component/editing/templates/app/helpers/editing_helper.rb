@@ -56,7 +56,7 @@ module EditingHelper
       end
 
       out << button_tag(class: 'editing-button editing-green add-link') do
-        content_tag(:i, '', class: 'editing-icon editing-icon-ok')
+        content_tag(:i, '', class: 'editing-icon editing-icon-plus')
       end
 
       out
