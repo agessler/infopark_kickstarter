@@ -45,7 +45,11 @@ $ ->
   removeLink = (event) ->
     event.preventDefault()
 
-    $(event.currentTarget).closest('li').remove()
+    target = $(event.currentTarget)
+    cmsField = getCmsField(target)
+
+    target.closest('li').remove()
+    save(cmsField)
 
   transformLinks = (cmsFields) ->
     items = cmsFields.find('li')
