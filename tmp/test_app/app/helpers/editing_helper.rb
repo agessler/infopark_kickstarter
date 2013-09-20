@@ -33,33 +33,33 @@ module EditingHelper
     end
   end
 
+  def cms_edit_label(object, attribute_name)
+    content_tag(:h4) do
+      object.cms_attribute_definition(attribute_name)['title']
+    end
+  end
 
   def cms_edit_linklist(object, attribute_name)
     linklist = object.send(attribute_name)
 
-    content_tag(:ul) do
+    cms_tag(:div, object, attribute_name) do
       out = ''.html_safe
 
-      linklist.each do |link|
-        out << content_tag(:li) do
-          content_tag(:ul) do
-            html = ''.html_safe
+      out << content_tag(:ul) do
+        html = ''.html_safe
 
-            html << content_tag(:li, I18n.t('editing.linklist.title', title: link.title))
-            html << content_tag(:li, I18n.t('editing.linklist.url', url: link.url))
-
-            html
-          end
+        linklist.each do |link|
+          html << content_tag(:li, link.title, 'data-title' => link.title, 'data-url' => link.url)
         end
+
+        html
+      end
+
+      out << button_tag(class: 'editing-button editing-green add-link') do
+        content_tag(:i, '', class: 'editing-icon editing-icon-plus')
       end
 
       out
-    end
-  end
-
-  def cms_edit_label(object, attribute_name)
-    content_tag(:h4) do
-      object.cms_attribute_definition(attribute_name)['title']
     end
   end
 

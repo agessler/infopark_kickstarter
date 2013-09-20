@@ -25,6 +25,7 @@ module Cms
         def install_gems
           gem_group(:assets) do
             gem('bootstrap-datepicker-rails')
+            gem('jquery-ui-rails')
           end
 
           Bundler.with_clean_env do
@@ -44,7 +45,9 @@ module Cms
 
           data << ''
           data << '//= require editors/string_editor'
+          data << '//= require editors/linklist_editor'
           data << '//= require editing'
+          data << '//= require jquery.ui.sortable'
 
           data = data.join("\n")
 
@@ -58,6 +61,7 @@ module Cms
           data = []
           data << ''
           data << ' *= require editors/string_editor'
+          data << ' *= require editors/linklist_editor'
           data << ' *= require editing'
           data << ' *= require bootstrap-datepicker'
 

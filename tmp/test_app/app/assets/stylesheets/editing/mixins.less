@@ -31,6 +31,12 @@
           transition: @transition;
 }
 
+.box-shadow(@shadow) {
+  -webkit-box-shadow: @shadow;
+     -moz-box-shadow: @shadow;
+          box-shadow: @shadow;
+}
+
 .clearfix() {
   *zoom: 1;
 
@@ -75,5 +81,16 @@
         -ms-animation: progress-bar-stripes @duration linear infinite;
          -o-animation: progress-bar-stripes @duration linear infinite;
             animation: progress-bar-stripes @duration linear infinite;
+  }
+}
+
+.saving() {
+  .opacity(40);
+  .background-size(40px 40px);
+  #gradient > .hatched(#aaa);
+  #animation > .progress-bar-stripes(1s);
+
+  input {
+    .opacity(10);
   }
 }

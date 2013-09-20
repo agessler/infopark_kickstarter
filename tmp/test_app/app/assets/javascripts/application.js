@@ -19,7 +19,9 @@
 //= require redactor
 //= require editors/redactor.config
 //= require editors/string_editor
+//= require editors/linklist_editor
 //= require editing
+//= require jquery.ui.sortable
 //= require bootstrap-datepicker
 
 //= require_tree .

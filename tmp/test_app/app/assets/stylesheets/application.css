@@ -12,6 +12,7 @@
  *= require projekktor
  *= require editors/redactor
  *= require editors/string_editor
+ *= require editors/linklist_editor
  *= require editing
  *= require bootstrap-datepicker
  *= require bootstrap_and_override
