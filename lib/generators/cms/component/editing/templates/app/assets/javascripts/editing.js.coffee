@@ -25,7 +25,9 @@ $ ->
 
     for cmsEditEnum in cmsEditEnums
       $(cmsEditEnum).on 'focusout', ->
-        cmsEditEnum.infopark('save', $(cmsEditEnum).val())
+        element = $(@)
+
+        element.infopark('save', element.val())
 
 
   # Define editor behavior for date attributes.
@@ -42,4 +44,5 @@ $ ->
         # Set date hour to 12 to work around complex time zone handling.
         date.setHours(12)
 
-        $(cmsEditDate).infopark('save', date)
+        cmsField = $(@).closest('[data-ip-field-type=date]')
+        cmsField.infopark('save', date)

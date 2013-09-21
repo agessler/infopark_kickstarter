@@ -1,4 +1,8 @@
 # v3.2.0
+  * Bugfix: The date editor did not trigger a save operation when the date selection window was 
+    closed. (Thanks @gertimon)
+  * Bugfix: The enum and multienum editor did not work when multiple enum cms fields were present on
+    an edit view. (Thanks @gertimon)
   * A linklist editor now allows you to create, update and delete links in a CMS linklist on the
     edit view of a page or widget. The `cms_edit_linklist` helper renders the needed HTML DOM
     structure, that is handled by the `linklist_editor.js.coffee` file.
