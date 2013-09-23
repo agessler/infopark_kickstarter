@@ -29,7 +29,7 @@ There are also integration tests, that can be run by:
 In order to run the tests successfully, you need to download the application configuration from the
 [Infopark Console](https://console.infopark.net) and unpack it into the ```config``` folder.
 
-The integration tests create an entire new application execute ```rails generate cms:kickstart```
+The integration tests create an entire new application, execute ```rails generate cms:kickstart```
 and run a few other generators and then execute the tests of the newly created application.
 
 
