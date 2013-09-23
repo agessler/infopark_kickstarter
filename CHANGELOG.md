@@ -1,5 +1,6 @@
 # v3.2.0
-  * Bugfix: The date editor did not trigger a save operation when the date selection window was 
+  * Added Redo and Undo functionality to the Redactor html editor. (Thanks @marcelgo)
+  * Bugfix: The date editor did not trigger a save operation when the date selection window was
     closed. (Thanks @gertimon)
   * Bugfix: The enum and multienum editor did not work when multiple enum cms fields were present on
     an edit view. (Thanks @gertimon)
