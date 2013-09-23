@@ -1,4 +1,5 @@
 # v3.2.0
+  * Added Redo and Undo functionality to the Redactor html editor. (Thanks @marcelgo)
   * The video widget is now more responsive to browser size changes and adopts accordingly.
     (Thanks @gertimon and @marcelgo)
   * We implemented autosave for the redactor html editor. Every 3 seconds when the content has
