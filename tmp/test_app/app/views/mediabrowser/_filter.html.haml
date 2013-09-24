@@ -1,7 +1,7 @@
 .editing-mediabrowser-filter
   %ul.editing-mediabrowser-filter-items
     %li.filter.all
-      %i.editing-icon.editing-icon-search{title: "Results"}
+      %i.editing-icon.editing-icon-search{title: t('.results')}
 
       %span.editing-mediabrowser-filter-name
         = t('.results')
@@ -9,13 +9,13 @@
           0
 
     - @searchable_classes.each do |obj_class|
-      %li.filter{data: {obj_class: "#{obj_class}"}}
-        %i.editing-icon{title: "#{obj_class}", class: "editing-icon-#{t(".icon_class.#{obj_class.underscore}")}"}
+      %li.filter{data: {obj_class: obj_class}}
+        %i.editing-icon{title: obj_class, class: "editing-icon-#{t(".icon_class.#{obj_class.underscore}")}"}
         %span.editing-mediabrowser-filter-name
           = t(".#{obj_class.underscore}")
 
     %li.filter.selected-items
-      %i.editing-icon.editing-icon-ok-box{title: 'Selected'}
+      %i.editing-icon.editing-icon-ok-box{title: t('.selected')}
 
       %span.editing-mediabrowser-filter-name
         = t('.selected')
