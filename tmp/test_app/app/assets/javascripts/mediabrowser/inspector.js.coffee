@@ -1,26 +1,29 @@
 @MediabrowserInspector = do ->
   inspectorSelector: '.editing-mediabrowser-inspector'
-  containerSelector: '.inspector-content'
-  container: undefined
+  inspector: undefined
+
+  contentSelector: '.inspector-content'
+  contentContainer: undefined
+
+  objectId: undefined
 
   _initializeBindings: ->
     @modal.on 'click', 'li.mediabrowser-item', (event) =>
       @_onInspect(event)
 
     @modal.on 'click', '.delete-button', (event) =>
-      id = $(event.currentTarget).data('id')
-      console.log("Delete called for #{id}")
+      console.log("Delete called for #{@objectId}")
 
     @modal.on 'click', 'a.inspector-close', (event) =>
       event.preventDefault()
       @close()
 
-    @container = @modal.find(@containerSelector)
+    @contentContainer = @modal.find(@contentSelector)
+    @inspector = @modal.find(@inspectorSelector)
 
   _onInspect: (event) ->
     unless $(event.target).hasClass('select-item')
-      element = $(event.currentTarget)
-      id = element.data('id')
+      id = $(event.currentTarget).data('id')
 
       @open(id)
 
@@ -28,32 +31,31 @@
     @modal = modal
     @_initializeBindings()
 
-  open: (id) ->
-    $(@inspectorSelector).show()
-    $(@containerSelector).html('
+  open: (objectId) ->
+    @objectId = objectId
+
+    @inspector.show()
+    @contentContainer.html('
       <div class="editing-mediabrowser-loading">
         <i class="editing-icon editing-icon-refresh"></i>
       </div>
     ')
+
     data =
-      id: id
+      id: @objectId
 
     $.ajax
       url: '/mediabrowser/edit'
       dataType: 'json'
       data: data
       success: (json) =>
-        @container.html(json.content)
-        @_updateId(id)
+        @contentContainer.html(json.content)
         @_updateTitle(json.meta.title)
-        infopark.editing.refresh(@container)
+        infopark.editing.refresh(@contentContainer)
 
   close: ->
-    @container.html('')
-    $(@inspectorSelector).hide()
-
-  _updateId: (id) ->
-    $(@inspectorSelector).find('.delete-button').data(id: id)
+    @contentContainer.html('')
+    @inspector.hide()
 
   _updateTitle: (title) ->
-    $(@inspectorSelector).find('span.title').text(title)
+    @inspector.find('span.title').text(title)
