@@ -1,4 +1,5 @@
 # v3.2.0
+  * Turned on email links by default for the Redactor html editor. (Thanks @mremolt)
   * Added Redo and Undo functionality to the Redactor html editor. (Thanks @marcelgo)
   * Bugfix: The date editor did not trigger a save operation when the date selection window was
     closed. (Thanks @gertimon)
