@@ -26,11 +26,11 @@ There are also integration tests, that can be run by:
 
     $ rake test:integration
 
-In order to run the tests successfully, you need to create a ```config/local.yml``` file and put in your
-test project data. See [local.yml.template](https://github.com/infopark/infopark_kickstarter/blob/master/config/local.yml.template)
-for what is needed exactly. The integration tests create an entire new application execute
-```rails generate cms:kickstart``` and run a few other generators and then execute the tests of the
-newly created application.
+In order to run the tests successfully, you need to download the application configuration from the
+[Infopark Console](https://console.infopark.net) and unpack it into the ```config``` folder.
+
+The integration tests create an entire new application, execute ```rails generate cms:kickstart```
+and run a few other generators and then execute the tests of the newly created application.
 
 
 ## Changelog
