@@ -42,10 +42,16 @@
     @_updateItems()
 
   _save: () ->
+    if @selected.length == 1 && @destinationField
+      @destinationField.val(@_buildUrl(@selected))
+
     if @selected.length
       $('.mediabrowser-selected').html(@selected.join(', '))
 
     @close()
+
+  _buildUrl: (id) ->
+    "#{document.location.origin}/#{id}"
 
   _updateSelected: ->
     items = @modal.find('li.mediabrowser-item .select-item.active')
