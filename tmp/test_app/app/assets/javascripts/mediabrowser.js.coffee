@@ -112,7 +112,7 @@
     $(document).on 'click', '.mediabrowser-reset', =>
       @_reset()
 
-    $(document).on 'click', 'a.mediabrowser', =>
+    $(document).on 'click', 'button.mediabrowser', =>
       @open()
 
     $(document).on 'click', 'li.filter', (event) =>

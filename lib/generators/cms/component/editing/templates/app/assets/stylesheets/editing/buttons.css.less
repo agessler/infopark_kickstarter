@@ -1,0 +1,198 @@
+@import "editing/mixins";
+
+.editing-button {
+  border: 1px solid #bbb;
+  color: #333;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 14px;
+  margin: 0 10px 10px 0;
+  min-height: 14px;
+  min-width: 20px;
+  padding: 7px 10px;
+  text-align: center;
+  text-shadow: 0 1px 0 #fff;
+  vertical-align: middle;
+
+  #gradient.vertical(#fff, #dfdfdf);
+  .border-radius(5px);
+  .box-shadow(0 0 3px #fff);
+  .user-select(none);
+
+  &:hover {
+    border: 1px solid #ccc;
+    color: #333;
+    cursor: pointer;
+
+    #gradient.vertical(#fff, #f6f6f6);
+  }
+
+  &:active {
+    border: 1px solid #bbb;
+    color: #333;
+    cursor: pointer;
+
+    #gradient.vertical(#eee, #ccc);
+  }
+}
+
+
+input.editing-button {
+  height: 30px;
+}
+
+a.editing-button,
+a.editing-button:active {
+  text-decoration: none;
+}
+
+.editing-button.editing-darkgrey {
+  #gradient.vertical(#666 ,#444);
+
+  border: 1px solid #555;
+  color: #fff;
+  text-shadow: 0 1px 0 #333;
+
+  &:hover {
+    #gradient.vertical(#888, #666);
+
+    border: 1px solid #222;
+    color: #fff;
+  }
+
+  &:active {
+    #gradient.vertical(#666, #333);
+
+    border: 1px solid #111;
+    color: #fff;
+  }
+}
+
+.editing-button.editing-blue {
+  #gradient.vertical(#7f91b5, #3e5a81);
+
+  border: 1px solid #555;
+  color: #fff;
+  text-shadow: 0 1px 0 #333;
+
+  &:hover {
+    #gradient.vertical(#7f91b5, #586c93);
+
+    border: 1px solid #222;
+    color: #fff;
+  }
+
+  &:active {
+    #gradient.vertical(#6c7ea3, #586c93);
+
+    border: 1px solid #111;
+    color: #fff;
+  }
+}
+
+.editing-button.editing-green {
+  #gradient.vertical(#a5bc83, #587041);
+
+  border: 1px solid #555;
+  color: #fff;
+  text-shadow: 0 1px 0 #333;
+
+  &:hover {
+    #gradient.vertical(#a5bc83, #738a55);
+
+    border: 1px solid #222;
+    color: #fff;
+  }
+
+  &:active {
+    #gradient.vertical(#8ea36f, #485e32);
+
+    border: 1px solid #111;
+    color: #fff;
+  }
+}
+
+.editing-button.editing-red {
+  #gradient.vertical(#c66763, #742621);
+
+  border: 1px solid #555;
+  color: #fff;
+  text-shadow: 0 1px 0 #333;
+
+  &:hover {
+    #gradient.vertical(#c66763, #a24b46);
+
+    border: 1px solid #222;
+    color: #fff;
+  }
+
+  &:active {
+    #gradient.vertical(#c66763, #8b3934);
+
+    border: 1px solid #111;
+    color: #fff;
+  }
+}
+
+.editing-button.editing-yellow {
+  #gradient.vertical(#d7ba68, #86772b);
+
+  border: 1px solid #555;
+  color: #fff;
+  text-shadow: 0 1px 0 #333;
+
+  &:hover {
+    #gradient.vertical(#cbb060, #bda458);
+
+    border: 1px solid #222;
+    color: #fff;
+  }
+
+  &:active {
+    #gradient.vertical(#c8ad5d, #928235);
+
+    border: 1px solid #111;
+    color: #fff;
+  }
+}
+
+.editing-button.editing-disabled,
+.editing-button.editing-disabled:hover,
+.editing-button.editing-disabled:active {
+  border-color: #bbb!important;
+  color: #aaa!important;
+  cursor: not-allowed;
+  text-shadow: 0 1px 0 #fff!important;
+
+  #gradient.vertical(#efefef, #cfcfcf);
+}
+
+.editing-button.editing-disabled .editing-icon {
+  color: #aaa!important;
+  text-shadow: 0 1px 0 #fff!important;
+}
+
+.editing-button .editing-icon {
+  color: #333;
+  font-size: 9px;
+  line-height: 14px;
+  text-shadow: 0 1px 1px #fff;
+
+  &:hover {
+    cursor:pointer;
+  }
+}
+
+.editing-button.editing-darkgrey,
+.editing-button.editing-blue,
+.editing-button.editing-green,
+.editing-button.editing-red,
+.editing-button.editing-yellow {
+  .editing-icon {
+    color: #fff;
+    text-shadow: 0 1px 1px #333;
+  }
+}

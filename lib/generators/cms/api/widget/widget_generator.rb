@@ -16,6 +16,7 @@ module Cms
         attr_accessor :attributes
         attr_accessor :preset_attributes
         attr_accessor :mandatory_attributes
+        attr_accessor :edit_view
 
         def initialize(config = {})
           yield self if block_given?
@@ -47,10 +48,12 @@ module Cms
         end
 
         def create_edit_view
-          Api::EditViewGenerator.new(behavior: behavior) do |model|
-            model.path = "#{widget_path}/views"
-            model.definitions = attributes
-            model.object_variable = '@widget'
+          if edit_view?
+            Api::EditViewGenerator.new(behavior: behavior) do |model|
+              model.path = "#{widget_path}/views"
+              model.definitions = attributes
+              model.object_variable = '@widget'
+            end
           end
         end
 
@@ -88,6 +91,10 @@ module Cms
         end
 
         private
+
+        def edit_view?
+          @edit_view.nil? ? true : @edit_view
+        end
 
         def icon
           @icon ||= 'puzzle'

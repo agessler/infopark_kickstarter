@@ -1,0 +1,113 @@
+@font-face {
+  font-family: 'editing_iconsregular';
+  font-style: normal;
+  src: font-url('editing_icons-webfont.eot');
+  src: asset-data-url('editing_icons-webfont.woff') format('woff'),
+    font-url('editing_icons-webfont.ttf') format('truetype');
+  font-weight: normal;
+}
+
+.editing-icon {
+  display: inline-block;
+  float: left;
+  font-family: 'editing_iconsregular';
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.thumbnail-icon {
+  color: #888;
+  display: block;
+  font-family: 'editing_iconsregular';
+  font-size: 65px;
+  font-style:normal;
+  line-height: 125px;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  text-shadow: 0 1px 5px #fff;
+  user-select: none;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+}
+
+.editing-icon-ip:after { content: "\F000"; }
+.editing-icon-text:after { content: "\F001"; }
+.editing-icon-image:after { content: "\F002"; }
+.editing-icon-headline:after { content: "\F003"; }
+.editing-icon-video:after { content: "\F004"; }
+.editing-icon-map:after { content: "\F005"; }
+.editing-icon-table:after { content: "\F006"; }
+.editing-icon-slider:after { content: "\F007"; }
+.editing-icon-list:after { content: "\F008"; }
+.editing-icon-downloads:after { content: "\F009"; }
+.editing-icon-person:after { content: "\F00A"; }
+.editing-icon-presentation:after { content: "\F00B"; }
+.editing-icon-login:after { content: "\F00C"; }
+.editing-icon-teaser:after { content: "\F00D"; }
+.editing-icon-interactive:after { content: "\F00E"; }
+.editing-icon-hr:after { content: "\F00F"; }
+.editing-icon-1col:after { content: "\F010"; }
+.editing-icon-2cols:after { content: "\F011"; }
+.editing-icon-2colsl:after { content: "\F012"; }
+.editing-icon-2colsr:after { content: "\F013"; }
+.editing-icon-3cols:after { content: "\F014"; }
+.editing-icon-box:after { content: "\F020"; }
+.editing-icon-puzzle:after { content: "\F021"; }
+.editing-icon-search:after { content: "\F022"; }
+.editing-icon-dates:after { content: "\F023"; }
+.editing-icon-newsletter:after { content: "\F024"; }
+.editing-icon-special:after { content: "\F025"; }
+.editing-icon-edit:after { content: "\F026"; }
+.editing-icon-ok:after { content: "\F027"; }
+.editing-icon-cancel:after { content: "\F028"; }
+.editing-icon-trash:after { content: "\F038"; }
+.editing-icon-chevron-up:after { content: "\F039"; }
+.editing-icon-chevron-down:after { content: "\F03A"; }
+.editing-icon-chevron-left:after { content: "\F03B"; }
+.editing-icon-chevron-right:after { content: "\F03C"; }
+.editing-icon-refresh:after { content: "\F03D"; }
+.editing-icon-reorder:after { content: "\F03E"; }
+.editing-icon-th-small:after { content: "\F03F"; }
+.editing-icon-th-medium:after { content: "\F040"; }
+.editing-icon-th:after { content: "\F041"; }
+.editing-icon-th-large:after { content: "\F042"; }
+.editing-icon-search:after { content: "\F043"; }
+.editing-icon-plus:after { content: "\F044"; }
+
+
+// placeholder icons
+
+.ip_field_editable:empty:before {
+  font-family: 'editing_iconsregular';
+  font-style: normal;
+  font-weight: normal;
+  vertical-align: middle;
+  text-decoration: none;
+  color: #ccc;
+  display: block;
+  font-size: 13px;
+  padding: 0;
+  margin: 0;
+  line-height: 35px !important;
+  content: '\F015';
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.ip_field_editable[data-ip-field-type=string]:empty:before { content: '\F016'; }
+.ip_field_editable[data-ip-field-type=text]:empty:before { content: '\F017'; }
+.ip_field_editable[data-ip-field-type=html]:empty:before { content: '\F018'; }
+.ip_field_editable[data-ip-field-type=enum]:empty:before { content: '\F019'; }
+.ip_field_editable[data-ip-field-type=multienum]:empty:before { content: '\F01A'; }
+.ip_field_editable[data-ip-field-type=boolean]:empty:before { content: '\F01B'; }
+.ip_field_editable[data-ip-field-type=date]:empty:before { content: '\F01C'; }
+.ip_field_editable[data-ip-field-type=linklist]:empty:before { content: '\F01D'; }
