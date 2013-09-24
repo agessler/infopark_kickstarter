@@ -5,7 +5,8 @@ $ ->
 
   saveAction = ->
     @getBox().addClass('saving')
-    saveContents(@, true)
+    saveContents(@).done =>
+      @.destroy()
 
   cancelAction = ->
     cancelEditing(@)
@@ -78,22 +79,17 @@ $ ->
         autosaveAction(@)
         html
 
-  saveContents = (editor, closeEditor = false) ->
+  saveContents = (editor) ->
     content = editor.get()
 
     if savedContent != content
-      editor.$element.infopark('save', content).done( ->
+      editor.$element.infopark('save', content).done ->
         savedContent = content
-        # close editor after safe
-        if closeEditor
-          editor.destroy()
-      ).fail( ->
+      .fail ->
         editor.getBox().removeClass('saving')
-      )
+
     else
-      # close editor in case of no save needed
-      if closeEditor
-        editor.destroy()
+      $.Deferred().resolve()
 
   cancelEditing = (editor) ->
     editor.set(originalContent)
