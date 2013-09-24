@@ -9,6 +9,7 @@
     @query = ''
     @objClass = undefined
     @thumbnailSize = 'small'
+    @allowedLength = undefined
 
   _onPageChange: (event) ->
     event.preventDefault()
@@ -57,9 +58,16 @@
     @modal.find('.selected-total').html(@selected.length)
 
   _removeItem: (element) ->
+    $(element).removeClass('active')
     @selected = @selected.filter (item) ->
       item != $(element).closest('.mediabrowser-item').data('id')
     @modal.find('.selected-total').html(@selected.length)
+
+  _deselectAllItems: ->
+    items = @modal.find('li.mediabrowser-item .select-item.active')
+    items.each (_, element) ->
+      $(element).removeClass('active')
+    @selected = []
 
   _updateItems: (data) ->
     @_showLoading()
@@ -95,13 +103,14 @@
         @_highlightSelected($(event.currentTarget))
 
     $(document).on 'click', 'li.mediabrowser-item .select-item', (event) =>
-      $current = $(event.currentTarget)
-      $current.toggleClass('active')
+      if @allowedLength == 1
+        @_deselectAllItems()
 
-      if $current.hasClass('active')
-        @_updateSelected()
-      else
-        @_removeItem($current)
+      $(event.currentTarget).toggleClass('active')
+      @_updateSelected()
+
+    $(document).on 'click', 'li.mediabrowser-item .select-item.active', (event) =>
+      @_removeItem(event.currentTarget)
 
     $(document).on 'click', '.mediabrowser-save', =>
       @_save()
@@ -112,7 +121,12 @@
     $(document).on 'click', '.mediabrowser-reset', =>
       @_reset()
 
-    $(document).on 'click', 'button.mediabrowser', =>
+    $(document).on 'click', 'a.mediabrowser-open', (event) =>
+      @allowedLength = $(event.currentTarget).data('mediabrowser-configuration-length')
+
+      if @allowedLength == 1
+        @destinationField = $(event.currentTarget).siblings("input[name=url]")
+
       @open()
 
     $(document).on 'click', 'li.filter', (event) =>

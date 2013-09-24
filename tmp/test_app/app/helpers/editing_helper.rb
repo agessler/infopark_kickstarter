@@ -49,13 +49,13 @@ module EditingHelper
         html = ''.html_safe
 
         linklist.each do |link|
-          html << content_tag(:li, link.title, 'data-title' => link.title, 'data-url' => link.url)
+          html << content_tag(:li, link.title, 'data-title' => link.title, 'data-url' => link.url, 'data-length' => 1)
         end
 
         html
       end
 
-      out << button_tag(class: 'editing-button editing-green mediabrowser') do
+      out << button_tag(class: 'editing-button editing-green mediabrowser-open') do
         "Mediabrowser"
       end
 

@@ -6,9 +6,13 @@ $ ->
 
     title = attributes['title'] || ''
     url = attributes['url'] || ''
+    length = attributes['length'] || 1
 
     $("<input type=\"text\" name=\"title\" value=\"#{title}\" placeholder=\"Title\" />
        <input type=\"text\" name=\"url\" value=\"#{url}\" placeholder=\"Url\" />
+       <a href=\"#\" class=\"editing-button mediabrowser-open\" data-mediabrowser-configuration-length=\"#{length}\">
+         &hellip;
+       </a>
        <a href=\"#\" class=\"editing-button editing-red\">
          <i class=\"editing-icon editing-icon-cancel\" />
        </a>")
@@ -60,6 +64,7 @@ $ ->
       content = template
         title: item.data('title')
         url: item.data('url')
+        length: item.data('length')
 
       item.html(content)
 
