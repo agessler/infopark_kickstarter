@@ -58,7 +58,7 @@ class MediabrowserController < ApplicationController
     render json: {
       content: content,
       meta: {
-        title: @obj.title.presence || @obj.name
+        title: @obj.name
       }
     }
   end
