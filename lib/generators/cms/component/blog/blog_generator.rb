@@ -69,7 +69,7 @@ module Cms
             ]
           end
 
-          Rails::Generators.invoke('cms:controller', [blog_post_class_name])
+          Rails::Generators.invoke('cms:controller', [blog_post_class_name], behavior: behavior)
         end
 
         def add_discovery_link

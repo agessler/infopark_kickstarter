@@ -137,7 +137,7 @@ module Cms
           ]
         end
 
-        Rails::Generators.invoke('cms:controller', [class_name])
+        Rails::Generators.invoke('cms:controller', [class_name], behavior: behavior)
 
         Api::ObjClassGenerator.new(behavior: behavior) do |model|
           model.name = 'Root'
@@ -176,7 +176,7 @@ module Cms
           ]
         end
 
-        Rails::Generators.invoke('cms:controller', [class_name])
+        Rails::Generators.invoke('cms:controller', [class_name], behavior: behavior)
 
         class_name = 'ErrorPage'
 
@@ -192,7 +192,7 @@ module Cms
           ]
         end
 
-        Rails::Generators.invoke('cms:controller', [class_name])
+        Rails::Generators.invoke('cms:controller', [class_name], behavior: behavior)
 
         migration_template('create_structure.rb', 'cms/migrate/create_structure.rb')
       end
@@ -202,22 +202,22 @@ module Cms
       end
 
       def add_initial_content
-        Rails::Generators.invoke('cms:component:editing', ['--editor=redactor'])
-        Rails::Generators.invoke('cms:component:developer_tools')
-        Rails::Generators.invoke('cms:component:search')
-        Rails::Generators.invoke('cms:component:login_page')
-        Rails::Generators.invoke('cms:component:sitemap')
+        Rails::Generators.invoke('cms:component:editing', ['--editor=redactor'], behavior: behavior)
+        Rails::Generators.invoke('cms:component:developer_tools', [], behavior: behavior)
+        Rails::Generators.invoke('cms:component:search', [], behavior: behavior)
+        Rails::Generators.invoke('cms:component:login_page', [], behavior: behavior)
+        Rails::Generators.invoke('cms:component:sitemap', [], behavior: behavior)
 
         unless examples?
-          Rails::Generators.invoke('cms:widget:text')
-          Rails::Generators.invoke('cms:widget:image')
-          Rails::Generators.invoke('cms:widget:headline')
+          Rails::Generators.invoke('cms:widget:text', [], behavior: behavior)
+          Rails::Generators.invoke('cms:widget:image', [], behavior: behavior)
+          Rails::Generators.invoke('cms:widget:headline' [], behavior: behavior)
         end
       end
 
       def create_example_content
         if examples?
-          Rails::Generators.invoke('cms:kickstart:example')
+          Rails::Generators.invoke('cms:kickstart:example', [], behavior: behavior)
         end
       end
 
