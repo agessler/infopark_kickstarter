@@ -44,6 +44,7 @@ $ ->
       focus: true
       convertDivs: false
       linebreaks: true
+      linkEmail: true
       buttons: ['saveButton', 'cancelButton',
         '|', 'undoButton', 'redoButton',
         '|', 'formatting',
