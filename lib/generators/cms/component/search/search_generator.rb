@@ -53,7 +53,7 @@ module Cms
             ]
           end
 
-          Rails::Generators.invoke('cms:controller', [class_name])
+          Rails::Generators.invoke('cms:controller', [class_name], behavior: behavior)
 
           migration_template('example_migration.rb', 'cms/migrate/create_search_page_example.rb')
         end

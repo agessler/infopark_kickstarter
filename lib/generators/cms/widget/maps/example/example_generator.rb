@@ -24,8 +24,9 @@ module Cms
           end
 
           def run_generator_for_selected_provider
-            provider_options = Thor::Options.to_switches(options).split
-            Rails::Generators.invoke("cms:widget:maps:#{options[:provider]}:example", provider_options)
+            generator = "cms:widget:maps:#{options[:provider]}:example"
+
+            Rails::Generators.invoke(generator, args, behavior: behavior)
           end
         end
       end
