@@ -9,11 +9,11 @@ $ ->
     length = attributes['length'] || 1
 
     $("<input type=\"text\" name=\"title\" value=\"#{title}\" placeholder=\"Title\" />
-       <input type=\"text\" name=\"url\" value=\"#{url}\" placeholder=\"Url\" />
+       <input type=\"text\" name=\"url\" value=\"#{url}\" placeholder=\"Url\" class=\"editing-url\" />
        <a href=\"#\" class=\"editing-button mediabrowser-open\" data-mediabrowser-configuration-length=\"#{length}\">
          &hellip;
        </a>
-       <a href=\"#\" class=\"editing-button editing-red\">
+       <a href=\"#\" class=\"editing-button editing-red delete\">
          <i class=\"editing-icon editing-icon-cancel\" />
        </a>")
 
@@ -89,7 +89,7 @@ $ ->
         storeLastSaved(linklistElement, getAttributes(linklistElement))
 
       linklistElements.on 'blur', 'li input', onBlur
-      linklistElements.on 'click', 'li a', removeLink
+      linklistElements.on 'click', 'li a.delete', removeLink
       linklistElements.on 'click', 'button.add-link', addLink
 
       linklistElements.find('ul').sortable
