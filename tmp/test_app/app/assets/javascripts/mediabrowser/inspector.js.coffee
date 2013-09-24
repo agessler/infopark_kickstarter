@@ -32,7 +32,7 @@
     $(@inspectorSelector).show()
     $(@containerSelector).html('
       <div class="editing-mediabrowser-loading">
-        <i class="editing-icon">&#xF03D;</i>
+        <i class="editing-icon editing-icon-refresh"></i>
       </div>
     ')
     data =
