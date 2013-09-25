@@ -12,7 +12,7 @@ class User
   attribute :want_email
 
   def cache_attributes
-    attributes.slice('id', 'role_names')
+    attributes.slice('id', 'role_names', 'first_name', 'last_name')
   end
 
   def save
@@ -29,5 +29,9 @@ class User
 
   def fetch
     Infopark::Crm::Contact.find(id)
+  end
+
+  def full_name
+    [first_name, last_name].join(' ')
   end
 end

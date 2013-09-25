@@ -46,3 +46,4 @@ $ ->
 
         cmsField = $(@).closest('[data-ip-field-type=date]')
         cmsField.infopark('save', date)
+
