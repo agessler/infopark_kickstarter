@@ -22,7 +22,7 @@ class MediabrowserController < ApplicationController
         .reverse_order
 
       query.and(:_obj_class, :contains, obj_class) if obj_class.present?
-      query.and(:*, :contains_prefix, search_string) if @query.present?
+      query.and(:*, :contains_prefix, search_string) if search_string.present?
       query.and(:id, :contains, @selected) if selected_only?
 
       [query.take(100), query.count]
