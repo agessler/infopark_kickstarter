@@ -8,7 +8,7 @@
     @selected = []
     @query = ''
     @objClass = undefined
-    @thumbnailSize = 'small'
+    @_setThumbnailSize('small')
     @allowedLength = undefined
 
   _onPageChange: (event) ->
@@ -42,6 +42,7 @@
     @_updateItems()
 
   _save: () ->
+    # TODO: Use a callback instead of destinationField
     if @selected.length == 1 && @destinationField
       @destinationField.val(@_buildUrl(@selected)).focus()
 
@@ -53,14 +54,14 @@
   _buildUrl: (id) ->
     "#{document.location.origin}/#{id}"
 
-  _updateSelected: ->
-    items = @modal.find('li.mediabrowser-item .select-item.active')
+  _addItem: (element) ->
+    element = $(element)
+    element.addClass('active')
 
-    if items.length
-      ids = $.map items, (item) ->
-        $(item).closest('.mediabrowser-item').data('id')
+    id = element.closest('.mediabrowser-item').data('id')
 
-    @selected = $.unique(@selected.concat(ids || []))
+    @selected.push(id)
+    @selected = $.unique(@selected)
     @modal.find('.selected-total').html(@selected.length)
 
   _removeItem: (element) ->
@@ -82,7 +83,7 @@
     data['selected'] = @selected
     data['query'] = @query
     data['obj_class'] = @objClass
-    data['thumbnail_size'] = @thumbnailSize
+    data['thumbnail_size'] = @_getThumbnailSize()
 
     url = '/mediabrowser'
 
@@ -99,34 +100,8 @@
           @modal.find('.result-total').html(json.meta.total)
 
   _initializeBindings: ->
-    $(document).on 'keyup', '#editing-mediabrowser input.search_field', (event) =>
-      if event.keyCode == 13
-        @query = $(event.target).val()
-        @_updateItems()
-
-    $(document).on 'click', 'li.mediabrowser-item', (event) =>
-      unless $(event.target).hasClass('select-item')
-        @_highlightSelected($(event.currentTarget))
-
-    $(document).on 'click', 'li.mediabrowser-item .select-item', (event) =>
-      if @allowedLength == 1
-        @_deselectAllItems()
-
-      $(event.currentTarget).toggleClass('active')
-      @_updateSelected()
-
-    $(document).on 'click', 'li.mediabrowser-item .select-item.active', (event) =>
-      @_removeItem(event.currentTarget)
-
-    $(document).on 'click', '.mediabrowser-save', =>
-      @_save()
-
-    $(document).on 'click', '.mediabrowser-close', =>
-      @close()
-
-    $(document).on 'click', '.mediabrowser-reset', =>
-      @_reset()
-
+    # TODO: should be moved to 3rd parties: open() method should receive
+    # options, including a callback function to be called within save.
     $(document).on 'click', 'a.mediabrowser-open', (event) =>
       @allowedLength = $(event.currentTarget).data('mediabrowser-configuration-length')
 
@@ -135,12 +110,39 @@
 
       @open()
 
-    $(document).on 'click', 'li.filter', (event) =>
+    @modal.on 'keyup', 'input.search_field', (event) =>
+      if event.keyCode == 13
+        @query = $(event.target).val()
+        @_updateItems()
+
+    @modal.on 'click', 'li.mediabrowser-item', (event) =>
+      unless $(event.target).hasClass('select-item')
+        @_highlightItem($(event.currentTarget))
+
+    @modal.on 'click', 'li.mediabrowser-item .select-item', (event) =>
+      if @allowedLength == 1
+        @_deselectAllItems()
+
+      @_addItem(event.currentTarget)
+
+    @modal.on 'click', 'li.mediabrowser-item .select-item.active', (event) =>
+      @_removeItem(event.currentTarget)
+
+    @modal.on 'click', '.mediabrowser-save', =>
+      @_save()
+
+    @modal.on 'click', '.mediabrowser-close', =>
+      @close()
+
+    @modal.on 'click', '.mediabrowser-reset', =>
+      @_reset()
+
+    @modal.on 'click', 'li.filter', (event) =>
       @_onFilter(event)
 
-    $(document).on 'click', '.editing-button-view', (event) =>
-      @thumbnailSize = $(event.currentTarget).data('size')
-      @_changeThumbnailSize()
+    @modal.on 'click', '.editing-button-view', (event) =>
+      size = $(event.currentTarget).data('size')
+      @_setThumbnailSize(size)
 
   _initializeUploader: ->
     MediabrowserUploader.init(@modal)
@@ -175,19 +177,20 @@
         <i class="editing-icon editing-icon-refresh"></i>
       </div>')
 
-  _changeThumbnailSize: ->
-    size = @thumbnailSize
+  _getThumbnailSize: ->
+    @_thumbnailSize || 'small'
+
+  _setThumbnailSize: (size) ->
+    @_thumbnailSize = size
+
     $('.editing-mediabrowser-thumbnails')
       .removeClass('small big large')
       .addClass(size)
     $('.editing-button-view').removeClass('active')
     $(".editing-button-view[data-size='#{size}']").addClass('active')
 
-  _removeSelectionHighlight: ->
+  _highlightItem: (element) ->
     @modal.find('li.mediabrowser-item.active').removeClass('active')
-
-  _highlightSelected: (element) ->
-    @_removeSelectionHighlight()
     element.addClass('active')
 
   init: ->
@@ -201,14 +204,12 @@
 
     @_setDefaults()
     @_initializeBindings()
-    @_changeThumbnailSize()
 
   _reset: () ->
     @_setDefaults()
     @_updateItems()
     @_setFilterSelection()
     @_updateSelected()
-    @_changeThumbnailSize()
     MediabrowserInspector.close()
 
   close: () ->
@@ -217,6 +218,7 @@
     $(@modalSelector).toggleClass('show', false)
 
   open: () ->
+    # TODO: use future options to set defaults and remove _setDefaults from close()
     @_loadModalMarkup()
     $(@overlayBackgroundSelector).toggleClass('show', true)
     $(@modalSelector).toggleClass('show', true)
