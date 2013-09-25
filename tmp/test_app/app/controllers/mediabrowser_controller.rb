@@ -23,6 +23,7 @@ class MediabrowserController < ApplicationController
 
       query.and(:_obj_class, :contains, obj_class) if obj_class.present?
       query.and(:*, :contains_prefix, search_string) if @query.present?
+      query.and(:id, :contains, @selected) if selected_only?
 
       [query.take(100), query.count]
     end
@@ -32,18 +33,6 @@ class MediabrowserController < ApplicationController
       meta: {
         total: total
       }
-    }
-  end
-
-  def selection
-    @thumbnail_size = params[:thumbnail_size] || nil
-    @selected = params[:selected] || []
-
-    # TODO: check if the array-order is kept during find()
-    @hits = Obj.find(@selected)
-
-    render json: {
-      content: render_to_string('index'),
     }
   end
 
@@ -62,5 +51,11 @@ class MediabrowserController < ApplicationController
         title: @obj.name
       }
     }
+  end
+
+  protected
+
+  def selected_only?
+    params[:selected_only] == 'true'
   end
 end
