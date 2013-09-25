@@ -43,7 +43,7 @@
 
   _save: () ->
     if @selected.length == 1 && @destinationField
-      @destinationField.val(@_buildUrl(@selected))
+      @destinationField.val(@_buildUrl(@selected)).focus()
 
     if @selected.length
       $('.mediabrowser-selected').html(@selected.join(', '))
