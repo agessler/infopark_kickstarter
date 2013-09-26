@@ -23,9 +23,16 @@
 
   _onInspect: (event) ->
     unless $(event.target).hasClass('select-item')
-      id = $(event.currentTarget).data('id')
+      currentTarget = $(event.currentTarget)
+      id = currentTarget.data('id')
 
-      @open(id)
+      if id
+        @open(id)
+        @_highlightItem(currentTarget)
+
+  _highlightItem: (element) ->
+    @modal.find('li.mediabrowser-item.active').removeClass('active')
+    element.addClass('active')
 
   init: (modal) ->
     @modal = modal

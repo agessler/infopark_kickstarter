@@ -26,7 +26,7 @@
     @showSelection = $(event.currentTarget).hasClass('selected-items')
 
     @_highlightFilter(target)
-    @_updateItems()
+    @_renderPlaceholder()
 
   _save: () ->
     # TODO: Use a callback instead of destinationField
@@ -60,24 +60,84 @@
     items = @modal.find('li.mediabrowser-item .select-item.active')
     items.removeClass('active')
 
-  _updateItems: (data) ->
-    @_showLoading()
+  _calculateViewportValues: ->
+    # Takes the height of the container and substract the padding of the <ul> tag.
+    containerHeight = @modal.find('.editing-mediabrowser-items').height() - @modal.find('.editing-mediabrowser-thumbnails').pixels('padding-top')
+    # Get the width of the ul without left and right padding and the scrollbar of the parent <div>.
+    containerWidth = @modal.find('.editing-mediabrowser-thumbnails').width()
 
-    data ||= {}
-    data['selected'] = @selected
-    data['query'] = @query
-    data['obj_class'] = @objClass
-    data['thumbnail_size'] = @_getThumbnailSize()
-    data['selected_only'] = @showSelection
+    # Take the first container and get the width and height including margins, paddings and borders.
+    lineHeight = @modal.find('li.mediabrowser-item').outerHeight(true)
+    rowWidth = @modal.find('li.mediabrowser-item').outerWidth(true)
+
+    elementsPerRow = Math.floor(containerWidth / rowWidth)
+    rows = Math.ceil(containerHeight / lineHeight)
+
+    # Determine the position the user scrolled to.
+    scrollPosition = @modal.find('.editing-mediabrowser-items').scrollTop()
+
+    viewLimit = (elementsPerRow * rows)
+    viewIndex = Math.round(scrollPosition / lineHeight) * elementsPerRow
+
+    [viewIndex, viewLimit]
+
+  _renderContainerForItems: (containerTotal) ->
+    content = for index in [0...containerTotal] by 1
+      "<li class='mediabrowser-item' data-index='#{index}'>
+        <div class='editing-mediabrowser-loading'>
+          <i class='editing-icon editing-icon-refresh'></i>
+        </div>
+      </li>"
+    content = ("<ul class='items editing-mediabrowser-thumbnails #{@_getThumbnailSize()}'>#{content.join('')}</ul>")
+
+    @modal.find('.editing-mediabrowser-items').html(content)
+
+  _updateViewport: ->
+    [viewIndex, viewLimit] = @_calculateViewportValues()
+
+    #unless allObjectsLoaded(viewIndex, viewLimit)
+    @_renderContents(viewIndex, viewLimit)
+
+  _queryOptions: ->
+    selected: @selected
+    query: @query
+    obj_class: @objClass
+    thumbnail_size: @_getThumbnailSize()
+    selected_only: @showSelection
+
+  _renderPlaceholder: ->
+    @_showLoading()
+    query = @_queryOptions()
 
     $.ajax
       url: '/mediabrowser'
       dataType: 'json'
-      data: data
+      data: query
       success: (json) =>
-        @modal.find('.editing-mediabrowser-items').html(json.content)
-        if json.meta
-          @modal.find('.result-total').html(json.meta.total)
+        total = json.meta.total
+        if total > 0
+          @_renderContainerForItems(total)
+          @modal.find('.result-total').html(total)
+          @_updateViewport()
+
+  _renderContents: (viewIndex, viewLimit) ->
+    query = @_queryOptions()
+    query['limit'] = viewLimit
+    query['offset'] = viewIndex
+
+    $.ajax
+      url: '/mediabrowser'
+      dataType: 'json'
+      data: query
+      success: (json) =>
+        @_replacePlaceholder(json.objects, viewIndex)
+
+  _replacePlaceholder: (objects, viewIndex) ->
+    $(objects).each (index, object) =>
+      elementsViewIndex = index + viewIndex
+      element = @modal.find("li.mediabrowser-item[data-index=#{elementsViewIndex}]")
+      element.html(object.content)
+      element.data('id', object.id)
 
   _initializeBindings: ->
     # TODO: should be moved to 3rd parties: open() method should receive
@@ -93,10 +153,7 @@
     @modal.on 'keyup', 'input.search_field', (event) =>
       if event.keyCode == 13
         @query = $(event.target).val()
-        @_updateItems()
-
-    @modal.on 'click', 'li.mediabrowser-item', (event) =>
-      @_highlightItem($(event.currentTarget))
+        @_renderPlaceholder()
 
     @modal.on 'click', 'li.mediabrowser-item .select-item:not(.active)', (event) =>
       event.stopImmediatePropagation()
@@ -126,6 +183,16 @@
       size = $(event.currentTarget).data('size')
       @_setThumbnailSize(size)
 
+    @modal.on 'mediabrowser.markupLoaded', =>
+      # Bind events, which require the dom to be present, here.
+      @modal.find('.editing-mediabrowser-items').on 'scroll', =>
+        if @timer
+          clearTimeout(@timer)
+
+        @timer = setTimeout =>
+          @_updateViewport()
+        , 500
+
   _initializeUploader: ->
     MediabrowserUploader.init(@modal)
 
@@ -136,7 +203,7 @@
       console.log('Mediabrowser Uploader Error:', error)
 
     MediabrowserUploader.onUploadSuccess = (objs) =>
-      @_updateItems()
+      @_renderPlaceholder()
 
   _loadModalMarkup: ->
     @modal.html('')
@@ -148,10 +215,13 @@
         @modal.html(json.content)
 
         @_highlightFilter()
-        @_updateItems()
+        @_renderPlaceholder()
 
         MediabrowserInspector.init(@modal)
         @_initializeUploader()
+
+        @modal.trigger('mediabrowser.markupLoaded')
+
 
   _showLoading: ->
     @modal.find('.editing-mediabrowser-items').html('
@@ -165,15 +235,16 @@
   _setThumbnailSize: (size) ->
     @_thumbnailSize = size
 
+    transitionListener = 'webkitTransitionEnd.mediabrowser otransitionend.mediabrowser oTransitionEnd.mediabrowser msTransitionEnd.mediabrowser transitionend.mediabrowser'
+    @modal.on transitionListener, 'li.mediabrowser-item', (event) =>
+      @_updateViewport()
+      @modal.off transitionListener
+
     $('.editing-mediabrowser-thumbnails')
       .removeClass('small big large')
       .addClass(size)
     $('.editing-button-view').removeClass('active')
     $(".editing-button-view[data-size='#{size}']").addClass('active')
-
-  _highlightItem: (element) ->
-    @modal.find('li.mediabrowser-item.active').removeClass('active')
-    element.addClass('active')
 
   init: ->
     unless $(@overlayBackgroundSelector).length
@@ -189,9 +260,8 @@
 
   _reset: () ->
     @_setDefaults()
-    @_updateItems()
+    @_renderPlaceholder()
     @_highlightFilter()
-    @_updateSelected()
     MediabrowserInspector.close()
 
   close: () ->

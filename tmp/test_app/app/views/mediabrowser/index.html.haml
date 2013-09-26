@@ -1,4 +1,0 @@
-%ul.items.editing-mediabrowser-thumbnails{class: @thumbnail_size}
-  - @hits.each do |hit|
-    %li.mediabrowser-item{data: { id: hit.id }}
-      = render("mediabrowser/thumbnails/#{hit.obj_class.underscore}", hit: hit)

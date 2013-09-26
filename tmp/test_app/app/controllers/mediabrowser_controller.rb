@@ -12,10 +12,10 @@ class MediabrowserController < ApplicationController
     search_string = params[:query].presence || ''
     obj_class = params[:obj_class] || SEARCHABLE_CLASSES
     @selected = params[:selected] || []
-    @thumbnail_size = params[:thumbnail_size] || nil
     offset = (params[:offset].presence || 0).to_i
+    limit = (params[:limit] || 0).to_i
 
-    @hits, total = RailsConnector::Workspace.default.as_current do
+    total, hits = RailsConnector::Workspace.default.as_current do
       query = Obj.all
         .offset(offset)
         .order(:_last_changed)
@@ -25,11 +25,19 @@ class MediabrowserController < ApplicationController
       query.and(:*, :contains_prefix, search_string) if search_string.present?
       query.and(:id, :contains, @selected) if selected_only?
 
-      [query.take(100), query.count]
+      [query.count, query.take(limit)]
+    end
+
+    object_markup = []
+    hits.each do |hit|
+      object_markup << {
+        id: hit.id,
+        content: render_to_string("/mediabrowser/thumbnails/#{hit.obj_class.underscore}", locals: {hit: hit}),
+      }
     end
 
     render json: {
-      content: render_to_string,
+      objects: object_markup,
       meta: {
         total: total
       }
