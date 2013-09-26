@@ -2,13 +2,14 @@
   modalSelector: '#editing-mediabrowser'
   overlayBackgroundSelector: '.editing-overlay'
   loadingSelector: '.editing-mediabrowser-loading'
+  options: {}
 
   _setDefaults: ->
-    @selected = []
+    @options ||= {}
     @query = ''
     @objClass = undefined
     @_setThumbnailSize('small')
-    @allowedLength = undefined
+    @selected = @options.selection || []
 
   _highlightFilter: (element) ->
     @modal.find('li.filter.active').removeClass('active')
@@ -29,14 +30,9 @@
     @_renderPlaceholder()
 
   _save: () ->
-    # TODO: Use a callback instead of destinationField
-    if @selected.length == 1 && @destinationField
-      @destinationField.val(@_buildUrl(@selected)).focus()
+    (@options.onSave || $.noop)(@selected)
 
     @close()
-
-  _buildUrl: (id) ->
-    "#{document.location.origin}/#{id}"
 
   _addItem: (element) ->
     element = $(element)
@@ -155,16 +151,6 @@
       element.data('id', object.id)
 
   _initializeBindings: ->
-    # TODO: should be moved to 3rd parties: open() method should receive
-    # options, including a callback function to be called within save.
-    $(document).on 'click', 'a.mediabrowser-open', (event) =>
-      @allowedLength = $(event.currentTarget).data('mediabrowser-configuration-length')
-
-      if @allowedLength == 1
-        @destinationField = $(event.currentTarget).siblings("input[name=url]")
-
-      @open()
-
     @modal.on 'keyup', 'input.search_field', (event) =>
       if event.keyCode == 13
         @query = $(event.target).val()
@@ -173,7 +159,7 @@
     @modal.on 'click', 'li.mediabrowser-item .select-item:not(.active)', (event) =>
       event.stopImmediatePropagation()
 
-      if @allowedLength == 1
+      if @options.allowedLength == 1
         @_deselectAllItems()
 
       @_addItem(event.currentTarget)
@@ -272,23 +258,25 @@
       @modal = $('<div id="editing-mediabrowser" class="editing-mediabrowser hide"></div>')
       $('body').append @modal
 
-    @_setDefaults()
     @_initializeBindings()
 
   _reset: () ->
     @_setDefaults()
     @_renderPlaceholder()
     @_highlightFilter()
+    @modal.find('input.search_field').val('')
     MediabrowserInspector.close()
 
   close: () ->
-    @_setDefaults()
     @overlay.toggleClass('show', false)
     @modal.toggleClass('show', false)
 
-  open: () ->
-    # TODO: use future options to set defaults and remove _setDefaults from close()
+  open: (options) ->
+    @options = options
+    @_setDefaults()
+
     @_loadModalMarkup()
+
     @overlay.toggleClass('show', true)
     @modal.toggleClass('show', true)
     @modal.center()

@@ -6,11 +6,10 @@ $ ->
 
     title = attributes['title'] || ''
     url = attributes['url'] || ''
-    length = attributes['length'] || 1
 
     $("<input type=\"text\" name=\"title\" value=\"#{title}\" placeholder=\"Title\" />
        <input type=\"text\" name=\"url\" value=\"#{url}\" placeholder=\"Url\" class=\"editing-url\" />
-       <a href=\"#\" class=\"editing-button mediabrowser-open\" data-mediabrowser-configuration-length=\"#{length}\">
+       <a href=\"#\" class=\"editing-button mediabrowser-open\">
          &hellip;
        </a>
        <a href=\"#\" class=\"editing-button editing-red delete\">
@@ -28,6 +27,29 @@ $ ->
       cmsField.infopark('save', value).done ->
         storeLastSaved(cmsField, value)
 
+  # run when clicking the '...' button inside a li
+  onOpenMediabrowser = (event) ->
+    event.preventDefault()
+
+    linkItem = $(event.currentTarget).closest('li')
+
+    Mediabrowser.open
+      allowedLength: 1
+      selection: []
+      onSave: (selection) =>
+        onMediabrowserSaveLinkItem(selection, linkItem)
+
+  # media browser callback for saving a single link
+  onMediabrowserSaveLinkItem = (selection, linkItem) ->
+    url = buildUrl(selection[0])
+    linkItem.find('[name=url]').val(url)
+
+    # trigger save after inserting the value
+    cmsField = getCmsField(linkItem)
+    save(cmsField)
+
+    true
+
   getAttributes = (cmsField) ->
     items = $(cmsField).find('li')
 
@@ -37,6 +59,11 @@ $ ->
 
         'title': item.find('[name=title]').val()
         'url': item.find('[name=url]').val()
+
+  # Transforms an obj id into an url that can be parsed by the RailsConnector
+  # to establish an internal link.
+  buildUrl = (id) ->
+    "#{document.location.origin}/#{id}"
 
   addLink = (event) ->
     event.preventDefault()
@@ -91,6 +118,7 @@ $ ->
       linklistElements.on 'blur', 'li input', onBlur
       linklistElements.on 'click', 'li a.delete', removeLink
       linklistElements.on 'click', 'button.add-link', addLink
+      linklistElements.on 'click', 'a.mediabrowser-open', onOpenMediabrowser
 
       linklistElements.find('ul').sortable
         update: (event) ->
