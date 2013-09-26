@@ -45,17 +45,12 @@ module Cms
           end
 
           def display_notice
-            notice = if behavior == :invoke
-              'Please run "rake cms:cloud_config:edit" to add
-                "airbrake": { "api_key": "<your api key>" } to the platform
-                configuration.'
-            else
-              'Please run "rake cms:cloud_config:edit" to remove
-                "airbrake": { "api_key": "<your api key>" } from the platform
-                configuration.'
+            if behavior == :invoke
+              log(:config,
+                'Please add your Airbrake API key to the section ' +
+                '"airbrake" in "config/custom_cloud.yml".'
+              )
             end
-
-            log(:config, notice)
           end
         end
       end
