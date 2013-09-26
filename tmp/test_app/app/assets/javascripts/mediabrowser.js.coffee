@@ -151,6 +151,10 @@
       element.data('id', object.id)
 
   _initializeBindings: ->
+    $(document).on 'keyup', (event) =>
+      if event.keyCode == 27
+        @close()
+
     @modal.on 'keyup', 'input.search_field', (event) =>
       if event.keyCode == 13
         @query = $(event.target).val()
@@ -176,6 +180,9 @@
 
     @modal.on 'click', '.mediabrowser-reset', =>
       @_reset()
+
+    @modal.on 'mediabrowser.refresh', =>
+      @_renderPlaceholder()
 
     @modal.on 'click', 'li.filter', (event) =>
       @_onFilter(event)

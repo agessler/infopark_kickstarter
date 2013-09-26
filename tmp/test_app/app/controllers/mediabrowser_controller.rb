@@ -45,19 +45,17 @@ class MediabrowserController < ApplicationController
   end
 
   def edit
+    inspector_layout = 'mediabrowser/inspector'
     @obj = Obj.find(params[:id])
 
     content = begin
-      render_to_string(@obj.mediabrowser_edit_view_path)
+      render_to_string(@obj.mediabrowser_edit_view_path, layout: inspector_layout)
     rescue ActionView::MissingTemplate
-      render_to_string('obj/edit')
+      render_to_string('obj/edit', layout: inspector_layout)
     end
 
     render json: {
       content: content,
-      meta: {
-        title: @obj.name
-      }
     }
   end
 

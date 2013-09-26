@@ -1,4 +1,10 @@
 en:
+  layouts:
+    mediabrowser:
+      inspector:
+        delete: 'Delete'
+        details: 'Details'
+
   mediabrowser:
     button_bar:
       save: 'Save'

@@ -3,7 +3,6 @@
   inspector: undefined
 
   contentSelector: '.inspector-content'
-  contentContainer: undefined
 
   objectId: undefined
 
@@ -11,14 +10,13 @@
     @modal.on 'click', 'li.mediabrowser-item', (event) =>
       @_onInspect(event)
 
-    @modal.on 'click', '.delete-button', (event) =>
-      console.log("Delete called for #{@objectId}")
+    @modal.on 'click', '.delete-button', =>
+      @_onDelete()
 
     @modal.on 'click', 'a.inspector-close', (event) =>
       event.preventDefault()
       @close()
 
-    @contentContainer = @modal.find(@contentSelector)
     @inspector = @modal.find(@inspectorSelector)
 
   _onInspect: (event) ->
@@ -29,6 +27,19 @@
       if id
         @open(id)
         @_highlightItem(currentTarget)
+
+  _onDelete: ->
+    @_renderLoading()
+    infopark.delete_obj(@objectId).done =>
+      @close
+      @modal.trigger('mediabrowser.refresh')
+
+  _renderLoading: ->
+    @inspector.html('
+      <div class="editing-mediabrowser-loading">
+        <i class="editing-icon editing-icon-refresh"></i>
+      </div>
+    ')
 
   _highlightItem: (element) ->
     @modal.find('li.mediabrowser-item.active').removeClass('active')
@@ -42,11 +53,7 @@
     @objectId = objectId
 
     @inspector.show()
-    @contentContainer.html('
-      <div class="editing-mediabrowser-loading">
-        <i class="editing-icon editing-icon-refresh"></i>
-      </div>
-    ')
+    @_renderLoading()
 
     data =
       id: @objectId
@@ -56,13 +63,11 @@
       dataType: 'json'
       data: data
       success: (json) =>
-        @contentContainer.html(json.content)
-        @_updateTitle(json.meta.title)
-        infopark.editing.refresh(@contentContainer)
+        @inspector.html(json.content)
+        infopark.editing.refresh(@inspector)
+      error: =>
+        @inspector.html('')
 
   close: ->
-    @contentContainer.html('')
+    @inspector.html('')
     @inspector.hide()
-
-  _updateTitle: (title) ->
-    @inspector.find('span.title').text(title)
