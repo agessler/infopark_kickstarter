@@ -93,10 +93,23 @@
     @modal.find('.editing-mediabrowser-items').html(content)
 
   _updateViewport: ->
+    return unless @modal.find('ul.editing-mediabrowser-thumbnails').length
+
     [viewIndex, viewLimit] = @_calculateViewportValues()
 
-    #unless allObjectsLoaded(viewIndex, viewLimit)
-    @_renderContents(viewIndex, viewLimit)
+    [alreadyLoaded, viewIndex] = @_getStartIndex(viewIndex, viewLimit)
+
+    unless alreadyLoaded
+      @_renderContents(viewIndex, viewLimit)
+
+  _getStartIndex: (viewIndex, viewLimit) ->
+    maxIndex = viewIndex + viewLimit
+    for index in [viewIndex...maxIndex] by 1
+      element = $("li.mediabrowser-item[data-index=#{index}]")
+      unless element.data('id')
+        return [false, index]
+
+    [true, viewIndex]
 
   _queryOptions: ->
     selected: @selected
@@ -106,7 +119,7 @@
     selected_only: @showSelection
 
   _renderPlaceholder: ->
-    @_showLoading()
+    @_renderLoading()
     query = @_queryOptions()
 
     $.ajax
@@ -119,6 +132,8 @@
           @_renderContainerForItems(total)
           @modal.find('.result-total').html(total)
           @_updateViewport()
+        else
+          @_renderNoResults()
 
   _renderContents: (viewIndex, viewLimit) ->
     query = @_queryOptions()
@@ -197,7 +212,7 @@
     MediabrowserUploader.init(@modal)
 
     MediabrowserUploader.onUploadStart = (obj) =>
-      @_showLoading()
+      @_renderLoading()
 
     MediabrowserUploader.onUploadFailure = (error) =>
       console.log('Mediabrowser Uploader Error:', error)
@@ -222,8 +237,10 @@
 
         @modal.trigger('mediabrowser.markupLoaded')
 
+  _renderNoResults: ->
+    @modal.find('.editing-mediabrowser-items').html('')
 
-  _showLoading: ->
+  _renderLoading: ->
     @modal.find('.editing-mediabrowser-items').html('
       <div class="editing-mediabrowser-loading">
         <i class="editing-icon editing-icon-refresh"></i>

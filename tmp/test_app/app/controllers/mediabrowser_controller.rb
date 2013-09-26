@@ -11,7 +11,7 @@ class MediabrowserController < ApplicationController
   def index
     search_string = params[:query].presence || ''
     obj_class = params[:obj_class] || SEARCHABLE_CLASSES
-    @selected = params[:selected] || []
+    @selected = params[:selected] || [-1]
     offset = (params[:offset].presence || 0).to_i
     limit = (params[:limit] || 0).to_i
 
