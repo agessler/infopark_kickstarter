@@ -17,7 +17,7 @@ module Cms
         end
 
         def create_migration
-          Api::ObjClassGenerator.new(behavior: behavior) do |model|
+          Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
             model.name = blog_class_name
             model.title = 'Blog'
             model.page = true
@@ -40,7 +40,7 @@ module Cms
             ]
           end
 
-          Api::ObjClassGenerator.new(behavior: behavior) do |model|
+          Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
             model.name = blog_post_class_name
             model.title = 'Blog Post'
             model.thumbnail = false

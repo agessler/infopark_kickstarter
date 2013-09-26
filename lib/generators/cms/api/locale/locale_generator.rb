@@ -9,10 +9,10 @@ module Cms
         attr_accessor :path
         attr_accessor :translations
 
-        def initialize(config = {})
+        def initialize(options = {}, config = {})
           yield self if block_given?
 
-          super([name], {}, config)
+          super([name], options, config)
 
           self.invoke_all
         end
