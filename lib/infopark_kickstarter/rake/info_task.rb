@@ -88,7 +88,7 @@ module InfoparkKickstarter
       end
 
       def gem_version_for(name)
-        gemspec = Gem.latest_spec_for(name)
+        gemspec = Gem::Specification.find_by_name(name)
 
         if gemspec
           gemspec.version.to_s
