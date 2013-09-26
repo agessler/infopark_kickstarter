@@ -8,7 +8,7 @@ module Cms
         source_root File.expand_path('../templates', __FILE__)
 
         def create_migration
-          Api::ObjClassGenerator.new(behavior: behavior) do |model|
+          Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
             model.name = obj_class_name
             model.title = 'Profile'
             model.page = true

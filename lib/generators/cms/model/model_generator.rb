@@ -53,7 +53,7 @@ module Cms
         desc: 'Icon CSS class name'
 
       def create
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = name
           model.title = title
           model.description = description

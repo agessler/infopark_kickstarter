@@ -13,10 +13,10 @@ module Cms
         attr_accessor :mandatory_attributes
         attr_accessor :page
 
-        def initialize(config = {})
+        def initialize(options = {}, config = {})
           yield self if block_given?
 
-          super([name], {}, config)
+          super([name], options, config)
 
           self.invoke_all
         end

@@ -90,7 +90,7 @@ module Cms
       # TODO: remove special migration once the CMS tenant is properly reset after signup. This
       # should also allow to remove the "migration" variable on Api::ObjClassGenerator.
       def create_special_case_image
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = 'Image'
           model.type = :generic
           model.title = 'Image'
@@ -102,7 +102,7 @@ module Cms
       end
 
       def create_structure_migration_file
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = 'Video'
           model.type = :generic
           model.title = 'Video'
@@ -114,7 +114,7 @@ module Cms
 
         class_name = 'Homepage'
 
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = class_name
           model.title = 'Homepage'
           model.thumbnail = false
@@ -139,19 +139,19 @@ module Cms
 
         Rails::Generators.invoke('cms:controller', [class_name], behavior: behavior)
 
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = 'Root'
           model.title = 'Root'
           model.thumbnail = false
         end
 
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = 'Website'
           model.title = 'Website'
           model.thumbnail = false
         end
 
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = 'Container'
           model.title = 'Container'
           model.thumbnail = false
@@ -163,7 +163,7 @@ module Cms
 
         class_name = 'ContentPage'
 
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = class_name
           model.title = 'Content'
           model.page = true
@@ -180,7 +180,7 @@ module Cms
 
         class_name = 'ErrorPage'
 
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = class_name
           model.title = 'Error'
           model.thumbnail = false

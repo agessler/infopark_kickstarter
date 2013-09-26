@@ -10,10 +10,10 @@ module Cms
         attr_accessor :path
         attr_accessor :object_variable
 
-        def initialize(config = {})
+        def initialize(options = {}, config = {})
           yield self if block_given?
 
-          super([], {}, config)
+          super([], options, config)
 
           self.invoke_all
         end

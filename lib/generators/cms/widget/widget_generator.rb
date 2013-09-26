@@ -32,7 +32,7 @@ module Cms
         desc: 'List of mandatory attributes.'
 
       def create_widget
-        Api::WidgetGenerator.new(behavior: behavior) do |widget|
+        Api::WidgetGenerator.new(options, behavior: behavior) do |widget|
           widget.name = class_name
           widget.title = title
           widget.description = description

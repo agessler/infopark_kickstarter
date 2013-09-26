@@ -7,7 +7,7 @@ module Cms
         def create_migration
           class_name = 'Redirect'
 
-          Api::ObjClassGenerator.new(behavior: behavior) do |model|
+          Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
             model.name = class_name
             model.title = 'Redirect'
             model.page = true
