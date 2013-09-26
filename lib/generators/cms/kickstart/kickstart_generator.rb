@@ -211,7 +211,7 @@ module Cms
         unless examples?
           Rails::Generators.invoke('cms:widget:text', [], behavior: behavior)
           Rails::Generators.invoke('cms:widget:image', [], behavior: behavior)
-          Rails::Generators.invoke('cms:widget:headline' [], behavior: behavior)
+          Rails::Generators.invoke('cms:widget:headline', [], behavior: behavior)
         end
       end
 
