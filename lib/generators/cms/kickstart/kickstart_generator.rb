@@ -124,10 +124,9 @@ module Cms
             show_in_navigation_attribute,
             sort_key_attribute,
             {
-              name: 'error_not_found_page_link',
-              type: :linklist,
+              name: 'error_not_found_page',
+              type: :reference,
               title: 'Error Not Found Page',
-              max_size: 1,
             },
             {
               name: 'locale',

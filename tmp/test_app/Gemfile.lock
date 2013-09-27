@@ -1,6 +1,14 @@
 PATH
   remote: ../../../
   specs:
+    infopark_dashboard (0.0.1)
+      bundler
+      haml
+      infopark_cloud_connector (>= 6.9.2.1.125136549)
+      infopark_crm_connector (>= 1.0.1)
+      infopark_rails_connector (>= 6.9.2.1.125136549)
+      less-rails-bootstrap (~> 2.3)
+      rails (>= 3.2)
     infopark_kickstarter (3.1.1)
       bundler
       infopark_cloud_connector (>= 6.9.4)
@@ -92,14 +100,6 @@ GEM
     infopark_crm_connector (1.0.1)
       activeresource (>= 3)
       backports (>= 2.3)
-    infopark_dashboard (0.0.1)
-      bundler
-      haml
-      infopark_cloud_connector (>= 6.9.2.1.125136549)
-      infopark_crm_connector (>= 1.0.1)
-      infopark_rails_connector (>= 6.9.2.1.125136549)
-      less-rails-bootstrap (~> 2.3)
-      rails (>= 3.2)
     infopark_rails_connector (6.9.4)
       jquery-rails (~> 2.2.1)
       json (>= 1.7.7)

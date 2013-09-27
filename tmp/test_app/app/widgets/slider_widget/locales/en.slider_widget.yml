@@ -3,4 +3,4 @@ en:
   widgets:
     slider_widget:
       title: Slider widget
-      description: Creates a rotating slider galerie from a list of images.
+      description: Creates a rotating slider gallery from a list of images.

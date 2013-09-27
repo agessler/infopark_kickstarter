@@ -6,7 +6,7 @@ class LoginCell < Cell::Rails
     @current_user = current_user
     homepage = page.homepage
 
-    if homepage && homepage.login_page_link?
+    if homepage && homepage.login_page?
       @login_page = homepage.login_page
 
       render

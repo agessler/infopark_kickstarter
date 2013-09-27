@@ -3,7 +3,7 @@ class Homepage < Obj
   cms_attribute :main_content, type: :widget
   cms_attribute :show_in_navigation, type: :boolean
   cms_attribute :sort_key, type: :string
-  cms_attribute :error_not_found_page_link, type: :linklist
+  cms_attribute :error_not_found_page, type: :reference
   cms_attribute :locale, type: :string
 
   include Page
@@ -30,9 +30,5 @@ class Homepage < Obj
   # Overriden method +title+ from +Page+.
   def title
     read_attribute('title').presence
-  end
-
-  def error_not_found_page
-    error_not_found_page_link.destination_objects.first
   end
 end

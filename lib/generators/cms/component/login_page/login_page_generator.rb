@@ -4,6 +4,7 @@ module Cms
       class LoginPageGenerator < ::Rails::Generators::Base
         include Migration
         include BasePaths
+        include Actions
 
         source_root File.expand_path('../templates', __FILE__)
 
@@ -77,22 +78,10 @@ module Cms
         end
 
         def update_homepage_model
-          file = 'app/models/homepage.rb'
-
-          data = "\n  cms_attribute :login_page_link, type: :linklist, max_size: 1"
-          insert_point = "class Homepage < Obj"
-
-          insert_into_file(file, data, after: insert_point)
-
-          data = [
-            "\n",
-            '  def login_page',
-            '    login_page_link.destination_objects.first',
-            '  end',
-          ].join("\n")
-          insert_point = 'include Page'
-
-          insert_into_file(file, data, after: insert_point)
+          add_model_attribute('Homepage', {
+            name: 'login_page',
+            type: 'reference',
+          })
         end
 
         def update_footer_cell

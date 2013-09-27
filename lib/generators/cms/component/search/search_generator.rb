@@ -87,10 +87,9 @@ module Cms
 
         def search_page_attribute
           {
-            name: 'search_page_link',
-            type: :linklist,
+            name: 'search_page',
+            type: :reference,
             title: 'Search Page',
-            max_size: 1,
           }
         end
 
