@@ -43,6 +43,7 @@
     @selected.push(id)
     @selected = $.unique(@selected)
     @modal.find('.selected-total').html(@selected.length)
+    @_toggleSaveButton()
 
   _removeItem: (element) ->
     $(element).removeClass('active')
@@ -50,11 +51,15 @@
       item != $(element).closest('li.mediabrowser-item').data('id')
 
     @modal.find('.selected-total').html(@selected.length)
+    @_toggleSaveButton()
 
   _deselectAllItems: ->
     @selected = []
     items = @modal.find('li.mediabrowser-item .select-item.active')
     items.removeClass('active')
+
+  _toggleSaveButton: ->
+    @modal.find('.mediabrowser-save').toggleClass('editing-disabled', @selected.length == 0)
 
   _calculateViewportValues: ->
     # Takes the height of the container and substract the padding of the <ul> tag.
@@ -172,7 +177,7 @@
       event.stopImmediatePropagation()
       @_removeItem(event.currentTarget)
 
-    @modal.on 'click', '.mediabrowser-save', =>
+    @modal.on 'click', '.mediabrowser-save:not(.editing-disabled)', =>
       @_save()
 
     @modal.on 'click', '.mediabrowser-close', =>
@@ -227,6 +232,7 @@
 
         MediabrowserInspector.init(@modal)
         @_initializeUploader()
+        @_toggleSaveButton()
 
         @modal.trigger('mediabrowser.markupLoaded')
 
