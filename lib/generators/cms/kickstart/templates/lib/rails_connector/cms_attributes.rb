@@ -69,6 +69,24 @@ module RailsConnector
           define_method("#{name}?") do
             send(name).present?
           end
+        when :reference
+          define_method(name) do
+            self[name]
+          end
+
+          define_method("#{name}?") do
+            send(name).present?
+          end
+        when :referencelist
+          default = []
+
+          define_method(name) do
+            self[name] || default
+          end
+
+          define_method("#{name}?") do
+            send(name).present?
+          end
         when :boolean
           default = options[:default] || 'Yes'
 

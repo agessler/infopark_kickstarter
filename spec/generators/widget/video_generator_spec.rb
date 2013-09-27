@@ -84,11 +84,11 @@ describe Cms::Generators::Widget::VideoGenerator do
 
         directory 'models' do
           file 'video_widget.rb' do
-            contains 'cms_attribute :source, type: :linklist, max_size: 1'
+            contains 'cms_attribute :source, type: :reference'
             contains 'cms_attribute :width, type: :integer'
             contains 'cms_attribute :height, type: :integer'
             contains 'cms_attribute :autoplay, type: :boolean'
-            contains 'cms_attribute :poster, type: :linklist, max_size: 1'
+            contains 'cms_attribute :poster, type: :reference'
             contains 'include Widget'
           end
         end

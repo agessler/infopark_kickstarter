@@ -2,7 +2,7 @@ class CreateSearchPageExample < ::RailsConnector::Migration
   def up
     path = '<%= configuration_path %>/search'
 
-    create_obj(
+    search_page = create_obj(
       _path: path,
       _obj_class: '<%= class_name %>',
       '<%= headline_attribute_name %>' => 'Search'
@@ -15,7 +15,7 @@ class CreateSearchPageExample < ::RailsConnector::Migration
 
     update_obj(
       Obj.find_by_path('<%= homepage_path %>').id,
-      '<%= search_page_attribute[:name] %>' => [{ url: path }]
+      '<%= search_page_attribute[:name] %>' => search_page['id']
     )
   end
 end

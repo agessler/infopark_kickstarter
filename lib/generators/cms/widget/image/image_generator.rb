@@ -12,9 +12,8 @@ module Cms
             widget.attributes = [
               {
                 name: 'source',
-                type: :linklist,
+                type: :reference,
                 title: 'Source',
-                max_size: 1,
               },
             ]
           end

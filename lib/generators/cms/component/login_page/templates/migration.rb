@@ -1,9 +1,9 @@
 class LoginPageExample < ::RailsConnector::Migration
   def up
-    create_login_page_obj
+    page = create_login_page_obj
     create_reset_password_page_obj
     update_homepage_obj_class
-    update_homepage_obj
+    update_homepage_obj(page)
   end
 
   private
@@ -12,8 +12,8 @@ class LoginPageExample < ::RailsConnector::Migration
     "<%= configuration_path %>/login"
   end
 
-  def login_page_link_attribute_name
-    'login_page_link'
+  def login_page_attribute_name
+    'login_page'
   end
 
   def create_login_page_obj
@@ -38,10 +38,9 @@ class LoginPageExample < ::RailsConnector::Migration
     attributes = get_obj_class('Homepage')['attributes']
 
     login_page_link_attributes = {
-      name: login_page_link_attribute_name,
-      type: :linklist,
+      name: login_page_attribute_name,
+      type: :reference,
       title: 'Login Page',
-      max_size: 1,
     }
 
     attributes << login_page_link_attributes
@@ -49,10 +48,10 @@ class LoginPageExample < ::RailsConnector::Migration
     update_obj_class('Homepage', attributes: attributes)
   end
 
-  def update_homepage_obj
+  def update_homepage_obj(login_page)
     update_obj(
       Obj.find_by_path("<%= homepage_path %>").id,
-      login_page_link_attribute_name => [{ url: login_page_path }],
+      login_page_attribute_name => login_page['id'],
     )
   end
 end
