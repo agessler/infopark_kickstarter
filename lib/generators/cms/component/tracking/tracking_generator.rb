@@ -23,7 +23,7 @@ module Cms
         end
 
         def run_generator_for_selected_provider
-          Rails::Generators.invoke("cms:component:tracking:#{provider}", args)
+          Rails::Generators.invoke("cms:component:tracking:#{provider}", args, behavior: behavior)
         end
 
 

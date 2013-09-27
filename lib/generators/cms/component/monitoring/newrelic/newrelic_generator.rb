@@ -49,17 +49,12 @@ module Cms
           end
 
           def display_notice
-            notice = if behavior == :invoke
-              'Please run "rake cms:cloud_config:edit" to add
-                "newrelic": { "api_key": "<your api key>", "deploy_key": "<your deploy api key>" }
-                to the platform configuration.'
-            else
-              'Please run "rake cms:cloud_config:edit" to remove
-                "newrelic": { "api_key": "<your api key>", "deploy_key": "<your deploy api key>" } from the platform
-                configuration.'
+            if behavior == :invoke
+              log(:config,
+                'Please add your NewRelic API keys to the section ' +
+                '"newrelic" in "config/custom_cloud.yml".'
+              )
             end
-
-            log(:config, notice)
           end
 
           private

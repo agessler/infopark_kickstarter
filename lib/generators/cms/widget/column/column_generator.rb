@@ -18,7 +18,7 @@ module Cms
           desc: 'Maximum number of columns'
 
         def create_widget
-          Api::WidgetGenerator.new(behavior: behavior) do |widget|
+          Api::WidgetGenerator.new(options, behavior: behavior) do |widget|
             widget.name = obj_class_name
             widget.icon = icon
             widget.attributes = column_attributes + column_size_attributes

@@ -34,7 +34,7 @@ module Cms
         def create_migration
           class_name = 'SearchPage'
 
-          Api::ObjClassGenerator.new(behavior: behavior) do |model|
+          Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
             model.name = class_name
             model.title = 'Search'
             model.thumbnail = false
@@ -53,7 +53,7 @@ module Cms
             ]
           end
 
-          Rails::Generators.invoke('cms:controller', [class_name])
+          Rails::Generators.invoke('cms:controller', [class_name], behavior: behavior)
 
           migration_template('example_migration.rb', 'cms/migrate/create_search_page_example.rb')
         end

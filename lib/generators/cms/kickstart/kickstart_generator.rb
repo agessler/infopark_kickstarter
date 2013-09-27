@@ -90,7 +90,7 @@ module Cms
       # TODO: remove special migration once the CMS tenant is properly reset after signup. This
       # should also allow to remove the "migration" variable on Api::ObjClassGenerator.
       def create_special_case_image
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = 'Image'
           model.type = :generic
           model.title = 'Image'
@@ -102,7 +102,7 @@ module Cms
       end
 
       def create_structure_migration_file
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = 'Video'
           model.type = :generic
           model.title = 'Video'
@@ -114,7 +114,7 @@ module Cms
 
         class_name = 'Homepage'
 
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = class_name
           model.title = 'Homepage'
           model.thumbnail = false
@@ -137,21 +137,21 @@ module Cms
           ]
         end
 
-        Rails::Generators.invoke('cms:controller', [class_name])
+        Rails::Generators.invoke('cms:controller', [class_name], behavior: behavior)
 
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = 'Root'
           model.title = 'Root'
           model.thumbnail = false
         end
 
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = 'Website'
           model.title = 'Website'
           model.thumbnail = false
         end
 
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = 'Container'
           model.title = 'Container'
           model.thumbnail = false
@@ -163,7 +163,7 @@ module Cms
 
         class_name = 'ContentPage'
 
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = class_name
           model.title = 'Content'
           model.page = true
@@ -176,11 +176,11 @@ module Cms
           ]
         end
 
-        Rails::Generators.invoke('cms:controller', [class_name])
+        Rails::Generators.invoke('cms:controller', [class_name], behavior: behavior)
 
         class_name = 'ErrorPage'
 
-        Api::ObjClassGenerator.new(behavior: behavior) do |model|
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
           model.name = class_name
           model.title = 'Error'
           model.thumbnail = false
@@ -192,7 +192,7 @@ module Cms
           ]
         end
 
-        Rails::Generators.invoke('cms:controller', [class_name])
+        Rails::Generators.invoke('cms:controller', [class_name], behavior: behavior)
 
         migration_template('create_structure.rb', 'cms/migrate/create_structure.rb')
       end
@@ -202,22 +202,22 @@ module Cms
       end
 
       def add_initial_content
-        Rails::Generators.invoke('cms:component:editing', ['--editor=redactor'])
-        Rails::Generators.invoke('cms:component:developer_tools')
-        Rails::Generators.invoke('cms:component:search')
-        Rails::Generators.invoke('cms:component:login_page')
-        Rails::Generators.invoke('cms:component:sitemap')
+        Rails::Generators.invoke('cms:component:editing', ['--editor=redactor'], behavior: behavior)
+        Rails::Generators.invoke('cms:component:developer_tools', [], behavior: behavior)
+        Rails::Generators.invoke('cms:component:search', [], behavior: behavior)
+        Rails::Generators.invoke('cms:component:login_page', [], behavior: behavior)
+        Rails::Generators.invoke('cms:component:sitemap', [], behavior: behavior)
 
         unless examples?
-          Rails::Generators.invoke('cms:widget:text')
-          Rails::Generators.invoke('cms:widget:image')
-          Rails::Generators.invoke('cms:widget:headline')
+          Rails::Generators.invoke('cms:widget:text', [], behavior: behavior)
+          Rails::Generators.invoke('cms:widget:image', [], behavior: behavior)
+          Rails::Generators.invoke('cms:widget:headline', [], behavior: behavior)
         end
       end
 
       def create_example_content
         if examples?
-          Rails::Generators.invoke('cms:kickstart:example')
+          Rails::Generators.invoke('cms:kickstart:example', [], behavior: behavior)
         end
       end
 

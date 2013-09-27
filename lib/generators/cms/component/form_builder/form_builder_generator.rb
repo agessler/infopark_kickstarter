@@ -13,7 +13,7 @@ module Cms
           banner: 'LOCATION'
 
         def create_migration
-          Api::ObjClassGenerator.new(behavior: behavior) do |model|
+          Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
             model.name = class_name
             model.title = 'FormBuilder'
             model.page = true
