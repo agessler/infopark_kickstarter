@@ -4,6 +4,7 @@
 # Kickstarter gem related files
 .bundle/
 .yardoc
+.rspec
 /Gemfile.lock
 pkg/
 doc/
