@@ -88,11 +88,9 @@ module InfoparkKickstarter
       end
 
       def gem_version_for(name)
-        gemspec = Gem::Specification.find_by_name(name)
-
-        if gemspec
-          gemspec.version.to_s
-        end
+        Gem::Specification.find_by_name(name).version.to_s
+      rescue Gem::LoadError
+        'not found'
       end
 
       def obj_class_information(workspace)
