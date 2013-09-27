@@ -11,6 +11,12 @@ module Cms
           default: SUPPORTED_EDITORS.first,
           desc: "Select what html editor to use. (#{SUPPORTED_EDITORS.join(' | ')})"
 
+        def add_routes
+          route "get 'mediabrowser', to: 'mediabrowser#index'"
+          route "get 'mediabrowser/edit', to: 'mediabrowser#edit'"
+          route "get 'mediabrowser/modal', to: 'mediabrowser#modal'"
+        end
+
         def validate_editor
           unless SUPPORTED_EDITORS.include?(editor)
             puts 'Please choose a supported editor. See options for more details.'
@@ -47,6 +53,7 @@ module Cms
           data << '//= require editors/string_editor'
           data << '//= require editors/linklist_editor'
           data << '//= require editing'
+          data << '//= require mediabrowser'
           data << '//= require jquery.ui.sortable'
 
           data = data.join("\n")
@@ -63,6 +70,7 @@ module Cms
           data << ' *= require editors/string_editor'
           data << ' *= require editors/linklist_editor'
           data << ' *= require editing'
+          data << ' *= require editing_mediabrowser'
           data << ' *= require bootstrap-datepicker'
 
           data = data.join("\n")
