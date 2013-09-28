@@ -1,4 +1,5 @@
 # v3.2.0
+  * Added a check for `git --version` to the `infopark:system:info` rake task.
   * Bugfix: `rake infopark:system:info` did not return the correct latest version for some gems.
     (Thanks @pierpaolofrasa-twt)
   * Turned on email links by default for the Redactor html editor. (Thanks @mremolt)

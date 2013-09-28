@@ -51,7 +51,7 @@ module InfoparkKickstarter
         output << 'System Component Versions'
         output << '-------------------------'
 
-        %w(ruby gem rvm rbenv).each do |name|
+        %w(ruby gem rvm rbenv git).each do |name|
           output << "#{name}: #{command_version_for(name)}"
         end
 
@@ -83,7 +83,7 @@ module InfoparkKickstarter
 
       def command_version_for(name)
         unless %x{which #{name}}.empty?
-          %x{#{name} -v}.strip
+          %x{#{name} --version}.strip
         end
       end
 
