@@ -8,7 +8,7 @@ en:
   mediabrowser:
     button_bar:
       save: 'Save'
-      close: 'Close'
+      close: 'Cancel'
       reset: 'Reset'
 
     filter:
