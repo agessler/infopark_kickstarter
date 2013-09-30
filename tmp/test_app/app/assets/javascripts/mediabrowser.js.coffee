@@ -183,9 +183,6 @@
     @modal.on 'click', '.mediabrowser-close', =>
       @close()
 
-    @modal.on 'click', '.mediabrowser-reset', =>
-      @_reset()
-
     @modal.on 'mediabrowser.refresh', =>
       @_renderPlaceholder()
 
@@ -271,14 +268,6 @@
       $('body').append @modal
 
     @_initializeBindings()
-
-  _reset: () ->
-    @_setDefaults()
-    @_renderPlaceholder()
-    @_highlightFilter()
-    @_changeThumbnailSize(@thumbnailSize)
-    @modal.find('input.search_field').val('')
-    MediabrowserInspector.close()
 
   close: () ->
     @overlay.toggleClass('show', false)
