@@ -4,5 +4,5 @@
   %span.editing-mediabrowser-thumbnails-name
     = hit.title || hit.name
   %span.editing-mediabrowser-thumbnails-size
-    Not x possible
+    = number_to_human_size(hit.body_length)
   %span.editing-mediabrowser-thumbnails-select.select-item{class: ('active' if @selected.include?(hit.id))}
