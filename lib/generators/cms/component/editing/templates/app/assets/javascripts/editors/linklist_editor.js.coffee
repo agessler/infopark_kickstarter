@@ -10,9 +10,12 @@ $ ->
     url = attributes['url'] || ''
 
     $("<input type=\"text\" name=\"title\" value=\"#{title}\" placeholder=\"Title\" />
-       <input type=\"text\" name=\"url\" value=\"#{url}\" placeholder=\"Url\" />
+       <input type=\"text\" name=\"url\" value=\"#{url}\" placeholder=\"Url\" class=\"editing-url\" />
        <span class=\"actions\">
-         <a href=\"#\" class=\"editing-button editing-red\">
+         <a href=\"#\" class=\"editing-button mediabrowser-open\">
+           &hellip;
+         </a>
+         <a href=\"#\" class=\"editing-button editing-red delete\">
            <i class=\"editing-icon editing-icon-cancel\" />
          </a>
        </span>")
@@ -30,6 +33,29 @@ $ ->
       cmsField.infopark('save', value).done ->
         storeLastSaved(cmsField, value)
 
+  # Run when clicking the '...' button inside a li.
+  onOpenMediabrowser = (event) ->
+    event.preventDefault()
+
+    linkItem = $(event.currentTarget).closest('li')
+
+    Mediabrowser.open
+      allowedLength: 1
+      selection: []
+      onSave: (selection) =>
+        onMediabrowserSaveLinkItem(selection, linkItem)
+
+  # Media browser callback for saving a single link.
+  onMediabrowserSaveLinkItem = (selection, linkItem) ->
+    url = buildUrl(selection[0])
+    linkItem.find('[name=url]').val(url)
+
+    # trigger save after inserting the value
+    cmsField = getCmsField(linkItem)
+    save(cmsField)
+
+    true
+
   # Collects all link attributes for a given linklist.
   getAttributes = (cmsField) ->
     items = $(cmsField).find('li')
@@ -40,6 +66,11 @@ $ ->
 
         'title': item.find('[name=title]').val()
         'url': item.find('[name=url]').val()
+
+  # Transforms an obj id into an url that can be parsed by the RailsConnector
+  # to establish an internal link.
+  buildUrl = (id) ->
+    "#{document.location.origin}/#{id}"
 
   # Adds a new link to the linklist.
   addLink = (event) ->
@@ -98,8 +129,9 @@ $ ->
         storeLastSaved(linklistElement, getAttributes(linklistElement))
 
       linklistElements.on 'blur', 'li input', onBlur
-      linklistElements.on 'click', 'li a', removeLink
+      linklistElements.on 'click', 'li a.delete', removeLink
       linklistElements.on 'click', 'button.add-link', addLink
+      linklistElements.on 'click', 'a.mediabrowser-open', onOpenMediabrowser
 
       linklistElements.find('ul').sortable
         update: (event) ->

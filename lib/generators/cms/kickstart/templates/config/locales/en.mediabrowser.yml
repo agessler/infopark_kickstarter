@@ -1,0 +1,25 @@
+en:
+  layouts:
+    mediabrowser:
+      inspector:
+        delete: 'Delete'
+        details: 'Details'
+
+  mediabrowser:
+    button_bar:
+      save: 'Save'
+      close: 'Close'
+      reset: 'Reset'
+
+    filter:
+      results: 'All results'
+      selected: 'Selected'
+      image: 'Images'
+      blog_post: 'Blogposts'
+
+      icon_class:
+        image: 'image'
+        blog_post: 'generic'
+
+    header:
+      search_placeholder: 'Enter your search value here ...'
