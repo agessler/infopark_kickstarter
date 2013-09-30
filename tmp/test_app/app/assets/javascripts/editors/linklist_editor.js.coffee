@@ -11,14 +11,14 @@ $ ->
 
     $("<input type=\"text\" name=\"title\" value=\"#{title}\" placeholder=\"Title\" />
        <input type=\"text\" name=\"url\" value=\"#{url}\" placeholder=\"Url\" class=\"editing-url\" />
-       <span class=\"actions\">
-         <a href=\"#\" class=\"editing-button mediabrowser-open\">
-           &hellip;
+       <div class=\"actions\">
+         <a href=\"#\" class=\"editing-button mediabrowser-open editing-green\">
+           <i class=\"editing-icon editing-icon-search\" />
          </a>
          <a href=\"#\" class=\"editing-button editing-red delete\">
-           <i class=\"editing-icon editing-icon-cancel\" />
+           <i class=\"editing-icon editing-icon-trash\" />
          </a>
-       </span>")
+       </div>")
 
   # Returns the closest linklist DOM element.
   getCmsField = (element) ->
