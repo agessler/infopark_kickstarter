@@ -43,7 +43,7 @@ group :assets do
 end
 
 group :test, :development do
-  gem "infopark_kickstarter", :path => "../../../"
+  gem "infopark_kickstarter", :path => "../../"
 end
 
 gem "active_attr"
