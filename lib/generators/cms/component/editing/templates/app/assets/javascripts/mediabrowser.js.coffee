@@ -131,7 +131,6 @@
         total = json.meta.total
         if total > 0
           @_renderContainerForItems(total)
-          @modal.find('.result-total').html(total)
           @_updateViewport()
         else
           @_renderNoResults()
