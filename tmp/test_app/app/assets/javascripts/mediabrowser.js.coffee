@@ -206,6 +206,8 @@
           @_updateViewport()
         , 500
 
+      @_changeThumbnailSize(@thumbnailSize)
+
   _initializeUploader: ->
     MediabrowserUploader.init(@modal)
 
@@ -246,7 +248,6 @@
       </div>')
 
   _changeThumbnailSize: (size) ->
-    console.log '_changeThumbnailSize', $('.editing-button-view'), size
     @thumbnailSize = size
 
     transitionListener = 'webkitTransitionEnd.mediabrowser otransitionend.mediabrowser oTransitionEnd.mediabrowser msTransitionEnd.mediabrowser transitionend.mediabrowser'
@@ -255,7 +256,7 @@
       @modal.off transitionListener
 
     $('.editing-mediabrowser-thumbnails')
-      .removeClass('small big large')
+      .removeClass('small normal big large')
       .addClass(size)
     $('.editing-button-view').removeClass('active')
     $(".editing-button-view[data-size='#{size}']").addClass('active')
@@ -288,7 +289,6 @@
     @_setDefaults()
 
     @_loadModalMarkup()
-    @_changeThumbnailSize(@thumbnailSize)
 
     @overlay.toggleClass('show', true)
     @modal.toggleClass('show', true)
