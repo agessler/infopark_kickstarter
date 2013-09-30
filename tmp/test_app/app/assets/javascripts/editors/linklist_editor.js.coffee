@@ -1,6 +1,8 @@
 $ ->
-  # This file integrates an editor for linklist attributes.
+  # An editor for CMS linklist attributes.
 
+  # Creates the DOM for one link element of the linklist and substitutes the
+  # title and url attribute.
   template = (attributes) ->
     attributes ||= {}
 
@@ -9,13 +11,17 @@ $ ->
 
     $("<input type=\"text\" name=\"title\" value=\"#{title}\" placeholder=\"Title\" />
        <input type=\"text\" name=\"url\" value=\"#{url}\" placeholder=\"Url\" />
-       <a href=\"#\" class=\"editing-button editing-red\">
-         <i class=\"editing-icon editing-icon-cancel\" />
-       </a>")
+       <span class=\"actions\">
+         <a href=\"#\" class=\"editing-button editing-red\">
+           <i class=\"editing-icon editing-icon-cancel\" />
+         </a>
+       </span>")
 
+  # Returns the closest linklist DOM element.
   getCmsField = (element) ->
     element.closest('[data-ip-field-type=linklist]')
 
+  # Saves the entire linklist to the CMS and stores the last successfully saved value.
   save = (cmsField) ->
     value = getAttributes(cmsField)
     lastSaved = getLastSaved(cmsField)
@@ -24,6 +30,7 @@ $ ->
       cmsField.infopark('save', value).done ->
         storeLastSaved(cmsField, value)
 
+  # Collects all link attributes for a given linklist.
   getAttributes = (cmsField) ->
     items = $(cmsField).find('li')
 
@@ -34,6 +41,7 @@ $ ->
         'title': item.find('[name=title]').val()
         'url': item.find('[name=url]').val()
 
+  # Adds a new link to the linklist.
   addLink = (event) ->
     event.preventDefault()
 
@@ -42,6 +50,7 @@ $ ->
 
     cmsField.find('ul').append(content)
 
+  # Removes a link from the linklist.
   removeLink = (event) ->
     event.preventDefault()
 
@@ -51,6 +60,7 @@ $ ->
     target.closest('li').remove()
     save(cmsField)
 
+  # Turns the server side generated linklist data into the linklist editor using a template.
   transformLinks = (cmsFields) ->
     items = cmsFields.find('li')
 
@@ -63,17 +73,21 @@ $ ->
 
       item.html(content)
 
+  # Returns the last saved value.
   getLastSaved = (cmsField) ->
     cmsField.data('last-saved')
 
+  # Stores a given value as last saved.
   storeLastSaved = (cmsField, value) ->
     $(cmsField).data('last-saved', value)
 
+  # Automatically save when focus is lost.
   onBlur = (event) ->
     cmsField = getCmsField($(event.currentTarget))
 
     save(cmsField)
 
+  # Initialize linklist editor and setup event callbacks.
   infopark.on 'new_content', (root) ->
     linklistElements = $(root).find('[data-ip-field-type=linklist]')
 

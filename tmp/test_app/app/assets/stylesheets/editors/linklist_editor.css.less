@@ -1,23 +1,48 @@
-[data-ip-field-type=linklist] {
-  ul {
-    list-style: none;
-    margin: 0;
+// An editor to handle CMS linklist attributes.
+//
+// li:hover Subtle hover highlight
+// .actions a.editing-button Add button and Remove button styles
+// .ui-sortable-helper Drag indicator
+[data-ip-field-type=linklist] ul {
+  list-style: none;
+  margin: 0;
 
-    li {
-      padding: 10px 0 0 30px;
+  li {
+    background-color: #f8f8f8;
+    margin: 1px 0 1px 0;
+    padding: 10px 0 0 30px;
 
-      input[type=text] {
-        width: 90%;
-      }
+    input[type=text] {
+      width: 90%;
+    }
 
-      &.ui-sortable-helper {
-        border: 1px dotted #000;
-      }
+    &.ui-sortable-helper {
+      border: 1px dotted #000;
+    }
 
-      &:hover {
-        background-color: #e1e9f5;
-        cursor: move;
-      }
+    &:hover {
+      background-color: #e1e9f5;
+      cursor: move;
+    }
+
+    .actions a.editing-button {
+      float: right;
+      left: 0;
+      position: relative;
+      top: -19px;
+    }
+  }
+}
+
+// Responsive styles
+
+@media (max-width: 979px) {
+  [data-ip-field-type=linklist] ul li .actions {
+    display: block;
+
+    a.editing-button {
+      float: none;
+      position: static;
     }
   }
 }
