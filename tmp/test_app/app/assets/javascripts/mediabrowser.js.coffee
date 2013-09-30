@@ -8,7 +8,7 @@
     @options ||= {}
     @query = ''
     @objClass = undefined
-    @_setThumbnailSize('small')
+    @thumbnailSize = 'normal'
     @selected = @options.selection || []
 
   _highlightFilter: (element) ->
@@ -89,7 +89,7 @@
           <i class='editing-icon editing-icon-refresh'></i>
         </div>
       </li>"
-    content = ("<ul class='items editing-mediabrowser-thumbnails #{@_getThumbnailSize()}'>#{content.join('')}</ul>")
+    content = ("<ul class='items editing-mediabrowser-thumbnails #{@thumbnailSize}'>#{content.join('')}</ul>")
 
     @modal.find('.editing-mediabrowser-items').html(content)
 
@@ -116,7 +116,7 @@
     selected: @selected
     query: @query
     obj_class: @objClass
-    thumbnail_size: @_getThumbnailSize()
+    thumbnail_size: @thumbnailSize
     selected_only: @showSelection
 
   _renderPlaceholder: ->
@@ -194,7 +194,7 @@
 
     @modal.on 'click', '.editing-button-view', (event) =>
       size = $(event.currentTarget).data('size')
-      @_setThumbnailSize(size)
+      @_changeThumbnailSize(size)
 
     @modal.on 'mediabrowser.markupLoaded', =>
       # Bind events, which require the dom to be present, here.
@@ -245,11 +245,9 @@
         <i class="editing-icon editing-icon-refresh"></i>
       </div>')
 
-  _getThumbnailSize: ->
-    @_thumbnailSize || 'small'
-
-  _setThumbnailSize: (size) ->
-    @_thumbnailSize = size
+  _changeThumbnailSize: (size) ->
+    console.log '_changeThumbnailSize', $('.editing-button-view'), size
+    @thumbnailSize = size
 
     transitionListener = 'webkitTransitionEnd.mediabrowser otransitionend.mediabrowser oTransitionEnd.mediabrowser msTransitionEnd.mediabrowser transitionend.mediabrowser'
     @modal.on transitionListener, 'li.mediabrowser-item', (event) =>
@@ -277,6 +275,7 @@
     @_setDefaults()
     @_renderPlaceholder()
     @_highlightFilter()
+    @_changeThumbnailSize(@thumbnailSize)
     @modal.find('input.search_field').val('')
     MediabrowserInspector.close()
 
@@ -289,6 +288,7 @@
     @_setDefaults()
 
     @_loadModalMarkup()
+    @_changeThumbnailSize(@thumbnailSize)
 
     @overlay.toggleClass('show', true)
     @modal.toggleClass('show', true)
