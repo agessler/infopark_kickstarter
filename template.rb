@@ -6,5 +6,5 @@ gem_group(:assets) do
 end
 
 gem_group(:test, :development) do
-  gem('infopark_kickstarter', path: '../../../')
+  gem('infopark_kickstarter', path: '../../')
 end
