@@ -91,7 +91,6 @@ $ ->
       content = template
         title: item.data('title')
         url: item.data('url')
-        length: item.data('length')
 
       item.html(content)
 

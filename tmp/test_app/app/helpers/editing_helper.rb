@@ -49,7 +49,7 @@ module EditingHelper
         html = ''.html_safe
 
         linklist.each do |link|
-          html << content_tag(:li, link.title, 'data-title' => link.title, 'data-url' => link.url, 'data-length' => 1)
+          html << content_tag(:li, link.title, 'data-title' => link.title, 'data-url' => link.url)
         end
 
         html
