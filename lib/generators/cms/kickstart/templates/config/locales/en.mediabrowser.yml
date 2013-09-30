@@ -22,4 +22,4 @@ en:
         blog_post: 'generic'
 
     header:
-      search_placeholder: 'Enter your search value here ...'
+      search_placeholder: 'Search'
