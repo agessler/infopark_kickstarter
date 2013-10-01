@@ -23,13 +23,16 @@ describe Cms::Generators::Component::EditingGenerator do
   def prepare_environments
     javascripts_path = "#{destination_root}/app/assets/javascripts"
     stylesheets_path = "#{destination_root}/app/assets/stylesheets"
+    layouts_path      = "#{destination_root}/app/views/layouts"
 
     mkdir_p(javascripts_path)
     mkdir_p(stylesheets_path)
+    mkdir_p(layouts_path)
 
     File.open("#{destination_root}/Gemfile", 'w')
     File.open("#{javascripts_path}/application.js", 'w') { |file| file.write("//= require infopark_rails_connector\n") }
     File.open("#{stylesheets_path}/application.css", 'w') { |file| file.write("*= require infopark_rails_connector\n") }
+    File.open("#{layouts_path}/application.html.haml", 'w') { |file| file.write("%body{body_attributes(@obj)}") }
   end
 
   it 'creates files' do
@@ -79,9 +82,28 @@ describe Cms::Generators::Component::EditingGenerator do
           end
         end
 
+        directory 'cells' do
+          directory 'menu_bar' do
+            file 'edit_toggle.html.haml'
+            file 'show.html.haml'
+            file 'user.html.haml'
+            file 'workspaces.html.haml'
+          end
+          file 'menu_bar_cell.rb'
+        end
+
         directory 'helpers' do
           file 'editing_helper.rb'
         end
+
+        directory 'views' do
+          directory 'layouts' do
+            file 'application.html.haml' do
+              contains '    = render_cell(:menu_bar, :show)'
+            end
+          end
+        end
+
       end
 
       file 'Gemfile' do
