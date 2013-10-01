@@ -70,6 +70,15 @@ module Cms
           insert_into_file(file, data, after: insert_point)
         end
 
+        def add_menu_bar_to_layout
+          file = 'app/views/layouts/application.html.haml'
+          insert_point = '%body{body_attributes(@obj)}'
+
+          data = "\n    = render_cell(:menu_bar, :show)"
+
+          insert_into_file(file, data, after: insert_point)
+        end
+
         def run_generator_for_selected_editor
           Rails::Generators.invoke("cms:component:editing:#{editor}", [], behavior: behavior)
         end
