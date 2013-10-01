@@ -1,4 +1,7 @@
 # v3.2.0
+  * Added a menubar for editors when they are not in edit mode, similar to what the RailsConnector
+    provides when in edit mode. The menubar displays the current workspace, the name of the logged
+    in editor and the edit mode toggle icon. (Thanks @benzimmer)
   * Added a check for `git --version` to the `infopark:system:info` rake task.
   * Bugfix: `rake infopark:system:info` did not return the correct latest version for some gems.
     (Thanks @pierpaolofrasa-twt)
