@@ -213,10 +213,14 @@
       event.stopImmediatePropagation()
       @_removeItem(event.currentTarget)
 
-    @modal.on 'click', '.mediabrowser-save:not(.editing-disabled)', =>
+    @modal.on 'click', '.mediabrowser-save:not(.editing-disabled)', (event) =>
+      event.preventDefault()
+
       @_save()
 
-    @modal.on 'click', '.mediabrowser-close', =>
+    @modal.on 'click', '.mediabrowser-close', (event) =>
+      event.preventDefault()
+
       @close()
 
     @modal.on 'mediabrowser.refresh', =>
