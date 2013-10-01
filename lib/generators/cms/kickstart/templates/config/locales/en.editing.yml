@@ -3,3 +3,7 @@ en:
     linklist:
       title: 'Title: %{title}'
       url: 'Url: %{url}'
+
+    workspace:
+      published_content: 'Published content'
+      working_copy: 'Working copy: %{title}'
