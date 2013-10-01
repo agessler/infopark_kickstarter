@@ -137,7 +137,7 @@
   _queryOptions: ->
     selected: @selected
     query: @query
-    obj_class: @objClass
+    obj_classes: [@objClass]
     thumbnail_size: @thumbnailSize
     selected_only: @showSelection
 

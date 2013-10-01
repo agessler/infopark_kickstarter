@@ -84,11 +84,11 @@
   init: (@modal) ->
     @_initializeBindings()
 
+  # Hook for 3rd parties when the upload starts.
   onUploadStart: (files) ->
-    # hook for 3rd parties
 
+  # Hook for 3rd parties when the upload fails.
   onUploadFailure: (error) ->
-    # hook for 3rd parties
 
+  # Hook for 3rd parties when the upload was successful.
   onUploadSuccess: (objs) ->
-    # hook for 3rd parties

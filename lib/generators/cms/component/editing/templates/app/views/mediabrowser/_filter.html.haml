@@ -6,9 +6,12 @@
       %span.editing-mediabrowser-filter-name
         = t('.results')
 
-    - @searchable_classes.each do |obj_class|
-      %li.filter{data: {obj_class: obj_class}}
-        %i.editing-icon{title: obj_class, class: "editing-icon-#{t(".icon_class.#{obj_class.underscore}")}"}
+    - obj_classes.each do |obj_class|
+      - icon_class = "editing-icon-#{t(".icon_class.#{obj_class.underscore}")}"
+
+      %li.filter{data: { obj_class: obj_class }}
+        %i.editing-icon{title: obj_class, class: icon_class}
+
         %span.editing-mediabrowser-filter-name
           = t(".#{obj_class.underscore}")
 
@@ -17,5 +20,6 @@
 
       %span.editing-mediabrowser-filter-name
         = t('.selected')
+
         %span.editing-mediabrowser-counter.selected-total
           0

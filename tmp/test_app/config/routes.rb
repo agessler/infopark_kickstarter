@@ -5,7 +5,7 @@ TestApp::Application.routes.draw do
 
   get 'mediabrowser/modal', to: 'mediabrowser#modal'
 
-  get 'mediabrowser/edit', to: 'mediabrowser#edit'
+  get 'mediabrowser/inspector', to: 'mediabrowser#inspector'
 
   get 'mediabrowser', to: 'mediabrowser#index'
 

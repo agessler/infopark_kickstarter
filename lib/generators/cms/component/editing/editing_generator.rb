@@ -13,7 +13,7 @@ module Cms
 
         def add_routes
           route "get 'mediabrowser', to: 'mediabrowser#index'"
-          route "get 'mediabrowser/edit', to: 'mediabrowser#edit'"
+          route "get 'mediabrowser/inspector', to: 'mediabrowser#inspector'"
           route "get 'mediabrowser/modal', to: 'mediabrowser#modal'"
         end
 

@@ -1,9 +1,7 @@
 @MediabrowserInspector = do ->
   inspectorSelector: '.editing-mediabrowser-inspector'
-  inspector: undefined
-
   contentSelector: '.inspector-content'
-
+  inspector: undefined
   objectId: undefined
 
   _initializeBindings: ->
@@ -49,25 +47,27 @@
     @modal = modal
     @_initializeBindings()
 
+  # Opens the inspector section in the mediabrowser for the given object ID and displays its edit
+  # view.
   open: (objectId) ->
     @objectId = objectId
 
     @inspector.show()
     @_renderLoading()
 
-    data =
-      id: @objectId
-
     $.ajax
-      url: '/mediabrowser/edit'
+      url: '/mediabrowser/inspector'
       dataType: 'json'
-      data: data
+      data:
+        id: @objectId
       success: (json) =>
         @inspector.html(json.content)
         infopark.editing.refresh(@inspector)
+
       error: =>
         @inspector.html('')
 
+  # Closes the inspector section of the mediabrowser.
   close: ->
     @inspector.html('')
     @inspector.hide()
