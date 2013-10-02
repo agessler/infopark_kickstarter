@@ -7,3 +7,5 @@ en:
     workspace:
       published_content: 'Published content'
       working_copy: 'Working copy: %{title}'
+
+    edit_view_unavailable: 'No edit view available.'
