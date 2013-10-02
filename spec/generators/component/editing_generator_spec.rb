@@ -23,16 +23,19 @@ describe Cms::Generators::Component::EditingGenerator do
   def prepare_environments
     javascripts_path = "#{destination_root}/app/assets/javascripts"
     stylesheets_path = "#{destination_root}/app/assets/stylesheets"
-    layouts_path      = "#{destination_root}/app/views/layouts"
+    layouts_path = "#{destination_root}/app/views/layouts"
+    config_path = "#{destination_root}/config"
 
     mkdir_p(javascripts_path)
     mkdir_p(stylesheets_path)
     mkdir_p(layouts_path)
+    mkdir_p(config_path)
 
     File.open("#{destination_root}/Gemfile", 'w')
     File.open("#{javascripts_path}/application.js", 'w') { |file| file.write("//= require infopark_rails_connector\n") }
     File.open("#{stylesheets_path}/application.css", 'w') { |file| file.write("*= require infopark_rails_connector\n") }
     File.open("#{layouts_path}/application.html.haml", 'w') { |file| file.write("%body{body_attributes(@obj)}") }
+    File.open("#{config_path}/routes.rb", 'w') { |file| file.write('Dummy::Application.routes.draw do') }
   end
 
   it 'creates files' do
@@ -60,6 +63,7 @@ describe Cms::Generators::Component::EditingGenerator do
             file 'editing.css.less'
             file 'application.css' do
               contains '*= require editing'
+              contains '*= require editing/mediabrowser'
               contains '*= require bootstrap-datepicker'
               contains '*= require editors/string_editor'
               contains '*= require editors/linklist_editor'
@@ -103,7 +107,14 @@ describe Cms::Generators::Component::EditingGenerator do
             end
           end
         end
+      end
 
+      directory 'config' do
+        file 'routes.rb' do
+          contains "get 'mediabrowser', to: 'mediabrowser#index'"
+          contains "get 'mediabrowser/inspector', to: 'mediabrowser#inspector'"
+          contains "get 'mediabrowser/modal', to: 'mediabrowser#modal'"
+        end
       end
 
       file 'Gemfile' do

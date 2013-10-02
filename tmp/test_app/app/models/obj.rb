@@ -15,6 +15,10 @@ class Obj < ::RailsConnector::BasicObj
     Homepage.for_hostname('default')
   end
 
+  def mediabrowser_edit_view_path
+    "#{obj_class.underscore}/edit"
+  end
+
   def parent
     @parent ||= super()
   end

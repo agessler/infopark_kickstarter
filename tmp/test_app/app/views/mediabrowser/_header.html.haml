@@ -1,0 +1,18 @@
+.editing-mediabrowser-topbar
+  .editing-mediabrowser-search
+    %input.search-field{placeholder: t('.search.placeholder'), type: :text}
+
+    %button.search-field-button
+      = t('.search.button')
+
+  %span.editing-button-view{data: { size: 'large' }}
+    %i.editing-icon.editing-icon-th-large{title: 'large tumbnails'}
+
+  %span.editing-button-view{data: { size: 'big' }}
+    %i.editing-icon.editing-icon-th{title: 'big tumbnails'}
+
+  %span.editing-button-view{data: { size: 'normal' }}
+    %i.editing-icon.editing-icon-th-medium{title: 'normal tumbnails'}
+
+  %span.editing-button-view{data: { size: 'small' }}
+    %i.editing-icon.editing-icon-th-small{title: 'small tumbnails'}

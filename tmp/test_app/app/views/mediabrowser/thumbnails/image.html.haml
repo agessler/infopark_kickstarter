@@ -1,0 +1,11 @@
+.editing-mediabrowser-preview
+  = cms_image_tag(hit)
+
+.editing-mediabrowser-meta
+  %span.editing-mediabrowser-thumbnails-name
+    = hit.title || hit.name
+
+  %span.editing-mediabrowser-thumbnails-size
+    = number_to_human_size(hit.body_length)
+
+  %span.editing-mediabrowser-thumbnails-select.select-item{class: ('active' if selected)}

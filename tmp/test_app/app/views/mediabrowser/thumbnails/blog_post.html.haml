@@ -1,0 +1,8 @@
+.editing-mediabrowser-preview
+  %i.editing-icon.editing-icon-generic
+
+.editing-mediabrowser-meta
+  %span.editing-mediabrowser-thumbnails-name
+    = hit.headline || hit.name
+
+  %span.editing-mediabrowser-thumbnails-select.select-item{class: ('active' if selected)}
