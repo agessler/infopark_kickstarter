@@ -1,4 +1,10 @@
 # v3.2.0
+  * Added a mediabrowser that allows to add, edit, delete and select CMS resources like Images,
+    BlogPosts or any other objects. The mediabrowser is highly customizable and provides all basic
+    features like searching through your resources, selecting them for a link- or referencelist,
+    lets editors add resources via a simple drag and drop feature and allows to edit any resources
+    in the integrated inspector, that display the edit view of the resource.
+    (Thanks @agessler, @marcelgo and @spiderpug)
   * Added a menubar for editors when they are not in edit mode, similar to what the RailsConnector
     provides when in edit mode. The menubar displays the current workspace, the name of the logged
     in editor and the edit mode toggle icon. (Thanks @benzimmer)
