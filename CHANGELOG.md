@@ -19,8 +19,8 @@
     an edit view. (Thanks @gertimon)
   * A linklist editor now allows you to create, update and delete links in a CMS linklist on the
     edit view of a page or widget. The `cms_edit_linklist` helper renders the needed HTML DOM
-    structure, that is handled by the `linklist_editor.js.coffee` file.
-    (Thanks @cococoder and @spiderpug)
+    structure, that is handled by the `linklist_editor.js.coffee` file. The editor also allows to
+    select a CMS resource via the new mediabrowser. (Thanks @cococoder and @spiderpug)
   * The video widget is now more responsive to browser size changes and adopts accordingly.
     (Thanks @gertimon and @marcelgo)
   * We implemented autosave for the redactor html editor. Every 3 seconds when the content has
