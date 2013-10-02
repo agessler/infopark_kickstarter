@@ -188,6 +188,10 @@
       @_updateViewport()
     , 500
 
+  _triggerSearch: ->
+    @query = @modal.find('input.search-field').val()
+    @_renderPlaceholder()
+
   _initializeBindings: ->
     $(window).resize ->
       $('#editing-mediabrowser.show').center()
@@ -196,10 +200,14 @@
       if event.keyCode == 27
         @close()
 
-    @modal.on 'keyup', 'input.search_field', (event) =>
+    @modal.on 'keyup', 'input.search-field', (event) =>
       if event.keyCode == 13
-        @query = $(event.target).val()
-        @_renderPlaceholder()
+        @_triggerSearch()
+
+    @modal.on 'click', 'button.search-field-button', (event) =>
+      event.preventDefault()
+
+      @_triggerSearch()
 
     @modal.on 'click', 'li.mediabrowser-item .select-item:not(.active)', (event) =>
       event.stopImmediatePropagation()
@@ -223,15 +231,15 @@
 
       @close()
 
-    @modal.on 'mediabrowser.refresh', =>
-      @_renderPlaceholder()
-
     @modal.on 'click', 'li.filter', (event) =>
       @_onFilter(event)
 
     @modal.on 'click', '.editing-button-view', (event) =>
       size = $(event.currentTarget).data('size')
       @_changeThumbnailSize(size)
+
+    @modal.on 'mediabrowser.refresh', =>
+      @_renderPlaceholder()
 
     # Bind events, which require the dom to be present.
     @modal.on 'mediabrowser.markupLoaded', =>

@@ -1,6 +1,7 @@
-// --------------------------------------------------------- //
-// infopark editing - mixins
-// --------------------------------------------------------- //
+// Defines multiple globally used mixins. If you have a less file and want to use one of these
+// mixins, make sure import "editing/mixins" at the top of your less file.
+
+// Mixin styles
 
 .opacity(@opacity) {
   opacity: @opacity / 100;
@@ -146,8 +147,7 @@
   }
 }
 
-// ANIMATIONS
-// ----------
+// Animation styles
 
 #animation {
   .progress-bar-stripes(@duration: 1s) {
@@ -161,32 +161,32 @@
 
 // Webkit
 @-webkit-keyframes progress-bar-stripes {
-  from  { background-position: 40px 0; }
-  to    { background-position: 0 0; }
+  from { background-position: 40px 0; }
+  to { background-position: 0 0; }
 }
 
 // Firefox
 @-moz-keyframes progress-bar-stripes {
-  from  { background-position: 40px 0; }
-  to    { background-position: 0 0; }
+  from { background-position: 40px 0; }
+  to { background-position: 0 0; }
 }
 
 // IE9
 @-ms-keyframes progress-bar-stripes {
-  from  { background-position: 40px 0; }
-  to    { background-position: 0 0; }
+  from { background-position: 40px 0; }
+  to { background-position: 0 0; }
 }
 
 // Opera
 @-o-keyframes progress-bar-stripes {
-  from  { background-position: 0 0; }
-  to    { background-position: 40px 0; }
+  from { background-position: 0 0; }
+  to { background-position: 40px 0; }
 }
 
 // Spec
 @keyframes progress-bar-stripes {
-  from  { background-position: 40px 0; }
-  to    { background-position: 0 0; }
+  from { background-position: 40px 0; }
+  to { background-position: 0 0; }
 }
 
 .saving() {

@@ -4,7 +4,8 @@
   %span.title
     = @obj.name
 
-  %i.editing-icon.editing-icon-trash.editing-right.delete-button{title: t('.delete'), data: {id: @obj.id}}
+  %span.editing-button.editing-right
+    %i.editing-icon.editing-icon-trash.delete-button{title: t('.delete'), data: { id: @obj.id }}
 
 .inspector-content
   = yield

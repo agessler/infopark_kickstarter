@@ -21,4 +21,6 @@ en:
         blog_post: 'generic'
 
     header:
-      search_placeholder: 'Search'
+      search:
+        placeholder: 'Search'
+        button: 'Search'

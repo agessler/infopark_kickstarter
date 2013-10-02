@@ -70,7 +70,7 @@ module Cms
           data << ' *= require editors/string_editor'
           data << ' *= require editors/linklist_editor'
           data << ' *= require editing'
-          data << ' *= require editing_mediabrowser'
+          data << ' *= require editing/mediabrowser'
           data << ' *= require bootstrap-datepicker'
 
           data = data.join("\n")
