@@ -14,29 +14,7 @@ class VideoWidget < Obj
     end
   end
 
-  def provider
-    if video_info.present?
-      video_info.provider
-    else
-      'projekktor'
-    end
-  end
-
   def embed_url
-    if video_info.present?
-      autoplay = autoplay? ? '1' : '0'
-
-      "#{video_info.embed_url}?autoplay=#{autoplay}"
-    else
-      source.first
-    end
-  end
-
-  private
-
-  def video_info
-    @video_info ||= if source.present?
-      VideoInfo.get(source.first.url)
-    end
+    source.first.url
   end
 end
