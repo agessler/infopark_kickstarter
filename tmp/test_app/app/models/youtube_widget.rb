@@ -1,4 +1,4 @@
-class VimeoWidget < Obj
+class YoutubeWidget < Obj
   include Widget
 
   cms_attribute :source, type: :linklist, max_size: 1
@@ -6,12 +6,12 @@ class VimeoWidget < Obj
   cms_attribute :height, type: :integer
 
   def embed_url
-    @embed_url ||= "//player.vimeo.com/video/#{vimeo_id}"
+    @embed_url ||= "//www.youtube.com/embed/#{youtube_id}"
   end
 
-  def vimeo_id
+  def youtube_id
     if url.present?
-      @vimeo_id ||= url.split('/').last
+      @youtube_id ||= url.split('v=').last
     end
   end
 
