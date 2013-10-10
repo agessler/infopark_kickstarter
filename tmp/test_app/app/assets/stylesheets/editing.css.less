@@ -1,12 +1,5 @@
 @import "editing/mixins";
-
-// Move navbar down, when editbar is active
-
-@infoparkEditingBarHeight: 47px;
-
-body {
-  padding-top: @infoparkEditingBarHeight;
-}
+@import "editing/fixed_menubar";
 
 // Inplace editing styles when editing is active and an editable working copy
 // is selected.
@@ -77,7 +70,6 @@ body.ip_editing_active.ip_editable_workspace {
   border-top: 1px solid #b6c0d3;
   border-bottom: 1px solid #2c5580;
   color: #fff;
-  height: @infoparkEditingBarHeight;
   font-size: 14px;
   position: fixed;
   text-shadow: 0 1px 1px #333;
@@ -92,7 +84,7 @@ body.ip_editing_active.ip_editable_workspace {
 
     &:hover {
       .box-shadow(0 -3px 3px #3e5b87 inset);
-      #gradient.vertical-three-colors(#8094bb,#60769b,55%,#365077);
+      #gradient.vertical-three-colors(#8094bb, #60769b, 55%, #365077);
     }
   }
 
