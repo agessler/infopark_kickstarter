@@ -39,11 +39,17 @@ module EditingHelper
     end
   end
 
+  # Displays a CMS reference attribute on an edit page.
+  #
+  # @param [Obj] object the cms object with a reference attribute
+  # @param [String] attribute_name the name of the reference attribute
   def cms_edit_reference(object, attribute_name)
     reference = object.send(attribute_name)
 
-    cms_tag(:p, object, attribute_name) do
-      reference.id
+    cms_tag(:div, object, attribute_name) do
+      if reference
+        "#{reference.name} (#{reference.id})"
+      end
     end
   end
 

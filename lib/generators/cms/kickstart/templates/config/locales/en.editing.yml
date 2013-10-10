@@ -4,6 +4,9 @@ en:
       title: 'Title: %{title}'
       url: 'Url: %{url}'
 
+    reference:
+      none: 'no reference set'
+
     workspace:
       published_content: 'Published content'
       working_copy: 'Working copy: %{title}'

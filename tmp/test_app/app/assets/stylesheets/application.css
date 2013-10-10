@@ -13,6 +13,7 @@
  *= require editors/redactor
  *= require editors/string_editor
  *= require editors/linklist_editor
+ *= require editors/reference_editor
  *= require editing
  *= require editing/mediabrowser
  *= require bootstrap-datepicker

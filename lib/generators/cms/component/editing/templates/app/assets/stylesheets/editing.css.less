@@ -40,10 +40,11 @@ body.ip_editing_active.ip_editable_workspace {
     }
   }
 
-  // HTML and String inplace editing field styles
+  // Inplace editing field styles
 
   [data-ip-field-type=html],
-  [data-ip-field-type=string] {
+  [data-ip-field-type=string],
+  [data-ip-field-type=reference] {
     @editableFieldColor: #ffa500;
 
    .transition(~"outline-color ease-in-out .8s");
