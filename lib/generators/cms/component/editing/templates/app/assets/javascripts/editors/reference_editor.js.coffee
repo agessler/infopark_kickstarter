@@ -20,7 +20,7 @@ $ ->
     onMediabrowserSave = (selection, cmsField) ->
       cmsField.addClass('saving')
 
-      value = selection[0] ||''
+      value = selection[0]
 
       cmsField.infopark('save', value)
       .done ->

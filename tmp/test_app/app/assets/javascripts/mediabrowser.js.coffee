@@ -43,7 +43,7 @@
     @selected.push(id)
     @selected = $.unique(@selected)
 
-    @_changeSelectedTotal(@selected.length)
+    @_changeSelectedTotal()
 
   _removeItem: (item) ->
     @_deactivateItem(item)
@@ -51,7 +51,7 @@
     @selected = @selected.filter (id) =>
       id != @_getItemId(item)
 
-    @_changeSelectedTotal(@selected.length)
+    @_changeSelectedTotal()
 
   _activateItem: (item) ->
     $(item).addClass('active')
@@ -59,16 +59,12 @@
   _deactivateItem: (item) ->
     $(item).removeClass('active')
 
-  _changeSelectedTotal: (count) ->
-    @modal.find('.selected-total').html(count)
-    @_toggleSaveButton()
+  _changeSelectedTotal: ->
+    @modal.find('.selected-total').html(@selected.length)
 
   _deselectAllItems: ->
     @selected = []
     @modal.find('li.mediabrowser-item .select-item.active').removeClass('active')
-
-  _toggleSaveButton: ->
-    @modal.find('.mediabrowser-save').toggleClass('editing-disabled', @selected.length == 0)
 
   _getItems: ->
     @modal.find('.editing-mediabrowser-items')
@@ -221,7 +217,7 @@
       event.stopImmediatePropagation()
       @_removeItem(event.currentTarget)
 
-    @modal.on 'click', '.mediabrowser-save:not(.editing-disabled)', (event) =>
+    @modal.on 'click', '.mediabrowser-save', (event) =>
       event.preventDefault()
 
       @_save()
@@ -271,10 +267,10 @@
 
         @_highlightFilter()
         @_renderPlaceholder()
+        @_changeSelectedTotal()
 
         MediabrowserInspector.init(@modal)
         @_initializeUploader()
-        @_toggleSaveButton()
 
         @modal.trigger('mediabrowser.markupLoaded')
 
@@ -322,6 +318,8 @@
     @modal.toggleClass('show', value)
 
   close: ->
+    (@options.onClose || $.noop)()
+
     @toggle(false)
 
   open: (options) ->
