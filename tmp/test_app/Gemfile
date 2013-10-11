@@ -81,5 +81,4 @@ end
 gem "airbrake"
 gem "honeybadger"
 gem "newrelic_rpm"
-gem "video_info"
 gem "projekktor-rails"

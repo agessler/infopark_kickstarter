@@ -17,13 +17,13 @@ module Cms
                 max_size: 1,
               },
               {
-                name: 'width',
+                name: 'max_width',
                 type: :integer,
                 title: 'Width',
                 default: 660,
               },
               {
-                name: 'height',
+                name: 'max_height',
                 type: :string,
                 title: 'Height',
                 default: 430,

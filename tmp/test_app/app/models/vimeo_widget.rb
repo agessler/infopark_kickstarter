@@ -4,21 +4,44 @@ class VimeoWidget < Obj
   cms_attribute :source, type: :linklist, max_size: 1
   cms_attribute :width, type: :integer
   cms_attribute :height, type: :integer
-  cms_attribute :autoplay, type: :boolean
 
-  def embed_url
-    @embed_url ||= "//player.vimeo.com/video/#{vimeo_id}"
-  end
+  def embed_html
+    @embed_html ||= if source_url.present?
+      data = oembed_informations
 
-  def vimeo_id
-    if url.present?
-      @vimeo_id ||= url.split('/').last
+      data && data['html'].html_safe
     end
   end
 
-  def url
+  def source_url
     if source.first.present?
-      @url ||= source.first.url
+      @source_url ||= source.first.url
     end
+  end
+
+  private
+
+  def oembed_informations
+    json = RestClient.get(oembed_url)
+
+    JSON.parse(json)
+  rescue JSON::ParserError => error
+    Rails.logger.error("Could not parse Vimeo response: #{error.message}")
+
+    nil
+  rescue RestClient::ResourceNotFound
+    Rails.logger.error("Unknown vimeo url: #{source_url}")
+
+    nil
+  end
+
+  def oembed_url
+    params = {
+      url: source_url,
+      width: width,
+      height: height,
+    }
+
+    "http://vimeo.com/api/oembed.json?#{params.to_param}"
   end
 end
