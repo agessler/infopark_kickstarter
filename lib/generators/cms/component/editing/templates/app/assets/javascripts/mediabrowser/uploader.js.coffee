@@ -8,15 +8,17 @@
     'application/pdf': 'Pdf'
 
   _initializeBindings: ->
-    @modal.on 'dragover', @dropZoneSelector, (event) =>
+    dropZone = @modal.find(@dropZoneSelector)
+
+    dropZone.on 'dragover', (event) =>
       $(event.currentTarget).addClass(@dropOverCssClass)
       event.preventDefault()
 
-    @modal.on 'dragleave', @dropZoneSelector, (event) =>
+    dropZone.on 'dragleave', (event) =>
       $(event.currentTarget).removeClass(@dropOverCssClass)
       event.preventDefault()
 
-    @modal.on 'drop', @dropZoneSelector, (event) =>
+    dropZone.on 'drop', (event) =>
       $(event.currentTarget).removeClass(@dropOverCssClass)
       @_onDrop(event)
       event.preventDefault()

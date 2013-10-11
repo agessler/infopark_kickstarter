@@ -1,17 +1,20 @@
 @MediabrowserInspector = do ->
   inspectorSelector: '.editing-mediabrowser-inspector'
   contentSelector: '.inspector-content'
+  modalBodySelector: '.editing-mediabrowser-body'
   inspector: undefined
   objectId: undefined
 
   _initializeBindings: ->
-    @modal.on 'click', 'li.mediabrowser-item', (event) =>
+    modalBody = $(@modalBodySelector)
+
+    modalBody.on 'click', 'li.mediabrowser-item', (event) =>
       @_onInspect(event)
 
-    @modal.on 'click', '.delete-button', =>
+    modalBody.on 'click', '.delete-button', =>
       @_onDelete()
 
-    @modal.on 'click', 'a.inspector-close', (event) =>
+    modalBody.on 'click', 'a.inspector-close', (event) =>
       event.preventDefault()
       @close()
 
