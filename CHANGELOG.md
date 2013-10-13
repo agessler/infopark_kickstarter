@@ -1,4 +1,8 @@
 # v3.2.0
+  * We split up the general purpose video widget into three separate widgets that handle youtube,
+    vimeo and a generic video player by themself. This provides a clearer interface and more
+    specific use cases. Call `rails g cms:widget:youtube`, `rails g cms:widget:vimeo` and
+    `rails g cms:widget:video` accordingly. (Thanks @cococoder)
   * Bugfix: The google maps widget did not respect a default width and height.
     (Thanks @ronaldmueller)
   * Added a mediabrowser that allows to add, edit, delete and select CMS resources like Images,
