@@ -7,11 +7,11 @@ class VimeoWidget < Obj
 
   def embed_html
     @embed_html ||= if source_url.present?
-      data = oembed_informations
-
-      data && data['html'].html_safe
+      oembed_information && oembed_information['html'].html_safe
     end
   end
+
+  private
 
   def source_url
     if source.first.present?
@@ -19,10 +19,14 @@ class VimeoWidget < Obj
     end
   end
 
-  private
+  def oembed_information
+    params = {
+      url: source_url,
+      width: width,
+      height: height,
+    }
 
-  def oembed_informations
-    json = RestClient.get(oembed_url)
+    json = RestClient.get("http://vimeo.com/api/oembed.json?#{params.to_param}")
 
     JSON.parse(json)
   rescue JSON::ParserError => error
@@ -33,15 +37,5 @@ class VimeoWidget < Obj
     Rails.logger.error("Unknown vimeo url: #{source_url}")
 
     nil
-  end
-
-  def oembed_url
-    params = {
-      url: source_url,
-      width: width,
-      height: height,
-    }
-
-    "http://vimeo.com/api/oembed.json?#{params.to_param}"
   end
 end
