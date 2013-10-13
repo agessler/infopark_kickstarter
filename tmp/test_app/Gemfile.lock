@@ -46,7 +46,7 @@ GEM
       builder
       json
     arel (3.0.2)
-    backports (3.3.4)
+    backports (3.3.5)
     better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -131,7 +131,7 @@ GEM
     method_source (0.8.2)
     mime-types (1.25)
     multi_json (1.8.1)
-    newrelic_rpm (3.6.7.159)
+    newrelic_rpm (3.6.8.164)
     nokogiri (1.5.10)
     polyglot (0.3.3)
     projekktor-rails (0.0.5)

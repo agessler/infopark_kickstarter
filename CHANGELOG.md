@@ -1,4 +1,6 @@
 # v3.2.0
+  * Bugfix: The google maps widget did not respect a default width and height.
+    (Thanks @ronaldmueller)
   * Added a mediabrowser that allows to add, edit, delete and select CMS resources like Images,
     BlogPosts or any other objects. The mediabrowser is highly customizable and provides all basic
     features like searching through your resources, selecting them for a link- or referencelist,
