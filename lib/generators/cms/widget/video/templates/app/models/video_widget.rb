@@ -7,14 +7,10 @@ class VideoWidget < Obj
   cms_attribute :autoplay, type: :boolean
   cms_attribute :poster, type: :linklist, max_size: 1
 
-  # Determines the mime type of the video if it is stored in the CMS.
+  # Determines the mime type of the video.
   def mime_type
     if source.present? && source.first.internal?
       source.first.destination_object.mime_type
     end
-  end
-
-  def embed_url
-    source.first.url
   end
 end

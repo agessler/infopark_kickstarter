@@ -1,3 +1,2 @@
-.video-player{style: "height: #{@widget.height}px; max-width: #{@widget.width}px;"}
-  %video.video-player.projekktor{id: @widget.id, poster: @widget.poster && cms_url(@widget.poster), data: { autoplay: @widget.autoplay? }}
-    %source{src: cms_url(@widget.source), type: @widget.mime_type}
+%video.projekktor{width: @widget.width, height: @widget.height, poster: @widget.poster && cms_url(@widget.poster), controls: true, data: { autoplay: @widget.autoplay? }}
+  %source{src: cms_url(@widget.source), type: @widget.mime_type}

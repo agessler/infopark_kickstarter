@@ -37,18 +37,12 @@ describe Cms::Generators::Widget::VideoGenerator do
               contains '//= require projekktor'
               contains '//= require projekktor.config'
             end
-
-            file 'projekktor.config.js.coffee' do
-              contains 'controls: true'
-            end
           end
 
           directory 'stylesheets' do
             file 'application.css' do
               contains '*= require projekktor'
             end
-
-            file 'video_widget.css.less'
           end
         end
 
