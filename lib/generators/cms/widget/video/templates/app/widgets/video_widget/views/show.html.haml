@@ -1,1 +1,2 @@
-= render_cell(:widget, :show, @obj, @widget)
+%video.projekktor{width: @widget.width, height: @widget.height, poster: @widget.poster && cms_url(@widget.poster), controls: true, data: { autoplay: @widget.autoplay? }}
+  %source{src: cms_url(@widget.source), type: @widget.mime_type}

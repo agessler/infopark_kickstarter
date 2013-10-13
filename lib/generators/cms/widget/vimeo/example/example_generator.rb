@@ -1,7 +1,7 @@
 module Cms
   module Generators
     module Widget
-      module Video
+      module Vimeo
         class ExampleGenerator < Cms::Generators::Widget::Example::Base
           include Migration
 
@@ -16,7 +16,7 @@ module Cms
           private
 
           def obj_class_name
-            'VideoWidget'
+            'VimeoWidget'
           end
         end
       end

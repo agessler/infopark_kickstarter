@@ -31,28 +31,11 @@ describe Cms::Generators::Widget::VideoGenerator do
   it 'creates files' do
     destination_root.should have_structure {
       directory 'app' do
-        directory 'cells' do
-          directory 'widget' do
-            file 'video_widget_cell.rb'
-
-            directory 'video_widget' do
-              file 'show.html.haml'
-              file 'projekktor.html.haml'
-              file 'youtube.html.haml'
-              file 'vimeo.html.haml'
-            end
-          end
-        end
-
         directory 'assets' do
           directory 'javascripts' do
             file 'application.js' do
               contains '//= require projekktor'
               contains '//= require projekktor.config'
-            end
-
-            file 'projekktor.config.js.coffee' do
-              contains 'controls: true'
             end
           end
 
@@ -60,8 +43,6 @@ describe Cms::Generators::Widget::VideoGenerator do
             file 'application.css' do
               contains '*= require projekktor'
             end
-
-            file 'video_widget.css.less'
           end
         end
 
@@ -95,7 +76,6 @@ describe Cms::Generators::Widget::VideoGenerator do
       end
 
       file 'Gemfile' do
-        contains 'gem "video_info"'
         contains 'gem "projekktor-rails"'
       end
     }
