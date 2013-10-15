@@ -34,8 +34,7 @@ describe Cms::Generators::Component::ErrorTracking::HoneybadgerGenerator do
 
         directory 'initializers' do
           file 'honeybadger.rb' do
-            contains "configuration = YAML.load_file(Rails.root + 'config/custom_cloud.yml')"
-            contains "config.api_key = configuration['honeybadger']['api_key']"
+            contains "config.api_key = ENV['HONEYBADGER_API_KEY'] || honeybadger_config['api_key']"
           end
         end
       end
