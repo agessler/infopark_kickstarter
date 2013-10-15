@@ -1,5 +1,26 @@
 language: ruby
 rvm:
 - 1.9.3
-
 script: bundle exec rake travis
+env:
+  global:
+    # CONTENT_SERVICE_URL=
+    # CONTENT_SERVICE_LOGIN=
+    # CONTENT_SERVICE_API_KEY=
+    # CMS_URL=
+    # CMS_LOGIN=
+    # CMS_API_KEY=
+    # CRM_URL=
+    # CRM_LOGIN=
+    # CRM_API_KEY=
+
+    # murphyslaw's credentials
+    - secure: qcAJmJzHH2xVnCfSg3ky/qtShKJam9b+2vza6czRUMW9blnN/reDaIOVl/KlnxiJWMts8VbYv/scwEn93bUia1rOdqT83kfA4bATe+D/I3RCOmRarBHbKIi4+3CVGuxCw6kiJr1zGuDnk7+/MdQBbf9jXEHVXAvEb8f50AAzJlE=
+    - secure: H0iKjp2LHpNF9m1GaLQM40odHWt8KZwEKMys5/3DLtK+wuaAOrpDIjSj6u7vR6gDnuBRgkKqaSez1lWM0vE/bJpbxjMXhZ3mY7xd9ooQhf+kwqdVR8Ioj4MCHEbkR0lTeENsxDtWA80WcEAy+Aj2T6SsNw4aNJ4PGUBCCjZrBco=
+    - secure: fPPY5iebw6JA72O0iJ9jKhTSv9vbGG2daaNV5Pv4EL2cYlwDoMteznFnnBfkE/y8b3Z5kUMtQ3KqYR3DCi2qZ5uT1JTY6psrKyGQskYjV97a0k3dEaSvS6+UaZ8CIRVjXKMsZKTKCinVw62ETpsNU0gqWm0edfoOnGcEdrGJ31c=
+    - secure: PC0BGE/KMdpxtukamLuDEGOiI8FwOLyLHF6ofxIwTaTESDo7RQjsFTeSLyHJ4Aj2HxiH2apfLYo/SGRf/cWQ1VJLaAXXk/sM4+ejy2yWjQB7AFKfrj8DXMa5ds/ZuVMLr5xUBOYPSRcjsnvX36dgZMJalgLcGpiM4uWgsagN27o=
+    - secure: GSrUQlZg4MayXu7rMeZ4Y9ouTxd6OERHZO1O/jYk/fWRUR7XabDex0BjgyQ2PfAWoU4szTgtH3oMvXCRd4WwlYqMmau3b+oNCf1ltn9nKghzTA2D37LiVPheTBQfngl9uAkaQjdorWhXR+bELsdJ35rrBsnVkDAPYPK6M9oCoPs=
+    - secure: eLy9X7FMF9rl9Sri1XhG5X68MkMFAToeDOAVc7xp3amI5uKH0DSaTsaRPc2yfS2ZNyY3N0CM8SkVDCsueJ/v9amfeYS+FDlKayvN3rjMoC0oA9ryA+9Fal/2mMGvpWxreoFGhw6VrCS8lC+CTZU4oFqdyTFizWCVOQqQLgQCqxg=
+    - secure: nX0f56uXag25laF0Mr7bOC9x0ykfUSgr8XC6EtRopJdRIwCDRU81KHtnQVrRJ8z4SqLPNuVpCdseVbrPjc9/qmSdkc4+trUqcFyxTi6suGoaaZ+S6f4Cfvs6+/QVYy80alTrj28m9rH1yBvdoQg12CWMtDKefdcfkIK3Ca154cY=
+    - secure: k4XnzMkIY9s/ferSNgAAfngifczTm83VyLdwZI6bpMLW0JP3Q0BbQLxZ8I67NPG6sGQsiLsv/x9SsfE4pHL3LuGD8EkwoPZl98Xj4wy6dDSwhoktbcCRXkj3/OOf42qu+kysPTlKcYzu8OmsTmB2ZkMixH4UtoVrnkXfaSf5iPM=
+    - secure: OG0YxFrrbB3gX46cX0CC6hzMDtZaRsSZ5zko0/kyHtWr/5DeE4FfCG2xcB0Nhn6/1VlEs2rrza2V5DgjdQnuUxTUkUm74ew/tdYOqrtIapS36HpT2hE/HtNjVJIQqCAs+x3k/aTqC4IczC7Tr2uK20iC9PJanKEV+fZNcMPt3tU=
