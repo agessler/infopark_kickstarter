@@ -1,4 +1,5 @@
 # v3.2.0
+  * Application credentials can now also be set via environment variables.
   * We split up the general purpose video widget into three separate widgets that handle youtube,
     vimeo and a generic video player by themself. This provides a clearer interface and more
     specific use cases. Call `rails g cms:widget:youtube`, `rails g cms:widget:vimeo` and
