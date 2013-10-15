@@ -3,6 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/infopark_kickstarter.png)](http://badge.fury.io/rb/infopark_kickstarter)
 [![Code Climate](https://codeclimate.com/github/infopark/infopark_kickstarter.png)](https://codeclimate.com/github/infopark/infopark_kickstarter)
 [![Dependency Status](https://gemnasium.com/infopark/infopark_kickstarter.png)](https://gemnasium.com/infopark/infopark_kickstarter)
+[![Build Status](https://travis-ci.org/infopark/infopark_kickstarter.png)](https://travis-ci.org/infopark/infopark_kickstarter)
 
 Infopark Kickstarter provides generators and rake tasks to quickly setup or enhance an
 [Infopark](http://infopark.de) Ruby on Rails project. All generated code

@@ -43,8 +43,12 @@ module Cms
           end
 
           def update_local_custom_cloud_file
-            append_file('config/custom_cloud.yml') do
-              File.read(find_in_source_paths('custom_cloud.yml'))
+            path = File.join(destination_root, 'config/custom_cloud.yml')
+
+            if File.exist?(path)
+              append_file(path) do
+                File.read(find_in_source_paths('custom_cloud.yml'))
+              end
             end
           end
 
