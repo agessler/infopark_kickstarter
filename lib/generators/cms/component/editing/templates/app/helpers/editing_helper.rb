@@ -53,6 +53,11 @@ module EditingHelper
     end
   end
 
+  # Displays a CMS referencelist attribute on an edit page and provides data for the referencelist
+  # JavaScript editor.
+  #
+  # @param [Obj] object the cms object with a referencelist attribute
+  # @param [String] attribute_name the name of the referencelist attribute
   def cms_edit_referencelist(object, attribute_name)
     reference_list = object.send(attribute_name)
 
@@ -63,14 +68,16 @@ module EditingHelper
         html = ''.html_safe
 
         reference_list.each do |reference|
-          html << content_tag(:li, reference.name, 'data-id' => reference.id)
+          html << content_tag(:li, 'data-name' => reference.name, 'data-id' => reference.id) do
+            "#{reference.name} (#{reference.id})"
+          end
         end
 
         html
       end
 
-      out << button_tag(class: 'editing-button editing-green add-link') do
-        content_tag(:i, '', class: 'editing-icon editing-icon-plus')
+      out << button_tag(class: 'editing-button editing-green mediabrowser-open') do
+        content_tag(:i, '', class: 'editing-icon editing-icon-search')
       end
 
       out
