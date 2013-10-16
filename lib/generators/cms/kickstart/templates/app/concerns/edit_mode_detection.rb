@@ -19,3 +19,4 @@ module EditModeDetection
     self.class.editing_allowed?(request.env)
   end
 end
+
