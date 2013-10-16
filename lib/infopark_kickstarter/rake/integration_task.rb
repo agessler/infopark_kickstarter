@@ -38,6 +38,7 @@ module InfoparkKickstarter
             end
           end
 
+          task travis: ['spec', 'test:integration']
         end
       end
 

@@ -13,5 +13,3 @@ require 'infopark_kickstarter/rake/integration_task'
 InfoparkKickstarter::Rake::IntegrationTask.new
 
 task default: :spec
-
-task travis: ['spec', 'test:integration']
