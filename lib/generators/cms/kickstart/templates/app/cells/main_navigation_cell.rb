@@ -22,7 +22,7 @@ class MainNavigationCell < Cell::Rails
   # Cell states:
 
   def edit_toggle
-    if EditModeDetection.editing_allowed?(session)
+    if EditModeDetection.editing_allowed?(request.env)
       render
     end
   end

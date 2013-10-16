@@ -34,6 +34,5 @@ end
 # on the client side, the server side also uses this callback to determine if CMS data
 # can be modified in the database.
 RailsConnector::Configuration.editing_auth do |env|
-  request = Rack::Request.new(env)
-  EditModeDetection.editing_allowed?(request.session)
+  EditModeDetection.editing_allowed?(env)
 end

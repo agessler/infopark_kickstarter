@@ -16,11 +16,13 @@ module WorkspaceSelection
   end
 
   def switchable?
-    EditModeDetection.editing_allowed?(session) && workspace_param.present?
+    (Rails.env.development? || EditModeDetection.editing_allowed?(request.env)) &&
+      workspace_param.present?
   end
 
   def internal_workspace_switch?
-    !EditModeDetection.editing_allowed?(session) &&
+    !Rails.env.development? &&
+    !EditModeDetection.editing_allowed?(request.env) &&
     params['_rc-ws'].present? &&
     params['_rc-ws'] != 'published'
   end
