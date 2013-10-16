@@ -56,21 +56,21 @@ order to run all Kickstarter Tests on the platform you should:
    run the following command with your configuration filled in accordingly. Make sure to insert the
    name of your forked GitHub repository `<your-github-account>/infopark_kickstarter`.
 
-    travis encrypt CONTENT_SERVICE_URL=<content service url> -r <github repository> &&
-    travis encrypt CONTENT_SERVICE_LOGIN=<content service login> -r <github repository> &&
-    travis encrypt CONTENT_SERVICE_API_KEY=<content service api key> -r <github repository> &&
-    travis encrypt CMS_URL=<cms url> -r <github repository> &&
-    travis encrypt CMS_LOGIN=<cms login> -r <github repository> &&
-    travis encrypt CMS_API_KEY=<cms api_key> -r <github repository> &&
-    travis encrypt CRM_URL=<crm url> -r <github repository> &&
-    travis encrypt CRM_LOGIN=<crm login> -r <github repository> &&
-    travis encrypt CRM_API_KEY=<crm api key> -r <github repository>
+        travis encrypt CONTENT_SERVICE_URL=<content service url> -r <github repository> &&
+        travis encrypt CONTENT_SERVICE_LOGIN=<content service login> -r <github repository> &&
+        travis encrypt CONTENT_SERVICE_API_KEY=<content service api key> -r <github repository> &&
+        travis encrypt CMS_URL=<cms url> -r <github repository> &&
+        travis encrypt CMS_LOGIN=<cms login> -r <github repository> &&
+        travis encrypt CMS_API_KEY=<cms api_key> -r <github repository> &&
+        travis encrypt CRM_URL=<crm url> -r <github repository> &&
+        travis encrypt CRM_LOGIN=<crm login> -r <github repository> &&
+        travis encrypt CRM_API_KEY=<crm api key> -r <github repository>
 
   Please add the *secure* output to the `.travis.yml` file and add a comment with your GitHub name
-  above. You find a examples for other contributers in the file.
+  above. You find examples for other contributers in the file.
 
-6. If you now push commits to your forked repository or send a pull request, travis will
-   automatically run all tests for you and indicate the build status.
+If you now push commits to your forked repository or send a pull request, travis will automatically
+run all tests for you and indicate the build status.
 
 
 ## Changelog
