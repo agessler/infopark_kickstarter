@@ -28,10 +28,49 @@ There are also integration tests, that can be run by:
     $ rake test:integration
 
 In order to run the tests successfully, you need to download the application configuration from the
-[Infopark Console](https://console.infopark.net) and unpack it into the ```config``` folder.
+[Infopark Console](https://console.infopark.net) and unpack it into the ```config``` folder. See the
+contributing section below for more information.
 
-The integration tests create an entire new application, execute ```rails generate cms:kickstart```
-and run a few other generators and then execute the tests of the newly created application.
+The integration tests are rather slow, because they create an entire new application, execute
+```rails generate cms:kickstart``` and run all the other generators and then execute the tests of
+the newly created application. Therefore, all tests can also run on the Continuous Integration
+platform [Travis](https://travis-ci.org).
+
+
+### Continuous Integration with Travis
+
+As the Infopark Kickstarter is a public repository, it is easily possible for you to run *Continuous
+Integration* tests of your fork with [Travis](https://travis-ci.org) as you develop new features. In
+order to run all Kickstarter Tests on the platform you should:
+
+1. Fork the
+   [Infopark Kickstarter GitHub repository](https://github.com/infopark/infopark_kickstarter).
+
+2. Sign In at Travis with your Github Account.
+
+3. Enable the Travis Webhook for your `infopark_kickstarter` fork.
+
+4. Run `gem install travis` on your local machine to install the travis command line client.
+
+5. Download the configuration files for your Ruby on Rails application from the Infopark console and
+   run the following command with your configuration filled in accordingly. Make sure to insert the
+   name of your forked GitHub repository `<your-github-account>/infopark_kickstarter`.
+
+    travis encrypt CONTENT_SERVICE_URL=<content service url> -r <github repository> &&
+    travis encrypt CONTENT_SERVICE_LOGIN=<content service login> -r <github repository> &&
+    travis encrypt CONTENT_SERVICE_API_KEY=<content service api key> -r <github repository> &&
+    travis encrypt CMS_URL=<cms url> -r <github repository> &&
+    travis encrypt CMS_LOGIN=<cms login> -r <github repository> &&
+    travis encrypt CMS_API_KEY=<cms api_key> -r <github repository> &&
+    travis encrypt CRM_URL=<crm url> -r <github repository> &&
+    travis encrypt CRM_LOGIN=<crm login> -r <github repository> &&
+    travis encrypt CRM_API_KEY=<crm api key> -r <github repository>
+
+  Please add the *secure* output to the `.travis.yml` file and add a comment with your GitHub name
+  above. You find a examples for other contributers in the file.
+
+6. If you now push commits to your forked repository or send a pull request, travis will
+   automatically run all tests for you and indicate the build status.
 
 
 ## Changelog
@@ -49,17 +88,19 @@ do so any time by following the steps below.
 1. Signup for a [free Infopark account](http://www.infopark.de/) and setup a test CRM
    and CMS component in the Infopark console.
 
-2. Fork and clone the Infopark Kickstarter GitHub repository.
+2. Fork and clone the
+   [Infopark Kickstarter GitHub repository](https://github.com/infopark/infopark_kickstarter).
 
         git clone git@github.com:_username_/infopark_kickstarter.git
         cd infopark_kickstarter
 
-3. We suggest using [rbenv](https://github.com/sstephenson/rbenv/). Anyway, compare your local Ruby
-   version with the version given in `.ruby-version` and install it if necessary.
+3. We suggest using [rbenv](https://github.com/sstephenson/rbenv/) for managing your local Ruby
+   version. Make sure to use at least Ruby version 1.9.3.
 
         ruby --version
 
-3. Download the configuration files for your Ruby on Rails application from the Infopark console and copy them to your project's `config` folder.
+3. Download the configuration files for your Ruby on Rails application from the Infopark console and
+   copy them to your cloned Kickstarter gem `config` folder.
 
         config/rails_connector.yml
         config/custom_cloud.yml
@@ -83,4 +124,5 @@ do so any time by following the steps below.
 ## License
 Copyright (c) 2009 - 2013 Infopark AG (http://www.infopark.com)
 
-This software can be used and modified under the LGPLv3. Please refer to http://www.gnu.org/licenses/lgpl-3.0.html for the license text.
+This software can be used and modified under the LGPLv3. Please refer to
+http://www.gnu.org/licenses/lgpl-3.0.html for the license text.
