@@ -24,6 +24,20 @@ module InfoparkKickstarter
               end
             end
           end
+
+          task :app do
+            create_application
+            create_configuration_files
+
+            cd(app_path) do
+              Bundler.with_clean_env do
+                bundle
+                call_generators
+                run_tests
+              end
+            end
+          end
+
         end
       end
 
@@ -82,7 +96,6 @@ module InfoparkKickstarter
           'cms:widget:column --columns=3',
           'cms:widget:column:example --columns=3',
         ]
-
         generators.each do |generator|
           sh("rails generate #{generator}")
         end
