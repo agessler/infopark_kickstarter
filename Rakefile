@@ -12,4 +12,7 @@ RSpec::Core::RakeTask.new(:spec)
 require 'infopark_kickstarter/rake/integration_task'
 InfoparkKickstarter::Rake::IntegrationTask.new
 
+require 'infopark_kickstarter/rake/travis_task'
+InfoparkKickstarter::Rake::TravisTask.new
+
 task default: :spec

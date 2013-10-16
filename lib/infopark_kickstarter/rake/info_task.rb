@@ -8,12 +8,6 @@ module InfoparkKickstarter
   module Rake
     class InfoTask < ::Rake::TaskLib
       def initialize
-        desc 'Turn configuration variables into travis secure environment variables'
-
-        task travis_encrypt: :environment do
-          travis_encrypt
-        end
-
         namespace :infopark do
           desc 'Open the Infopark console in your web browser'
           task :console do
@@ -49,40 +43,6 @@ module InfoparkKickstarter
       end
 
       private
-
-      def travis_encrypt
-        unless %x{which travis}.present?
-          puts 'Please make sure to install the travis command line client with
-            `gem install travis` and then run the rake task again.'
-
-          return
-        end
-
-        configuration = {
-          'CONTENT_SERVICE_URL' => RailsConnector::Configuration.content_service_url,
-          'CONTENT_SERVICE_LOGIN' => RailsConnector::Configuration.content_service_login,
-          'CONTENT_SERVICE_API_KEY' => RailsConnector::Configuration.content_service_api_key,
-          'CMS_URL' => RailsConnector::Configuration.cms_url,
-          'CMS_LOGIN' => RailsConnector::Configuration.cms_login,
-          'CMS_API_KEY' => RailsConnector::Configuration.cms_api_key,
-          'CRM_URL' => Infopark::Crm::Configuration.url,
-          'CRM_LOGIN' => Infopark::Crm::Configuration.login,
-          'CRM_API_KEY' => Infopark::Crm::Configuration.api_key,
-        }
-
-        contributor = %x(whoami).strip
-
-        puts "Please add the following to your .travis.yml file:\n\n"
-        puts "# #{contributor}'s credentials"
-
-        Bundler.with_clean_env do
-          configuration.map do |key, value|
-            token = %x{travis encrypt #{key}=#{value}}
-
-            puts "- secure: #{token}"
-          end
-        end
-      end
 
       def system_info
         output = []

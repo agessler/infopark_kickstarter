@@ -46,9 +46,9 @@ order to run all Kickstarter Tests on the platform you should:
 1. See the **Contributing** section and set up your local fork of the Infopark Kickstarter. Make
    sure that all tests are passing on your local machine.
 
-2. Go into your generated test application `cd tmp/test_app` and run `rake travis_encrypt` to get a
-   list of secure travis credentials and add them to the `.travis.yml` file. Please check these
-   changes in with your next pull request.
+2. Go into your local Kickstarter directory and run `rake travis_encrypt` to get a list of
+   secure travis credentials and add them to the `.travis.yml` file. Please check these changes in
+   with your next pull request.
 
 3. Sign in at [Travis](https://travis-ci.org) with your Github Account.
 
