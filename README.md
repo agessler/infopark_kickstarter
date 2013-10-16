@@ -43,31 +43,16 @@ As the Infopark Kickstarter is a public repository, it is easily possible for yo
 Integration* tests of your fork with [Travis](https://travis-ci.org) as you develop new features. In
 order to run all Kickstarter Tests on the platform you should:
 
-1. Fork the
-   [Infopark Kickstarter GitHub repository](https://github.com/infopark/infopark_kickstarter).
+1. See the **Contributing** section and set up your local fork of the Infopark Kickstarter. Make
+   sure that all tests are passing on your local machine.
 
-2. Sign In at Travis with your Github Account.
+2. Go into your generated test application `cd tmp/test_app` and run `rake travis_encrypt` to get a
+   list of secure travis credentials and add them to the `.travis.yml` file. Please check these
+   changes in with your next pull request.
 
-3. Enable the Travis Webhook for your `infopark_kickstarter` fork.
+3. Sign in at [Travis](https://travis-ci.org) with your Github Account.
 
-4. Run `gem install travis` on your local machine to install the travis command line client.
-
-5. Download the configuration files for your Ruby on Rails application from the Infopark console and
-   run the following command with your configuration filled in accordingly. Make sure to insert the
-   name of your forked GitHub repository `<your-github-account>/infopark_kickstarter`.
-
-        travis encrypt CONTENT_SERVICE_URL=<content service url> -r <github repository> &&
-        travis encrypt CONTENT_SERVICE_LOGIN=<content service login> -r <github repository> &&
-        travis encrypt CONTENT_SERVICE_API_KEY=<content service api key> -r <github repository> &&
-        travis encrypt CMS_URL=<cms url> -r <github repository> &&
-        travis encrypt CMS_LOGIN=<cms login> -r <github repository> &&
-        travis encrypt CMS_API_KEY=<cms api_key> -r <github repository> &&
-        travis encrypt CRM_URL=<crm url> -r <github repository> &&
-        travis encrypt CRM_LOGIN=<crm login> -r <github repository> &&
-        travis encrypt CRM_API_KEY=<crm api key> -r <github repository>
-
-  Please add the *secure* output to the `.travis.yml` file and add a comment with your GitHub name
-  above. You find examples for other contributers in the file.
+4. Enable the Travis Webhook for your `infopark_kickstarter` fork.
 
 If you now push commits to your forked repository or send a pull request, travis will automatically
 run all tests for you and indicate the build status.
