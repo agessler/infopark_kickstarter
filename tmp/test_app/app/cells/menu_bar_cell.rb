@@ -4,7 +4,7 @@ class MenuBarCell < Cell::Rails
   # Cell actions:
 
   def show
-    if EditModeDetection.editing_allowed?(session)
+    if EditModeDetection.editing_allowed?(request.env)
       render
     end
   end

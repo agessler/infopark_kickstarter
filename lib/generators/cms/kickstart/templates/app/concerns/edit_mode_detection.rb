@@ -8,14 +8,15 @@ module EditModeDetection
   private
 
   def detect_editing_allowed
-    session[:editing_allowed] = Rails.env.development? || current_user.admin?
+    session[:editing_allowed] = current_user.admin?
   end
 
-  def self.editing_allowed?(session)
-    session[:editing_allowed]
+  def self.editing_allowed?(env)
+    env['rack.session'][:editing_allowed]
   end
 
   def editing_allowed?
-    self.class.editing_allowed?(session)
+    self.class.editing_allowed?(request.env)
   end
 end
+
