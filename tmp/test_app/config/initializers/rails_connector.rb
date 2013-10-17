@@ -1,12 +1,24 @@
-configuration = YAML.load_file(Rails.root + 'config/rails_connector.yml')
+def content_service_config
+  config = YAML.load_file(Rails.root + 'config/rails_connector.yml')
+  config['content_service'] || {}
+rescue Errno::ENOENT
+  {}
+end
 
-RailsConnector::Configuration.content_service_url = configuration['content_service']['url']
-RailsConnector::Configuration.content_service_login = configuration['content_service']['login']
-RailsConnector::Configuration.content_service_api_key = configuration['content_service']['api_key']
+def cms_config
+  config = YAML.load_file(Rails.root + 'config/rails_connector.yml')
+  config['cms_api'] || {}
+rescue Errno::ENOENT
+  {}
+end
 
-RailsConnector::Configuration.cms_url = configuration['cms_api']['url']
-RailsConnector::Configuration.cms_login = configuration['cms_api']['login']
-RailsConnector::Configuration.cms_api_key = configuration['cms_api']['api_key']
+RailsConnector::Configuration.content_service_url = ENV['CONTENT_SERVICE_URL'] || content_service_config['url']
+RailsConnector::Configuration.content_service_login = ENV['CONTENT_SERVICE_LOGIN'] || content_service_config['login']
+RailsConnector::Configuration.content_service_api_key = ENV['CONTENT_SERVICE_API_KEY'] || content_service_config['api_key']
+
+RailsConnector::Configuration.cms_url = ENV['CMS_URL'] || cms_config['url']
+RailsConnector::Configuration.cms_login = ENV['CMS_LOGIN'] || cms_config['login']
+RailsConnector::Configuration.cms_api_key = ENV['CMS_API_KEY'] || cms_config['api_key']
 
 RailsConnector::Configuration.choose_homepage do |env|
   # Returns an introduction page, when no Homepage found. Usually, you can delete
@@ -22,6 +34,5 @@ end
 # on the client side, the server side also uses this callback to determine if CMS data
 # can be modified in the database.
 RailsConnector::Configuration.editing_auth do |env|
-  request = Rack::Request.new(env)
-  EditModeDetection.editing_allowed?(request.session)
+  EditModeDetection.editing_allowed?(env)
 end

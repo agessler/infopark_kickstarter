@@ -5,6 +5,7 @@
 .bundle/
 .yardoc
 .rspec
+.ruby-version
 /Gemfile.lock
 pkg/
 doc/

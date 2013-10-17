@@ -5,7 +5,6 @@ module Cms
         source_root File.expand_path('../templates', __FILE__)
 
         def video_tools
-          gem('video_info')
           gem('projekktor-rails')
 
           Bundler.with_clean_env do

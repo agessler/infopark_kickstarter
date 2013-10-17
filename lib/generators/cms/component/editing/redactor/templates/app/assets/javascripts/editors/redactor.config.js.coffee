@@ -104,7 +104,7 @@ $ ->
       event.preventDefault()
       cmsField = $(this)
 
-      unless cmsField.data('redactor')
+      unless cmsField.hasClass('redactor_editor')
         cmsField.html(cmsField.infopark('content') || '')
         cmsField.redactor(redactorOptions())
 

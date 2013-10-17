@@ -1,0 +1,7 @@
+en:
+  widgets:
+    vimeo_widget:
+      description: 'Displays a vimeo video player for the given vimeo link.'
+      height: 'Height'
+      title: 'Vimeo widget'
+      width: 'Width'

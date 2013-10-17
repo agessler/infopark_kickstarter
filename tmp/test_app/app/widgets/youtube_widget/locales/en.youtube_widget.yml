@@ -1,0 +1,7 @@
+en:
+  widgets:
+    youtube_widget:
+      description: 'Displays a youtube video player for the given youtube link.'
+      height: 'Height'
+      title: 'Youtube widget'
+      width: 'Width'

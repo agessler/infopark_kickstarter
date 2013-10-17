@@ -40,20 +40,7 @@ module InfoparkKickstarter
       end
 
       def tenant_name
-        rails_connector_config['cms_api']['url'].match(/\/\/(.*?)\./)[1]
-      end
-
-      def rails_connector_config
-        YAML.load_file(Rails.root + 'config/rails_connector.yml')
-      rescue Errno::ENOENT
-        puts %{
-          You are missing the "config/rails_connector.yml" file to connect to the Infopark CMS.
-          Please consult Infopark DevCenter Getting Started section on how to configure your application.
-
-          https://dev.infopark.net
-        }
-
-        exit
+        RailsConnector::Configuration.cms_url.match(/\/\/(.*?)\./)[1]
       end
     end
   end
