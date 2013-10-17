@@ -1,4 +1,12 @@
 # v3.2.0
+  * As a developer you are no longer logged in by default but you can still change working copies as
+    a developer without beeing logged in. This has the advantage that you can now preview pages in
+    live mode as a developer, which was not possible before but highly recommended during
+    development. (Thanks @yagooar)
+  * We've added support for running Continous Integration Tests on [Travis](https://travis-ci.org)
+    and updated the README accordingly. A new rake task was added to easily get the Travis secure
+    credentials needed to connect your own CMS and CRM when running the tests. See
+    `rake travis_encrypt` for more details.
   * Application credentials can now also be set via environment variables.
   * We split up the general purpose video widget into three separate widgets that handle youtube,
     vimeo and a generic video player by themself. This provides a clearer interface and more
