@@ -37,7 +37,6 @@ module InfoparkKickstarter
               end
             end
           end
-
         end
       end
 
