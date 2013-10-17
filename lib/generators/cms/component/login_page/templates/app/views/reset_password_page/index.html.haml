@@ -3,9 +3,13 @@
 
   = cms_tag(:div, @obj, :content)
 
-  = simple_form_for(@presenter, url: cms_path(@obj)) do |form|
-    = form.error_notification
+  = form_for(@presenter, url: cms_path(@obj)) do |form|
+    .control-group
+      = form.label(:login)
 
-    = form.input(:login)
+      .controls
+        = form.text_field(:login, required: true)
 
-    = form.button(:submit, class: 'btn-danger')
+    .control-group
+      .controls
+        = form.submit(class: 'btn')
