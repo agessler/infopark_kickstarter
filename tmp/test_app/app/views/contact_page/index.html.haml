@@ -3,13 +3,26 @@
 
   = cms_tag(:div, @obj, :content)
 
-  = simple_form_for(@contact_page_presenter, url: cms_path(@obj)) do |form|
-    = form.error_notification
+  = form_for(@contact_page_presenter, url: cms_path(@obj)) do |form|
+    %fieldset
+      .control-group
+        = form.label(:email)
 
-    = form.input(:email)
+        .controls
+          = form.email_field(:email, required: true)
 
-    = form.input(:subject)
+      .control-group
+        = form.label(:subject)
 
-    = form.input(:message, as: :text, input_html: { rows: 10, class: 'span5' })
+        .controls
+          = form.text_field(:subject, required: true)
 
-    = form.button(:submit)
+      .control-group
+        = form.label(:message)
+
+        .controls
+          = form.text_area(:message, rows: 10)
+
+      .control-group
+        .controls
+          = form.submit(class: 'btn')

@@ -1,4 +1,9 @@
 # v3.2.0
+  * Removed dependency on the Rails Connector and updated various gems like
+    `infopark_cloud_connector`, `infopark_dashboard` and `rails`.
+  * The Kickstarter generated views no longer depend on
+    [simple_form](https://github.com/plataformatec/simple_form), but uses standard Rails forms
+    instead.
   * As a developer you are no longer logged in by default but you can still change working copies as
     a developer without beeing logged in. This has the advantage that you can now preview pages in
     live mode as a developer, which was not possible before but highly recommended during
@@ -23,8 +28,8 @@
   * Added a menubar for editors when they are not in edit mode, similar to what the RailsConnector
     provides when in edit mode. The menubar displays the current workspace, the name of the logged
     in editor and the edit mode toggle icon. (Thanks @benzimmer)
-  * Added a check for `git --version` to the `infopark:system:info` rake task.
-  * Bugfix: `rake infopark:system:info` did not return the correct latest version for some gems.
+  * Added a check for `git --version` to the `infopark:info:system` rake task.
+  * Bugfix: `rake infopark:info:system` did not return the correct latest version for some gems.
     (Thanks @pierpaolofrasa-twt)
   * Turned on email links by default for the Redactor html editor. (Thanks @mremolt)
   * Added Redo and Undo functionality to the Redactor html editor. (Thanks @marcelgo)

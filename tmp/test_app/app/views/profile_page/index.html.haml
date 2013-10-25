@@ -3,27 +3,56 @@
 
   = cms_tag(:div, @obj, :content)
 
-  = simple_form_for(@presenter, url: cms_path(@obj), html: { class: 'form-horizontal' }) do |form|
-    = form.error_notification
-
+  = form_for(@presenter, url: cms_path(@obj), html: { class: 'form-horizontal' }) do |form|
     %fieldset
       %legend
         = t('.user_legend')
 
-      = form.input :id, as: :hidden, input_html: { value: form.object.id }
+      = form.hidden_field(:id)
 
-      = form.input(:gender, as: :radio, collection: [:F, :M])
+      .control-group
+        .controls
+          = form.label(:gender, value: :F, class: 'radio') do
+            = form.radio_button(:gender, :F)
 
-      = form.input(:first_name)
+            = t("helpers.label.#{form.object_name}.gender.F")
 
-      = form.input(:last_name)
+          = form.label(:gender, value: :M, class: 'radio') do
+            = form.radio_button(:gender, :M)
 
-      = form.input(:language, as: :select, collection: [:en, :de])
+            = t("helpers.label.#{form.object_name}.gender.M")
 
-      = form.input(:email)
+      .control-group
+        = form.label(:first_name, class: 'control-label')
 
-      = form.input(:want_email, as: :boolean, inline_label: true, label: false)
+        .controls
+          = form.text_field(:first_name)
+
+      .control-group
+        = form.label(:last_name, class: 'control-label')
+
+        .controls
+          = form.text_field(:last_name, required: true)
+
+      .control-group
+        = form.label(:language, class: 'control-label')
+
+        .controls
+          = form.select(:language, form.object.language_for_select)
+
+      .control-group
+        = form.label(:email, class: 'control-label')
+
+        .controls
+          = form.email_field(:email, required: true)
+
+      .control-group
+        .controls
+          = form.label(:want_email, class: 'checkbox') do
+            = form.check_box(:want_email)
+
+            = t("helpers.label.#{form.object_name}.want_email")
 
     .control-group
       .controls
-        = form.button(:submit, class: 'btn-primary')
+        = form.submit(class: 'btn')

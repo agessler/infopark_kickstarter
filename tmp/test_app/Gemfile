@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.14'
+gem 'rails', '3.2.15'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -36,7 +36,6 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
-gem "infopark_rails_connector"
 gem "infopark_cloud_connector"
 group :assets do
   gem "therubyracer", :require => "v8"
@@ -47,7 +46,6 @@ group :test, :development do
 end
 
 gem "active_attr"
-gem "simple_form"
 gem "haml-rails"
 gem "cells"
 gem "utf8-cleaner"
@@ -65,7 +63,7 @@ group :test, :development do
   gem "pry-rails"
   gem "rails-footnotes"
   gem "thin"
-  gem "infopark_dashboard"
+  gem "infopark_dashboard", ">= 0.0.2"
 end
 
 group :development do
