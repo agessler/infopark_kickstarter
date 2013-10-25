@@ -1,4 +1,7 @@
 # v3.2.0
+  * The Kickstarter generated views no longer depend on
+    [simple_form](https://github.com/plataformatec/simple_form), but uses standard Rails forms
+    instead.
   * As a developer you are no longer logged in by default but you can still change working copies as
     a developer without beeing logged in. This has the advantage that you can now preview pages in
     live mode as a developer, which was not possible before but highly recommended during
