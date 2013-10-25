@@ -5,10 +5,6 @@ class Widget::SliderWidgetCell < WidgetCell
     @id = widget.id
     @images = widget.images
 
-    if @images.blank?
-      @images = placeholder_images
-    end
-
     super(page, widget)
   end
 
@@ -51,16 +47,5 @@ class Widget::SliderWidgetCell < WidgetCell
     if @image.title.present?
       render
     end
-  end
-
-  private
-
-  def placeholder_images
-    RailsConnector::LinkList.new([
-      {
-        url: 'http://lorempixel.com/1600/300/abstract',
-        title: 'Placeholder - Use "Open in admin GUI" to select images"',
-      },
-    ])
   end
 end

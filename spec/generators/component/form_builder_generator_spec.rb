@@ -33,7 +33,10 @@ describe Cms::Generators::Component::FormBuilderGenerator do
 
           directory 'form_builder' do
             file 'show.html.haml'
-            file 'input.html.haml'
+            file 'string.html.haml'
+            file 'text.html.haml'
+            file 'enum.html.haml'
+            file 'multienum.html.haml'
           end
         end
 

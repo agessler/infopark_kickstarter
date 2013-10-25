@@ -9,7 +9,7 @@ module Cms
             gem('pry-rails')
             gem('rails-footnotes')
             gem('thin')
-            gem('infopark_dashboard')
+            gem('infopark_dashboard', '>= 0.0.2')
           end
 
           gem_group(:development) do

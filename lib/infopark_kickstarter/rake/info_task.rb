@@ -58,7 +58,6 @@ module InfoparkKickstarter
         %w(
           rails
           infopark_kickstarter
-          infopark_rails_connector
           infopark_cloud_connector
           infopark_crm_connector
         ).each do |name|
