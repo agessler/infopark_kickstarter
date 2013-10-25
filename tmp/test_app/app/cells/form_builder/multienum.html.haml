@@ -1,0 +1,5 @@
+.control-group
+  = @form.label(@name, @title, class: 'control-label')
+
+  .controls
+    = @form.select(@name, @collection, {}, required: @mandatory, multiple: true)

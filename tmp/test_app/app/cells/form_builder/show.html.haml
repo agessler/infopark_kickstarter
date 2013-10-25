@@ -3,12 +3,14 @@
 
   = cms_tag(:div, @obj, :content)
 
-  = simple_form_for(@presenter, url: cms_path(@obj)) do |form|
-    = form.input(:id, as: :hidden, input_html: { value: @presenter.id })
-    = form.input(:title, as: :hidden, input_html: { value: @presenter.id })
-    = form.input(:state, as: :hidden, input_html: { value: @presenter.state })
+  = form_for(@presenter, url: cms_path(@obj)) do |form|
+    = form.hidden_field(:id, value: @presenter.id)
+    = form.hidden_field(:title, value: @presenter.id)
+    = form.hidden_field(:state, value: @presenter.state)
 
     - @custom_attributes.each do |attribute|
       = render({ state: :input }, form, attribute)
 
-    = form.button(:submit)
+    .control-group
+      .controls
+        = form.submit(class: 'btn')
