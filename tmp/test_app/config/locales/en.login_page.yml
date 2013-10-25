@@ -3,6 +3,7 @@ en:
     authorization_failed: "This page is protected. You either don't have neccessary access rights or you are not logged in."
     login:
       success: 'You logged in successfully.'
+      failure: 'Login failed. Please try it again.'
     logout:
       success: 'You logged out successfully.'
     reset_password:
@@ -10,6 +11,11 @@ en:
       success: 'Password reset successfully. You receive an email with further instructions.'
 
   helpers:
+    label:
+      login_presenter:
+        login: 'Login'
+        password: 'Password'
+
     submit:
       login_presenter:
         create: 'Login'
@@ -22,7 +28,3 @@ en:
       login: 'Login'
       logout: 'Logout'
       reset_password: 'Reset Password'
-
-  simple_form:
-    error_notification:
-      login_presenter: 'Login failed. Please try it again.'

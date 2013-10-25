@@ -1,4 +1,3 @@
-gem('infopark_rails_connector')
 gem('infopark_cloud_connector')
 
 gem_group(:assets) do

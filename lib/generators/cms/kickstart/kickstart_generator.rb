@@ -36,7 +36,6 @@ module Cms
 
       def install_gems
         gem('active_attr')
-        gem('simple_form')
         gem('haml-rails')
         gem('cells')
         gem('utf8-cleaner')
@@ -49,14 +48,6 @@ module Cms
         Bundler.with_clean_env do
           run('bundle --quiet')
         end
-      end
-
-      def form_tools
-        generate('simple_form:install --bootstrap --template-engine=haml')
-
-        remove_file('config/locales/simple_form.de.yml')
-        remove_file('config/locales/simple_form.en.yml')
-        remove_dir('lib/templates')
       end
 
       def remove_erb_layout

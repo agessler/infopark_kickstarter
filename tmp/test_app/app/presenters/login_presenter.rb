@@ -13,8 +13,5 @@ class LoginPresenter
 
     User.new(contact.attributes)
   rescue Infopark::Crm::Errors::AuthenticationFailed, ActiveResource::ResourceInvalid
-    errors.add(:base, I18n.t(:'simple_form.error_notification.login_presenter'))
-
-    nil
   end
 end

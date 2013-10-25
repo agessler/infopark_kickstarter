@@ -8,34 +8,21 @@ en:
       user_legend: 'User Details'
 
   helpers:
-    submit:
+    label:
       profile_page_presenter:
-        create: 'Save profile'
-
-  simple_form:
-    labels:
-      profile_page_presenter:
-        gender: 'Gender'
-        first_name: 'Firstname'
-        last_name: 'Last name'
-        email: 'Email'
-        language: 'Language'
-        want_email: 'Yes, I would like to be contacted by email.'
-
-    hints:
-      profile_page_presenter:
-        email: 'Please use a valid email adress.'
-
-    placeholders:
-      profile_page_presenter:
-        email: 'firstname@lastname.com'
-
-    options:
-      profile_page_presenter:
-        language:
-          en: 'English'
-          de: 'German'
-
         gender:
           F: 'Female'
           M: 'Male'
+        first_name: 'First name'
+        last_name: 'Last name'
+        email: 'Email'
+        language: 'Language'
+        language_options:
+          de: 'German'
+          en: 'English'
+        want_email: 'Yes, I would like to be contacted by email.'
+
+    submit:
+      profile_page_presenter:
+        create: 'Save profile'
+        submit: 'Save profile'

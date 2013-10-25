@@ -1,13 +1,24 @@
 .row-fluid
   .span12
-    = simple_form_for(:login_presenter, url: cms_path(@login_page), method: :post) do |form|
-      = hidden_field_tag(:return_to, cms_path(@page))
-      = hidden_field_tag(:authenticity_token, form_authenticity_token)
+    = form_for(:login_presenter, url: cms_path(@login_page), method: :post) do |form|
+      %fieldset
+        = hidden_field_tag(:return_to, cms_path(@page))
+        = hidden_field_tag(:authenticity_token, form_authenticity_token)
 
-      = form.input(:login)
+        .control-group
+          = form.label(:login)
 
-      = form.input(:password)
+          .controls
+            = form.text_field(:login, required: true)
 
-      = form.button(:submit)
+        .control-group
+          = form.label(:password)
+
+          .controls
+            = form.password_field(:password, required: true)
+
+        .control-group
+          .controls
+            = form.submit(class: 'btn')
 
     = render({ state: :reset_password })

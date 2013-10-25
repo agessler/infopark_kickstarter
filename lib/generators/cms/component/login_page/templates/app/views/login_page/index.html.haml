@@ -3,16 +3,25 @@
 
   = cms_tag(:div, @obj, :content)
 
-  = simple_form_for(@presenter, url: cms_path(@obj)) do |form|
-    = hidden_field_tag(:return_to, params[:return_to])
+  = form_for(@presenter, url: cms_path(@obj)) do |form|
+    %fieldset
+      = hidden_field_tag(:return_to, params[:return_to])
 
-    = form.error_notification
+      .control-group
+        = form.label(:login)
 
-    = form.input(:login)
+        .controls
+          = form.text_field(:login, required: true)
 
-    = form.input(:password)
+      .control-group
+        = form.label(:password)
 
-    = form.button(:submit)
+        .controls
+          = form.password_field(:password, required: true)
+
+      .control-group
+        .controls
+          = form.submit(class: 'btn')
 
   = link_to(cms_path(@obj.reset_password_page)) do
     = t('login.show.reset_password')

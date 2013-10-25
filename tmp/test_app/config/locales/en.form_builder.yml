@@ -3,12 +3,12 @@ en:
     form_builder:
       success: 'The form was sent successfully.'
 
-  simple_form:
+  helpers:
     labels:
       form_presenter:
         # custom_attribute: 'Translation'
 
-  helpers:
     submit:
       form_presenter:
         create: 'Submit'
+        submit: 'Submit'

@@ -60,7 +60,7 @@ module RailsConnector
             nil
           end
         when :linklist
-          default = options[:default] || RailsConnector::LinkList.new(nil)
+          default = options[:default] || []
 
           define_method(name) do
             self[name] || default
