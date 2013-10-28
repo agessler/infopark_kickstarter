@@ -2,6 +2,7 @@ module Cms
   module Generators
     module Component
       class LoginPageGenerator < ::Rails::Generators::Base
+        include Actions
         include Migration
         include BasePaths
         include Actions
@@ -79,7 +80,7 @@ module Cms
 
         def update_homepage_model
           add_model_attribute('Homepage', {
-            name: 'login_page',
+            name: login_page_attribute_name,
             type: 'reference',
           })
         end
@@ -101,6 +102,10 @@ module Cms
         end
 
         private
+
+        def login_page_attribute_name
+          'login_page'
+        end
 
         def login_obj_class_name
           'LoginPage'

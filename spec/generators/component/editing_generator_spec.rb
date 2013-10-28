@@ -32,8 +32,8 @@ describe Cms::Generators::Component::EditingGenerator do
     mkdir_p(config_path)
 
     File.open("#{destination_root}/Gemfile", 'w')
-    File.open("#{javascripts_path}/application.js", 'w') { |file| file.write("//= require infopark_rails_connector\n") }
-    File.open("#{stylesheets_path}/application.css", 'w') { |file| file.write("*= require infopark_rails_connector\n") }
+    File.open("#{javascripts_path}/application.js", 'w') { |file| file.write("\n//= require_self") }
+    File.open("#{stylesheets_path}/application.css", 'w') { |file| file.write("\n *= require_self") }
     File.open("#{layouts_path}/application.html.haml", 'w') { |file| file.write("%body{body_attributes(@obj)}") }
     File.open("#{config_path}/routes.rb", 'w') { |file| file.write('Dummy::Application.routes.draw do') }
   end
