@@ -1,6 +1,8 @@
 # v3.2.0
   * Removed dependency on the Rails Connector and updated various gems like
-    `infopark_cloud_connector`, `infopark_dashboard` and `rails`.
+    `infopark_cloud_connector`, `infopark_dashboard` and `rails`. There are no
+    `RailsConnector::LinkList` and `destination_objects` call anymore and we removed stating the
+    `infopark_rails_connector` directives in the asset manifests.
   * The Kickstarter generated views no longer depend on
     [simple_form](https://github.com/plataformatec/simple_form), but uses standard Rails forms
     instead.
