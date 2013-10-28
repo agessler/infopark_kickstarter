@@ -27,19 +27,17 @@ class MediabrowserController < ApplicationController
     offset = (params[:offset].presence || 0).to_i
     limit = (params[:limit].presence || 0).to_i
 
-    # TODO: Search in current workspace, when feature is rolled out.
-    total, hits = RailsConnector::Workspace.default.as_current do
-      query = Obj.all
-        .offset(offset)
-        .order(:_last_changed)
-        .reverse_order
+    query = Obj.all
+      .offset(offset)
+      .order(:_last_changed)
+      .reverse_order
 
-      query.and(:_obj_class, :contains, obj_classes) if obj_classes.present?
-      query.and(:*, :contains_prefix, search_string) if search_string.present?
-      query.and(:id, :contains, @selected) if selected_only?
+    query.and(:_obj_class, :contains, obj_classes) if obj_classes.present?
+    query.and(:*, :contains_prefix, search_string) if search_string.present?
+    query.and(:id, :contains, @selected) if selected_only?
 
-      [query.count, query.take(limit)]
-    end
+    total = query.count
+    hits = query.take(limit)
 
     objects = hits.inject([]) do |markup, hit|
       view = "/mediabrowser/thumbnails/#{hit.obj_class.underscore}"
