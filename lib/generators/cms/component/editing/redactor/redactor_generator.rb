@@ -3,6 +3,8 @@ module Cms
     module Component
       module Editing
         class RedactorGenerator < ::Rails::Generators::Base
+          include Actions
+
           Rails::Generators.hide_namespace(self.namespace)
 
           source_root File.expand_path('../templates', __FILE__)
@@ -13,22 +15,17 @@ module Cms
           end
 
           def update_application_css
-            file = 'app/assets/stylesheets/application.css'
-            insert_point = '*= require infopark_rails_connector'
-
             data = []
+
             data << ''
             data << ' *= require editors/redactor'
 
             data = data.join("\n")
 
-            insert_into_file(file, data, after: insert_point)
+            update_stylesheet_manifest(data)
           end
 
           def update_application_js
-            file = 'app/assets/javascripts/application.js'
-            insert_point = "//= require infopark_rails_connector"
-
             data = []
 
             data << ''
@@ -37,7 +34,7 @@ module Cms
 
             data = data.join("\n")
 
-            insert_into_file(file, data, after: insert_point)
+            update_javascript_manifest(data)
           end
         end
       end

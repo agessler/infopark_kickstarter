@@ -2,6 +2,7 @@ module Cms
   module Generators
     module Component
       class LoginPageGenerator < ::Rails::Generators::Base
+        include Actions
         include Migration
         include BasePaths
 
@@ -77,17 +78,20 @@ module Cms
         end
 
         def update_homepage_model
+          attribute = {
+            name: login_page_link_attribute_name,
+            type: :linklist,
+            max_size: 1,
+          }
+
+          add_model_attribute('Homepage', attribute)
+
           file = 'app/models/homepage.rb'
-
-          data = "\n  cms_attribute :login_page_link, type: :linklist, max_size: 1"
-          insert_point = "class Homepage < Obj"
-
-          insert_into_file(file, data, after: insert_point)
 
           data = [
             "\n",
             '  def login_page',
-            '    login_page_link.destination_objects.first',
+            '    login_page_link.first.obj',
             '  end',
           ].join("\n")
           insert_point = 'include Page'
@@ -112,6 +116,10 @@ module Cms
         end
 
         private
+
+        def login_page_link_attribute_name
+          'login_page_link'
+        end
 
         def login_obj_class_name
           'LoginPage'

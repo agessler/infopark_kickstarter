@@ -2,6 +2,8 @@ module Cms
   module Generators
     module Widget
       class VideoGenerator < ::Rails::Generators::Base
+        include Actions
+
         source_root File.expand_path('../templates', __FILE__)
 
         def video_tools
@@ -13,9 +15,6 @@ module Cms
         end
 
         def update_application_js
-          file = 'app/assets/javascripts/application.js'
-          insert_point = "//= require infopark_rails_connector"
-
           data = []
 
           data << ''
@@ -24,20 +23,18 @@ module Cms
 
           data = data.join("\n")
 
-          insert_into_file(file, data, after: insert_point)
+          update_javascript_manifest(data)
         end
 
         def update_application_css
-          file = 'app/assets/stylesheets/application.css'
-          insert_point = '*= require infopark_rails_connector'
-
           data = []
+
           data << ''
           data << ' *= require projekktor'
 
           data = data.join("\n")
 
-          insert_into_file(file, data, after: insert_point)
+          update_stylesheet_manifest(data)
         end
 
         def create_migration
