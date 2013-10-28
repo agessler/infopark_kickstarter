@@ -146,6 +146,16 @@ module Cms
           ]
         end
 
+        Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
+          model.name = 'ResourceContainer'
+          model.title = 'Resouce Container'
+          model.thumbnail = false
+          model.attributes = [
+            title_attribute,
+            show_in_navigation_attribute,
+          ]
+        end
+
         class_name = 'ContentPage'
 
         Api::ObjClassGenerator.new(options, behavior: behavior) do |model|
