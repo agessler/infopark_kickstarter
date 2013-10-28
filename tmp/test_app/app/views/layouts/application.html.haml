@@ -17,6 +17,7 @@
       = javascript_include_tag('http://html5shim.googlecode.com/svn/trunk/html5.js')
 
     = stylesheet_link_tag('application', media: 'all')
+    = stylesheet_link_tag('editing', media: 'all') if inplace_editing_allowed?
 
     %link{href: '/favicon.ico', rel: 'shortcut icon'}
 
@@ -44,6 +45,7 @@
       = render_cell(:footer, :show, @obj)
 
     = javascript_include_tag('application')
+    = javascript_include_tag('editing') if inplace_editing_allowed?
 
     = render_cell(:google_analytics, :javascript, 'UA-xxxxxx-x', true)
 

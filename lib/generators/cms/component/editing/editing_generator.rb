@@ -49,32 +49,37 @@ module Cms
           data = []
 
           data << ''
-          data << '//= require editors/string_editor'
-          data << '//= require editors/linklist_editor'
-          data << '//= require editors/reference_editor'
-          data << '//= require editing'
-          data << '//= require mediabrowser'
           data << '//= require jquery.ui.sortable'
+          data << '//= require bootstrap-datepicker'
 
           data = data.join("\n")
 
-          update_javascript_manifest(data)
+          update_javascript_editing_manifest(data)
         end
 
         def add_stylesheet_manifest
           data = []
 
           data << ''
-          data << ' *= require editors/string_editor'
-          data << ' *= require editors/linklist_editor'
-          data << ' *= require editors/reference_editor'
-          data << ' *= require editing'
-          data << ' *= require editing/mediabrowser'
           data << ' *= require bootstrap-datepicker'
 
           data = data.join("\n")
 
-          update_stylesheet_manifest(data)
+          update_stylesheet_editing_manifest(data)
+        end
+
+        def update_production_environment
+          data = []
+
+          data << '# Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)'
+          data << '  config.assets.precompile += %w(editing.css editing.js)'
+          data << ''
+
+          data = data.join("\n")
+
+          environment(data, env: :production)
+
+          log(:environment, 'production: config.assets.precompile += %w(editing.css editing.js)')
         end
 
         def add_menu_bar_to_layout

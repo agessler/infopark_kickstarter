@@ -35,7 +35,10 @@ describe Cms::Generators::Widget::VideoGenerator do
           directory 'javascripts' do
             file 'application.js' do
               contains '//= require projekktor'
-              contains '//= require projekktor.config'
+            end
+
+            directory 'application' do
+              file 'projekktor.config.js.coffee'
             end
           end
 

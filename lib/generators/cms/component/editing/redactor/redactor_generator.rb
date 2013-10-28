@@ -3,7 +3,7 @@ module Cms
     module Component
       module Editing
         class RedactorGenerator < ::Rails::Generators::Base
-          include Actions
+          include Cms::Generators::Actions
 
           Rails::Generators.hide_namespace(self.namespace)
 
@@ -14,27 +14,15 @@ module Cms
             directory('vendor')
           end
 
-          def update_application_css
-            data = []
-
-            data << ''
-            data << ' *= require editors/redactor'
-
-            data = data.join("\n")
-
-            update_stylesheet_manifest(data)
-          end
-
           def update_application_js
             data = []
 
             data << ''
             data << '//= require redactor'
-            data << '//= require editors/redactor.config'
 
             data = data.join("\n")
 
-            update_javascript_manifest(data)
+            update_javascript_editing_manifest(data)
           end
         end
       end

@@ -1,4 +1,9 @@
 # v3.2.0
+  * Editing JavaScript and CSS assets are now only loaded when inplace editing is allowed. This is
+    the case, when an editor is logged in. Otherwise only the application specific assets are
+    loaded located under `app/assets/stylesheets/application`. All editing related files are located
+    under `app/assets/stylesheets/editing`. The same is true for JavaScript under
+    `app/assets/javascripts`.
   * Kickstarter now uses `reference` and `referencelist` attributes by default where appropriate.
     For example, you can now just click an image to open the mediabrowser and select a new one.
   * Removed dependency on the Rails Connector and updated various gems like

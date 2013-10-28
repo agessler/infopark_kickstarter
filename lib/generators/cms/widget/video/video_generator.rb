@@ -19,7 +19,6 @@ module Cms
 
           data << ''
           data << '//= require projekktor'
-          data << '//= require projekktor.config'
 
           data = data.join("\n")
 
