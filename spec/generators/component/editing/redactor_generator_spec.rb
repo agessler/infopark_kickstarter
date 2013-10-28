@@ -21,8 +21,8 @@ describe Cms::Generators::Component::Editing::RedactorGenerator do
     mkdir_p(javascripts_path)
     mkdir_p(stylesheets_path)
 
-    File.open("#{javascripts_path}/application.js", 'w') { |file| file.write("//= require infopark_rails_connector\n") }
-    File.open("#{stylesheets_path}/application.css", 'w') { |file| file.write("*= require infopark_rails_connector\n") }
+    File.open("#{javascripts_path}/application.js", 'w') { |file| file.write("\n//= require_self") }
+    File.open("#{stylesheets_path}/application.css", 'w') { |file| file.write("\n *= require_self") }
   end
 
   it 'creates files' do

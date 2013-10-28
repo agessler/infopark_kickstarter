@@ -13,7 +13,7 @@ class LoginPageExample < ::RailsConnector::Migration
   end
 
   def login_page_link_attribute_name
-    'login_page_link'
+    '<%= login_page_link_attribute_name %>'
   end
 
   def create_login_page_obj

@@ -29,11 +29,6 @@ module Cms
         end
       end
 
-      def append_asset_manifests
-        append_file('app/assets/javascripts/application.js', '//= require infopark_rails_connector')
-        gsub_file('app/assets/stylesheets/application.css', '*= require_tree .', "*= require_tree .\n *= require infopark_rails_connector")
-      end
-
       def install_gems
         gem('active_attr')
         gem('haml-rails')

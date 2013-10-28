@@ -2,6 +2,8 @@ module Cms
   module Generators
     module Component
       class EditingGenerator < ::Rails::Generators::Base
+        include Actions
+
         source_root File.expand_path('../templates', __FILE__)
 
         SUPPORTED_EDITORS = %w(redactor)
@@ -43,10 +45,7 @@ module Cms
           directory('app')
         end
 
-        def update_application_js
-          file = 'app/assets/javascripts/application.js'
-          insert_point = "//= require infopark_rails_connector"
-
+        def add_javascript_directives
           data = []
 
           data << ''
@@ -58,14 +57,12 @@ module Cms
 
           data = data.join("\n")
 
-          insert_into_file(file, data, after: insert_point)
+          update_javascript_manifest(data)
         end
 
-        def update_application_css
-          file = 'app/assets/stylesheets/application.css'
-          insert_point = '*= require infopark_rails_connector'
-
+        def add_stylesheet_manifest
           data = []
+
           data << ''
           data << ' *= require editors/string_editor'
           data << ' *= require editors/linklist_editor'
@@ -75,7 +72,7 @@ module Cms
 
           data = data.join("\n")
 
-          insert_into_file(file, data, after: insert_point)
+          update_stylesheet_manifest(data)
         end
 
         def add_menu_bar_to_layout

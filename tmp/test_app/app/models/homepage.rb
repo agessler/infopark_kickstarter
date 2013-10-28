@@ -11,7 +11,7 @@ class Homepage < Obj
   include Page
 
   def login_page
-    login_page_link.destination_objects.first
+    login_page_link.first.obj
   end
 
   # TODO edit mapping from hostnames to homepages
@@ -39,6 +39,6 @@ class Homepage < Obj
   end
 
   def error_not_found_page
-    error_not_found_page_link.destination_objects.first
+    error_not_found_page_link.first.obj
   end
 end

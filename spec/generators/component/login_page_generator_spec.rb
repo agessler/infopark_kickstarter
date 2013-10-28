@@ -55,7 +55,7 @@ describe Cms::Generators::Component::LoginPageGenerator do
           file 'homepage.rb' do
             contains 'cms_attribute :login_page_link, type: :linklist, max_size: 1'
             contains 'def login_page'
-            contains 'login_page_link.destination_objects.first'
+            contains 'login_page_link.first.obj'
             contains 'end'
           end
         end
