@@ -1,4 +1,6 @@
 # v3.2.0
+  * Kickstarter now uses `reference` and `referencelist` attributes by default where appropriate.
+    For example, you can now just click an image to open the mediabrowser and select a new one.
   * Removed dependency on the Rails Connector and updated various gems like
     `infopark_cloud_connector`, `infopark_dashboard` and `rails`. There are no
     `RailsConnector::LinkList` and `destination_objects` call anymore and we removed stating the
