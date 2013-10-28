@@ -52,6 +52,7 @@ describe Cms::Generators::Component::EditingGenerator do
             directory 'editors' do
               file 'string_editor.css.less'
               file 'linklist_editor.css.less'
+              file 'reference_editor.css.less'
             end
 
             directory 'editing' do
@@ -67,6 +68,7 @@ describe Cms::Generators::Component::EditingGenerator do
               contains '*= require bootstrap-datepicker'
               contains '*= require editors/string_editor'
               contains '*= require editors/linklist_editor'
+              contains '*= require editors/reference_editor'
             end
           end
 
@@ -74,6 +76,7 @@ describe Cms::Generators::Component::EditingGenerator do
             directory 'editors' do
               file 'string_editor.js.coffee'
               file 'linklist_editor.js.coffee'
+              file 'reference_editor.js.coffee'
             end
 
             file 'editing.js.coffee'
@@ -81,6 +84,7 @@ describe Cms::Generators::Component::EditingGenerator do
               contains '//= require editing'
               contains '//= require editors/string_editor'
               contains '//= require editors/linklist_editor'
+              contains '//= require editors/reference_editor'
               contains '//= require jquery.ui.sortable'
             end
           end

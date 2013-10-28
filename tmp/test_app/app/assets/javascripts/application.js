@@ -16,6 +16,7 @@
 //= require bootstrap-datepicker
 //= require editors/string_editor
 //= require editors/linklist_editor
+//= require editors/reference_editor
 //= require editing
 //= require mediabrowser
 //= require jquery.ui.sortable

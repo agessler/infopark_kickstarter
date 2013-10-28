@@ -62,6 +62,7 @@
 .editing-icon-3cols:after { content: "\F014"; }
 .editing-icon-workspaces:after { content: "\F015"; }
 .editing-icon-tag:after { content: "\F018"; }
+.editing-icon-link:after { content: "\F01D"; }
 .editing-icon-box:after { content: "\F020"; }
 .editing-icon-puzzle:after { content: "\F021"; }
 .editing-icon-search:after { content: "\F022"; }
@@ -93,7 +94,7 @@
 
 // placeholder icons
 
-.ip_field_editable:empty:before {
+[data-ip-field-type]:empty:before {
   font-family: 'editing_iconsregular';
   font-style: normal;
   font-weight: normal;
@@ -113,11 +114,13 @@
   user-select: none;
 }
 
-.ip_field_editable[data-ip-field-type=string]:empty:before { content: '\F016'; }
-.ip_field_editable[data-ip-field-type=text]:empty:before { content: '\F017'; }
-.ip_field_editable[data-ip-field-type=html]:empty:before { content: '\F018'; }
-.ip_field_editable[data-ip-field-type=enum]:empty:before { content: '\F019'; }
-.ip_field_editable[data-ip-field-type=multienum]:empty:before { content: '\F01A'; }
-.ip_field_editable[data-ip-field-type=boolean]:empty:before { content: '\F01B'; }
-.ip_field_editable[data-ip-field-type=date]:empty:before { content: '\F01C'; }
-.ip_field_editable[data-ip-field-type=linklist]:empty:before { content: '\F01D'; }
+[data-ip-field-type=string]:empty:before { content: '\F016'; }
+[data-ip-field-type=text]:empty:before { content: '\F017'; }
+[data-ip-field-type=html]:empty:before { content: '\F018'; }
+[data-ip-field-type=enum]:empty:before { content: '\F019'; }
+[data-ip-field-type=multienum]:empty:before { content: '\F01A'; }
+[data-ip-field-type=boolean]:empty:before { content: '\F01B'; }
+[data-ip-field-type=date]:empty:before { content: '\F01C'; }
+[data-ip-field-type=linklist]:empty:before { content: '\F01D'; }
+[data-ip-field-type=reference]:empty:before { content: '\F01D'; }
+[data-ip-field-type=referencelist]:empty:before { content: '\F01D'; }

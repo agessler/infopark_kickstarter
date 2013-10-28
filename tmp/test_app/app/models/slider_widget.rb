@@ -1,5 +1,5 @@
 class SliderWidget < Obj
-  cms_attribute :images, type: :linklist
+  cms_attribute :images, type: :referencelist
 
   # Most CMS objects are either a page or a box. In order for them to
   # have common behavior, uncomment one of the following lines.

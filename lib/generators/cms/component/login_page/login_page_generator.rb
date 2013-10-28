@@ -5,6 +5,7 @@ module Cms
         include Actions
         include Migration
         include BasePaths
+        include Actions
 
         source_root File.expand_path('../templates', __FILE__)
 
@@ -78,25 +79,10 @@ module Cms
         end
 
         def update_homepage_model
-          attribute = {
-            name: login_page_link_attribute_name,
-            type: :linklist,
-            max_size: 1,
-          }
-
-          add_model_attribute('Homepage', attribute)
-
-          file = 'app/models/homepage.rb'
-
-          data = [
-            "\n",
-            '  def login_page',
-            '    login_page_link.first.obj',
-            '  end',
-          ].join("\n")
-          insert_point = 'include Page'
-
-          insert_into_file(file, data, after: insert_point)
+          add_model_attribute('Homepage', {
+            name: login_page_attribute_name,
+            type: 'reference',
+          })
         end
 
         def update_footer_cell
@@ -117,8 +103,8 @@ module Cms
 
         private
 
-        def login_page_link_attribute_name
-          'login_page_link'
+        def login_page_attribute_name
+          'login_page'
         end
 
         def login_obj_class_name

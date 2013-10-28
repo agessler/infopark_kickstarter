@@ -12,14 +12,11 @@ class Blog < Obj
   end
 
   def latest_posts
-    # TODO Currently only the published workspace is searchable.
-    RailsConnector::Workspace.find('published').as_current do
-      BlogPost.all.
-        and(:_path, :starts_with, path + '/').
-        batch_size(100).
-        order(:_valid_from).
-        reverse_order.
-        take(10)
-    end
+    BlogPost.all
+      .and(:_path, :starts_with, path + '/')
+      .batch_size(100)
+      .order(:_valid_from)
+      .reverse_order
+      .take(10)
   end
 end

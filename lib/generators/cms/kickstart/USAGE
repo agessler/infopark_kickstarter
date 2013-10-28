@@ -11,5 +11,5 @@ Example:
            attribute sort_key (string)
            attribute main_content (widget)
            attribute error_not_found_page_link (linklist)
-           attribute login_page_link (linklist)
+           attribute login_page (reference)
            attribute locale (string)

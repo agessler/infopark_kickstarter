@@ -39,7 +39,7 @@ describe Cms::Generators::Component::SearchGenerator do
           end
 
           file 'homepage.rb' do
-            contains 'cms_attribute :search_page_link, type: :linklist, max_size: 1'
+            contains 'cms_attribute :search_page, type: :reference'
           end
         end
 

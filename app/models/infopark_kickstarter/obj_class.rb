@@ -41,9 +41,7 @@ module InfoparkKickstarter
 
     def count
       Rails.cache.fetch("#{self.class.cache_key(id)}_count") do
-        RailsConnector::Workspace.find('published').as_current do
-          Obj.where(:_obj_class, :equals, id).size
-        end
+        Obj.where(:_obj_class, :equals, id).size
       end
     end
   end
