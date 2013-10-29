@@ -45,7 +45,7 @@ describe Cms::Generators::Component::Editing::RedactorGenerator do
           directory 'javascripts' do
             directory 'editing' do
               directory 'editors' do
-                file 'redactor.config.js.coffee'
+                file 'html_editor.js.coffee'
               end
             end
 
