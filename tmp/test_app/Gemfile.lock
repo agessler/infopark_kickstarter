@@ -3,7 +3,7 @@ PATH
   specs:
     infopark_kickstarter (3.2.0)
       bundler
-      infopark_cloud_connector (>= 6.9.5)
+      infopark_cloud_connector (~> 6.9, >= 6.9.5)
       launchy
       rails
 
@@ -83,7 +83,7 @@ GEM
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
     hike (1.2.3)
-    honeybadger (1.9.1)
+    honeybadger (1.9.2)
       faraday
       json
     i18n (0.6.5)
