@@ -1,16 +1,21 @@
-.navbar
-  .navbar-inner
-    .container
-      %a.btn.btn-navbar{:'data-target' => '.nav-collapse', :'data-toggle' => 'collapse'}
+.navbar.navbar-default{role: 'navigation'}
+  .container
+    .navbar-header
+      %button.navbar-toggle{type: 'button', data: { toggle: 'collapse', target: '.navbar-collapse' }}
+        %span.sr-only
+          = t('navigation.toggle')
+
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
 
-      = link_to(cms_path(@root), class: 'brand') do
+      = link_to(cms_path(@root), class: 'navbar-brand') do
         = @root.menu_title
 
-      .container.nav-collapse
-        = cms_tag_list(:ul, @root, :toclist, class: 'nav', id: 'main_nav') do |list, obj|
-          - list.tag(:li, id: "main_nav_page_#{obj.id}", data: { path: obj.path }) do
-            = link_to(cms_path(obj)) do
-              = obj.menu_title
+    = render_cell(:search, :form, @page, params[:q])
+
+    .navbar-collapse.collapse
+      = cms_tag_list(:ul, @root, :toclist, class: 'nav navbar-nav', id: 'main_nav') do |list, obj|
+        - list.tag(:li, id: "main_nav_page_#{obj.id}", data: { path: obj.path }) do
+          = link_to(cms_path(obj)) do
+            = obj.menu_title
