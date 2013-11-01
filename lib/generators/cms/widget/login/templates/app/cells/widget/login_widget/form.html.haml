@@ -1,5 +1,5 @@
-.row-fluid
-  .span12
+.row
+  .col-md-12
     = form_for(:login_presenter, url: cms_path(@login_page), method: :post) do |form|
       %fieldset
         = hidden_field_tag(:return_to, cms_path(@page))

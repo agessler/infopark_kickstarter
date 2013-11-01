@@ -4,3 +4,4 @@ en:
     hits_found_html: '%{count} results found for <strong>%{query}</strong>.'
     no_index: "Your current working copy is not searchable."
     button: 'Search'
+    placeholder: 'Search...'
