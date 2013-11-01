@@ -1,5 +1,4 @@
-.control-group
-  = @form.label(@name, @title, class: 'control-label')
+.form-group
+  = @form.label(@name, @title)
 
-  .controls
-    = @form.text_area(@name, required: @mandatory, rows: 10, maxlength: @max_length)
+  = @form.text_area(@name, class: 'form-control', required: @mandatory, rows: 10, maxlength: @max_length)
