@@ -29,7 +29,7 @@ module EditingHelper
     end
 
     cms_tag(:div, object, attribute_name) do
-     tag(:input, type: 'text', value: value_string)
+      tag(:input, type: 'text', value: value_string)
     end
   end
 
