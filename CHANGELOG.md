@@ -1,4 +1,5 @@
 # v3.3.0
+  * We are now using Twitter Bootstrap 3 for all generated application views.
   * Update Redactor html editor to version 9.1.6 and implement autosave. Save and Cancel buttons are
     therefore removed and JavaScript documentation updated.
 
