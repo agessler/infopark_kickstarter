@@ -1,7 +1,7 @@
-.row-fluid
-  %div{class: "span#{@widget.column_1_width}"}
+.row
+  %div{class: "col-md-#{@widget.column_1_width}"}
     = cms_tag(:div, @widget, :column_1)
 
-  %div{class: "span#{@widget.column_2_width}"}
+  %div{class: "col-md-#{@widget.column_2_width}"}
     = cms_tag(:div, @widget, :column_2)
 

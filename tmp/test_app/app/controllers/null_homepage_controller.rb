@@ -15,7 +15,7 @@ class NullHomepageController < CmsController
         <hr />
         <p style="font-size: 24px; line-height: 1.25;">Ready to play with <strong>widgets</strong>,
           drop in <strong>images</strong>, add <strong>pages</strong> and <strong>explore</strong>
-          your project?</p><p><a class="btn btn-success btn-large" href="/?ws=rtc" style="font-size:
+          your project?</p><p><a class="btn btn-success btn-lg" href="/?ws=rtc" style="font-size:
           21px; padding: 14px 24px;">Start Editing Now</a>
         </p>
       </div>'

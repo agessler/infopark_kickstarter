@@ -1,5 +1,5 @@
-= form_tag(cms_path(@search_page), method: :get, class: 'navbar-search pull-right form-search') do
-  .input-append
-    = text_field_tag(:q, @query, class: 'input-small search-query')
+= form_tag(cms_path(@search_page), method: :get, class: 'navbar-form navbar-right', role: 'search') do
+  .form-group
+    = text_field_tag(:q, @query, class: 'form-control', placeholder: t('search.placeholder'))
 
-    = submit_tag(t('search.button'), class: 'btn')
+  = submit_tag(t('search.button'), class: 'btn btn-default')

@@ -1,4 +1,4 @@
-.span12
+.col-md-12
   = cms_tag(:h1, @obj, :headline)
 
   = cms_tag(:div, @obj, :content)
@@ -10,49 +10,52 @@
 
       = form.hidden_field(:id)
 
-      .control-group
-        .controls
-          = form.label(:gender, value: :F, class: 'radio') do
-            = form.radio_button(:gender, :F)
+      .form-group
+        .col-md-offset-2.col-md-10
+          .radio
+            = form.label(:gender, value: :F) do
+              = form.radio_button(:gender, :F)
 
-            = t("helpers.label.#{form.object_name}.gender.F")
+              = t("helpers.label.#{form.object_name}.gender.F")
 
-          = form.label(:gender, value: :M, class: 'radio') do
-            = form.radio_button(:gender, :M)
+          .radio
+            = form.label(:gender, value: :M) do
+              = form.radio_button(:gender, :M)
 
-            = t("helpers.label.#{form.object_name}.gender.M")
+              = t("helpers.label.#{form.object_name}.gender.M")
 
-      .control-group
-        = form.label(:first_name, class: 'control-label')
+      .form-group
+        = form.label(:first_name, class: 'col-md-2 control-label')
 
-        .controls
-          = form.text_field(:first_name)
+        .col-md-9
+          = form.text_field(:first_name, class: 'form-control')
 
-      .control-group
-        = form.label(:last_name, class: 'control-label')
+      .form-group
+        = form.label(:last_name, class: 'col-md-2 control-label')
 
-        .controls
-          = form.text_field(:last_name, required: true)
+        .col-md-9
+          = form.text_field(:last_name, class: 'form-control', required: true)
 
-      .control-group
-        = form.label(:language, class: 'control-label')
+      .form-group
+        = form.label(:language, class: 'col-md-2 control-label')
 
-        .controls
-          = form.select(:language, form.object.language_for_select)
+        .col-md-9
+          = form.select(:language, form.object.language_for_select, {}, class: 'form-control')
 
-      .control-group
-        = form.label(:email, class: 'control-label')
+      .form-group
+        = form.label(:email, class: 'col-md-2 control-label')
 
-        .controls
-          = form.email_field(:email, required: true)
+        .col-md-9
+          = form.email_field(:email, class: 'form-control', required: true)
 
-      .control-group
-        .controls
-          = form.label(:want_email, class: 'checkbox') do
-            = form.check_box(:want_email)
+      .form-group
+        .col-md-offset-2.col-md-10
+          .checkbox
+            = form.label(:want_email) do
+              = form.check_box(:want_email)
 
-            = t("helpers.label.#{form.object_name}.want_email")
+              = t("helpers.label.#{form.object_name}.want_email")
 
-    .control-group
-      .controls
-        = form.submit(class: 'btn')
+      .form-group
+        .col-md-offset-2.col-md-10
+          = form.submit(class: 'btn btn-default')

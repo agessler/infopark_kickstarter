@@ -1,4 +1,4 @@
-.span12
+.col-md-5
   = cms_tag(:h1, @obj, :headline)
 
   = cms_tag(:div, @obj, :content)
@@ -7,21 +7,17 @@
     %fieldset
       = hidden_field_tag(:return_to, params[:return_to])
 
-      .control-group
+      .form-group
         = form.label(:login)
 
-        .controls
-          = form.text_field(:login, required: true)
+        = form.text_field(:login, class: 'form-control', required: true)
 
-      .control-group
+      .form-group
         = form.label(:password)
 
-        .controls
-          = form.password_field(:password, required: true)
+        = form.password_field(:password, class: 'form-control', required: true)
 
-      .control-group
-        .controls
-          = form.submit(class: 'btn')
+      = form.submit(class: 'btn btn-default')
 
   = link_to(cms_path(@obj.reset_password_page)) do
     = t('login.show.reset_password')

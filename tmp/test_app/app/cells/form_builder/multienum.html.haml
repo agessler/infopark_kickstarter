@@ -1,5 +1,4 @@
-.control-group
-  = @form.label(@name, @title, class: 'control-label')
+.form-group
+  = @form.label(@name, @title)
 
-  .controls
-    = @form.select(@name, @collection, {}, required: @mandatory, multiple: true)
+  = @form.select(@name, @collection, {}, class: 'form-control', required: @mandatory, multiple: true)

@@ -36,7 +36,7 @@ module Cms
 
           data = [
             '        .row',
-            '          .span12',
+            '          .col-md-12',
             '            = render_cell(:breadcrumbs, :show, @obj)',
             "\n",
           ].join("\n")

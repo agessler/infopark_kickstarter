@@ -1,15 +1,13 @@
-.span12
+.col-md-5
   = cms_tag(:h1, @obj, :headline)
 
   = cms_tag(:div, @obj, :content)
 
   = form_for(@presenter, url: cms_path(@obj)) do |form|
-    .control-group
-      = form.label(:login)
+    %fieldset
+      .form-group
+        = form.label(:login)
 
-      .controls
-        = form.text_field(:login, required: true)
+        = form.text_field(:login, class: 'form-control', required: true)
 
-    .control-group
-      .controls
-        = form.submit(class: 'btn')
+      = form.submit(class: 'btn btn-default')

@@ -1,24 +1,20 @@
-.row-fluid
-  .span12
+.row
+  .col-md-5
     = form_for(:login_presenter, url: cms_path(@login_page), method: :post) do |form|
       %fieldset
         = hidden_field_tag(:return_to, cms_path(@page))
         = hidden_field_tag(:authenticity_token, form_authenticity_token)
 
-        .control-group
+        .form-group
           = form.label(:login)
 
-          .controls
-            = form.text_field(:login, required: true)
+          = form.text_field(:login, class: 'form-control', required: true)
 
-        .control-group
+        .form-group
           = form.label(:password)
 
-          .controls
-            = form.password_field(:password, required: true)
+          = form.password_field(:password, class: 'form-control', required: true)
 
-        .control-group
-          .controls
-            = form.submit(class: 'btn')
+        = form.submit(class: 'btn btn-default')
 
     = render({ state: :reset_password })

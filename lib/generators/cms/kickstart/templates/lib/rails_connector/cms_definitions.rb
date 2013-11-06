@@ -9,9 +9,9 @@ module RailsConnector
     module ClassMethods
       def cms_obj_class_definition
         @obj_class_hash ||= begin
-          revision_id = RailsConnector::Workspace.current.revision_id
+          workspace_id = RailsConnector::Workspace.current.id
 
-          RailsConnector::CmsRestApi.get("revisions/#{revision_id}/obj_classes/#{name}")
+          RailsConnector::CmsRestApi.get("workspaces/#{workspace_id}/obj_classes/#{name}")
         end
       end
 

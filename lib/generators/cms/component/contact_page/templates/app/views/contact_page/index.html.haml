@@ -1,28 +1,24 @@
-.span12
+.col-md-12
   = cms_tag(:h1, @obj, :headline)
 
   = cms_tag(:div, @obj, :content)
 
+.col-md-5
   = form_for(@contact_page_presenter, url: cms_path(@obj)) do |form|
     %fieldset
-      .control-group
+      .form-group
         = form.label(:email)
 
-        .controls
-          = form.email_field(:email, required: true)
+        = form.email_field(:email, class: 'form-control', required: true)
 
-      .control-group
+      .form-group
         = form.label(:subject)
 
-        .controls
-          = form.text_field(:subject, required: true)
+        = form.text_field(:subject, class: 'form-control', required: true)
 
-      .control-group
+      .form-group
         = form.label(:message)
 
-        .controls
-          = form.text_area(:message, rows: 10)
+        = form.text_area(:message, class: 'form-control', rows: 10)
 
-      .control-group
-        .controls
-          = form.submit(class: 'btn')
+      = form.submit(class: 'btn btn-default')

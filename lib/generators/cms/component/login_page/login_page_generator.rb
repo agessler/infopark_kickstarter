@@ -88,7 +88,6 @@ module Cms
         def update_footer_cell
           append_file 'app/cells/footer/show.html.haml' do
             [
-              "\n",
               '          |',
               '          = render_cell(:login, :show, @page)',
             ].join("\n")

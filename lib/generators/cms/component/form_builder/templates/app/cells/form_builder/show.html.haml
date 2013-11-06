@@ -1,16 +1,18 @@
-.span12
-  = cms_tag(:h1, @obj, :headline)
+.row
+  .col-md-12
+    = cms_tag(:h1, @obj, :headline)
 
-  = cms_tag(:div, @obj, :content)
+    = cms_tag(:div, @obj, :content)
 
-  = form_for(@presenter, url: cms_path(@obj)) do |form|
-    = form.hidden_field(:id, value: @presenter.id)
-    = form.hidden_field(:title, value: @presenter.id)
-    = form.hidden_field(:state, value: @presenter.state)
+.row
+  .col-md-5
+    = form_for(@presenter, url: cms_path(@obj)) do |form|
+      %fieldset
+        = form.hidden_field(:id, value: @presenter.id)
+        = form.hidden_field(:title, value: @presenter.id)
+        = form.hidden_field(:state, value: @presenter.state)
 
-    - @custom_attributes.each do |attribute|
-      = render({ state: :input }, form, attribute)
+        - @custom_attributes.each do |attribute|
+          = render({ state: :input }, form, attribute)
 
-    .control-group
-      .controls
-        = form.submit(class: 'btn')
+        = form.submit(class: 'btn btn-default')
