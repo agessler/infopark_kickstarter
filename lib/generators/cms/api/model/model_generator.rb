@@ -12,6 +12,7 @@ module Cms
         attr_accessor :preset_attributes
         attr_accessor :mandatory_attributes
         attr_accessor :page
+        attr_accessor :widget
 
         def initialize(options = {}, config = {})
           yield self if block_given?
@@ -37,6 +38,10 @@ module Cms
           @page.nil? ? false : @page
         end
 
+        def widget?
+          @widget.nil? ? false : @widget
+        end
+
         def attributes
           @attributes ||= []
         end
@@ -55,6 +60,10 @@ module Cms
 
         def model_file_name
           "#{file_name}.rb"
+        end
+
+        def object_class
+          widget? ? 'Widget' : 'Obj'
         end
       end
     end
