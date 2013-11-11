@@ -37,10 +37,6 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem "infopark_cloud_connector"
-group :assets do
-  gem "therubyracer", :require => "v8"
-end
-
 group :test, :development do
   gem "infopark_kickstarter", :path => "../../"
 end
@@ -51,6 +47,7 @@ gem "cells"
 gem "utf8-cleaner"
 gem "infopark_crm_connector"
 group :assets do
+  gem "therubyracer", :platforms => :ruby
   gem "less-rails-bootstrap", "~> 3.0"
 end
 

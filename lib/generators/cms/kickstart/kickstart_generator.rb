@@ -37,6 +37,7 @@ module Cms
         gem('infopark_crm_connector')
 
         gem_group(:assets) do
+          gem('therubyracer', platforms: :ruby)
           gem('less-rails-bootstrap', '~> 3.0')
         end
 
