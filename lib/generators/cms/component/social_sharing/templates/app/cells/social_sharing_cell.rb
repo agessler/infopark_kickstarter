@@ -1,4 +1,4 @@
-class SocialSharingCell < BoxCell
+class SocialSharingCell < Cell::Rails
   SUPPORTED_PROVIDER = [:facebook, :google, :twitter, :linkedin]
 
   # Cell actions:
