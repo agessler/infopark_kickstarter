@@ -40,7 +40,7 @@ describe Cms::Generators::Widget::PersonGenerator do
 
         directory 'models' do
           file 'person_widget.rb' do
-            contains 'include Widget'
+            contains 'class PersonWidget < Widget'
             contains 'cms_attribute :person, type: :string'
           end
         end

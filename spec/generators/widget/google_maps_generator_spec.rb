@@ -43,8 +43,8 @@ describe Cms::Generators::Widget::Maps::GoogleMapsGenerator do
 
         directory 'models' do
           file 'google_maps_widget.rb' do
+            contains 'class GoogleMapsWidget < Widget'
             contains 'cms_attribute :address, type: :string'
-            contains 'include Widget'
           end
         end
       end

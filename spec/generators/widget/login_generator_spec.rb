@@ -53,7 +53,7 @@ describe Cms::Generators::Widget::LoginGenerator do
 
         directory 'models' do
           file 'login_widget.rb' do
-            contains 'include Widget'
+            contains 'class LoginWidget < Widget'
           end
         end
       end

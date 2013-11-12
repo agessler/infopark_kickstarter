@@ -27,8 +27,7 @@ describe Cms::Generators::WidgetGenerator do
       directory 'app' do
         directory 'models' do
           file 'news_widget.rb' do
-            contains 'class NewsWidget < Obj'
-            contains 'include Widget'
+            contains 'class NewsWidget < Widget'
             contains 'cms_attribute :foo, type: :html'
             contains 'cms_attribute :bar, type: :enum'
           end

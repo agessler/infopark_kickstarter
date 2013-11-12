@@ -40,10 +40,10 @@ describe Cms::Generators::Widget::TeaserGenerator do
 
         directory 'models' do
           file 'teaser_widget.rb' do
+            contains 'class TeaserWidget < Widget'
             contains 'cms_attribute :content, type: :html'
             contains 'cms_attribute :headline, type: :string'
             contains 'cms_attribute :link_to, type: :linklist, max_size: 1'
-            contains 'include Widget'
           end
         end
       end

@@ -37,10 +37,10 @@ describe Cms::Generators::Widget::YoutubeGenerator do
 
         directory 'models' do
           file 'youtube_widget.rb' do
+            contains 'class YoutubeWidget < Widget'
             contains 'cms_attribute :source, type: :linklist, max_size: 1'
             contains 'cms_attribute :max_width, type: :integer'
             contains 'cms_attribute :max_height, type: :integer'
-            contains 'include Widget'
           end
         end
       end
