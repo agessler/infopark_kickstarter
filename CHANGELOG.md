@@ -1,4 +1,10 @@
 # v3.3.0
+  * The Kickstarter now supports the new widgets, which are no longer separate CMS object instances,
+    but are embedded into their CMS pages. See the
+    [latest release notes](https://dev.infopark.net/release-notes) for further information.
+  * The gem `therubyracer` is now included when running `rails generate cms:kickstart`. It is used
+    to precompile Assets for the Asset Pipeline and would have to be added anyway because of `less`.
+  * Bugfix: Removed last occurance of `BoxCell`, which was an old relict of the former box concept.
   * We are now using Twitter Bootstrap 3 for all generated application views.
   * Update Redactor html editor to version 9.1.6 and implement autosave. Save and Cancel buttons are
     therefore removed and JavaScript documentation updated.
