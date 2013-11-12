@@ -12,9 +12,9 @@
       = link_to(cms_path(@root), class: 'navbar-brand') do
         = @root.menu_title
 
-    = render_cell(:search, :form, @page, params[:q])
-
     .navbar-collapse.collapse
+      = render_cell(:search, :form, @page, params[:q])
+
       = cms_tag_list(:ul, @root, :toclist, class: 'nav navbar-nav', id: 'main_nav') do |list, obj|
         - list.tag(:li, id: "main_nav_page_#{obj.id}", data: { path: obj.path }) do
           = link_to(cms_path(obj)) do
