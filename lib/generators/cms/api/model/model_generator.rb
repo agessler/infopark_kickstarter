@@ -28,7 +28,10 @@ module Cms
 
         def turn_model_into_page
           if page?
-            uncomment_lines(path, 'include Page')
+            insert_point = "\nend\n"
+            data = "\n\n  include Page"
+
+            insert_into_file(path, data, before: insert_point)
           end
         end
 

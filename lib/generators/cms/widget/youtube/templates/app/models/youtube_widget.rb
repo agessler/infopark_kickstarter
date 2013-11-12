@@ -1,6 +1,4 @@
-class YoutubeWidget < Obj
-  include Widget
-
+class YoutubeWidget < Widget
   cms_attribute :source, type: :linklist, max_size: 1
   cms_attribute :max_width, type: :integer
   cms_attribute :max_height, type: :integer
