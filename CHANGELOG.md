@@ -1,4 +1,4 @@
-# v3.3.0
+# v4.0.0
   * The Kickstarter now supports the new widgets, which are no longer separate CMS object instances,
     but are embedded into their CMS pages. See the
     [latest release notes](https://dev.infopark.net/release-notes) for further information.
