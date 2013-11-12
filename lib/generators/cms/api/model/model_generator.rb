@@ -12,6 +12,7 @@ module Cms
         attr_accessor :preset_attributes
         attr_accessor :mandatory_attributes
         attr_accessor :page
+        attr_accessor :widget
 
         def initialize(options = {}, config = {})
           yield self if block_given?
@@ -27,7 +28,10 @@ module Cms
 
         def turn_model_into_page
           if page?
-            uncomment_lines(path, 'include Page')
+            insert_point = "\nend\n"
+            data = "\n\n  include Page"
+
+            insert_into_file(path, data, before: insert_point)
           end
         end
 
@@ -35,6 +39,10 @@ module Cms
 
         def page?
           @page.nil? ? false : @page
+        end
+
+        def widget?
+          @widget.nil? ? false : @widget
         end
 
         def attributes
@@ -55,6 +63,10 @@ module Cms
 
         def model_file_name
           "#{file_name}.rb"
+        end
+
+        def object_class
+          widget? ? 'Widget' : 'Obj'
         end
       end
     end

@@ -37,10 +37,10 @@ describe Cms::Generators::Widget::VimeoGenerator do
 
         directory 'models' do
           file 'vimeo_widget.rb' do
+            contains 'class VimeoWidget < Widget'
             contains 'cms_attribute :source, type: :linklist, max_size: 1'
             contains 'cms_attribute :width, type: :integer'
             contains 'cms_attribute :height, type: :integer'
-            contains 'include Widget'
           end
         end
       end

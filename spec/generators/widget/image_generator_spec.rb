@@ -40,8 +40,8 @@ describe Cms::Generators::Widget::ImageGenerator do
 
         directory 'models' do
           file 'image_widget.rb' do
+            contains 'class ImageWidget < Widget'
             contains 'cms_attribute :source, type: :reference'
-            contains 'include Widget'
           end
         end
       end

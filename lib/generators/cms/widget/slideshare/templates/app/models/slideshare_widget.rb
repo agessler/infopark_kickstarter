@@ -1,10 +1,5 @@
-class SlideshareWidget < Obj
+class SlideshareWidget < Widget
   cms_attribute :source, type: :linklist
-
-  # Most CMS objects are either a page or a box. In order for them to
-  # have common behavior, uncomment one of the following lines.
-  # include Page
-  include Widget
 
   def embed_html
     @embed_html ||= if source_url.present?

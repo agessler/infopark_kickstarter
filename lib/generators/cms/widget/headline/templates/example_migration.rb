@@ -10,20 +10,17 @@ class CreateHeadlineWidgetExample < RailsConnector::Migration
 
   private
 
-  def add_widget(obj, attribute, widget)
-    widget.reverse_merge!({
-      _path: "_widgets/#{obj.id}/#{SecureRandom.hex(8)}",
-    })
+  def add_widget(obj, attribute, widget_params)
+    workspace_id = RailsConnector::Workspace.current.id
+    obj_params = RailsConnector::CmsRestApi.get("workspaces/#{workspace_id}/objs/#{obj.id}")
+    widget_id = RailsConnector::BasicObj.generate_widget_pool_id
 
-    widget = create_obj(widget)
+    params = {}
+    params['_widget_pool'] = { widget_id => widget_params }
+    params[attribute] = obj_params[attribute] || {}
+    params[attribute]['list'] ||= []
+    params[attribute]['list'] << { widget: widget_id }
 
-    revision_id = RailsConnector::Workspace.current.revision_id
-    definition = RailsConnector::CmsRestApi.get("revisions/#{revision_id}/objs/#{obj.id}")
-
-    widgets = definition[attribute] || {}
-    widgets['layout'] ||= []
-    widgets['layout'] << { widget: widget['id'] }
-
-    update_obj(definition['id'], attribute => widgets)
+    update_obj(obj_params['id'], params)
   end
 end

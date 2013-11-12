@@ -1,6 +1,4 @@
-class VideoWidget < Obj
-  include Widget
-
+class VideoWidget < Widget
   cms_attribute :source, type: :reference
   cms_attribute :width, type: :integer
   cms_attribute :height, type: :integer

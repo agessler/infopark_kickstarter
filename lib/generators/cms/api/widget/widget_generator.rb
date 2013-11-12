@@ -32,6 +32,7 @@ module Cms
             model.attributes = attributes
             model.preset_attributes = preset_attributes
             model.mandatory_attributes = mandatory_attributes
+            model.widget = true
           end
         end
 
@@ -65,12 +66,6 @@ module Cms
             thumbnail.title_key = "widgets.#{file_name}.title"
             thumbnail.description_key = "widgets.#{file_name}.description"
           end
-        end
-
-        def turn_model_into_widget
-          path = "app/models/#{class_name.underscore}.rb"
-
-          uncomment_lines(path, 'include Widget')
         end
 
         def add_locale

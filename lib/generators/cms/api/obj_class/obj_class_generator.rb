@@ -16,6 +16,7 @@ module Cms
         attr_accessor :preset_attributes
         attr_accessor :mandatory_attributes
         attr_accessor :page
+        attr_accessor :widget
         attr_accessor :thumbnail
         attr_accessor :icon
         attr_accessor :migration
@@ -35,6 +36,7 @@ module Cms
             model.preset_attributes = preset_attributes
             model.mandatory_attributes = mandatory_attributes
             model.page = page
+            model.widget = widget
           end
         end
 

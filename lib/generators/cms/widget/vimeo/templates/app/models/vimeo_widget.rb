@@ -1,6 +1,4 @@
-class VimeoWidget < Obj
-  include Widget
-
+class VimeoWidget < Widget
   cms_attribute :source, type: :linklist, max_size: 1
   cms_attribute :width, type: :integer
   cms_attribute :height, type: :integer
