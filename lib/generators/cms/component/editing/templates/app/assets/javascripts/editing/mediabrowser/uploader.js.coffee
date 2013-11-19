@@ -37,6 +37,7 @@
 
     if file?
       @_createResource(file).then (obj) =>
+        @_updateProgress(file, '100%')
         createdObjs.push(obj)
       .always =>
         @_processQueue(queue, createdObjs, promise)
@@ -44,6 +45,18 @@
       return promise
     else
       return promise.resolve(createdObjs)
+
+  _addProgress: (file) ->
+    div = $("<div class='progress'></div>")
+      .appendTo $('.editing-mediabrowser-filter')
+
+    file['progressBar'] = $("<div class='progress-bar'></div>")
+      .html(file.name)
+      .css(width: '0%')
+      .appendTo(div)
+
+  _updateProgress: (file, percent) ->
+    file.progressBar.css(width: percent)
 
   _onDrop: (event) ->
     dataTransfer = event.originalEvent.dataTransfer
@@ -59,6 +72,7 @@
     promise = $.Deferred()
 
     queue = for file in files
+      @_addProgress(file)
       file
 
     @onUploadStart(queue)
