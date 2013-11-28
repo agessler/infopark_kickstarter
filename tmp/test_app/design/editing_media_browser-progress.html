@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <title>editing_media_browser</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="http://localhost:3000/assets/editing.css?body=1" media="all" rel="stylesheet" type="text/css" />
+    <link href="http://localhost:3000/assets/editing/base.css?body=1" media="all" rel="stylesheet" type="text/css" />
+    <link href="http://localhost:3000/assets/editing/buttons.css?body=1" media="all" rel="stylesheet" type="text/css" />
+    <link href="http://localhost:3000/assets/editing/editors/linklist_editor.css?body=1" media="all" rel="stylesheet" type="text/css" />
+    <link href="http://localhost:3000/assets/editing/editors/redactor.css?body=1" media="all" rel="stylesheet" type="text/css" />
+    <link href="http://localhost:3000/assets/editing/editors/reference_editor.css?body=1" media="all" rel="stylesheet" type="text/css" />
+    <link href="http://localhost:3000/assets/editing/editors/referencelist_editor.css?body=1" media="all" rel="stylesheet" type="text/css" />
+    <link href="http://localhost:3000/assets/editing/editors/string_editor.css?body=1" media="all" rel="stylesheet" type="text/css" />
+    <link href="http://localhost:3000/assets/editing/fixed_menubar.css?body=1" media="all" rel="stylesheet" type="text/css" />
+    <link href="http://localhost:3000/assets/editing/icons.css?body=1" media="all" rel="stylesheet" type="text/css" />
+    <link href="http://localhost:3000/assets/editing/mediabrowser.css?body=1" media="all" rel="stylesheet" type="text/css" />
+    <link href="http://localhost:3000/assets/editing/mixins.css?body=1" media="all" rel="stylesheet" type="text/css" />
+
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon.png">
+
+
+    <!-- javascript  -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+    <script type="text/javascript" src="alex.js"></script>
+
+
+
+
+
+  </head>
+
+
+
+  <body>
+
+
+
+    <div>
+
+      <span class="editing-button">Button</span>
+
+      <span class="editing-button" onClick="editing_mediabrowser_toggle();">Media Browser Button</span>
+
+    </div>
+
+
+
+
+
+    <!-- ip_tour_overlay:start -->
+    <div class="editing-overlay" onClick="editing_mediabrowser_toggle();"></div>
+    <!-- ip_tour_overlay:end -->
+
+
+
+
+    <!-- modal_big:start -->
+    <div class="editing-mediabrowser" id="editing-mediabrowser">
+
+
+
+      <div class="editing-mediabrowser-body">
+
+        <div class="editing-mediabrowser-wrapper">
+
+          <div class="editing-mediabrowser-topbar">
+
+            <div class="editing-mediabrowser-search">
+              <input type="text"class="search-field" placeholder="Suchbergiff eingeben...">
+              <button class="search-field-button">Search</button>
+            </div>
+
+            <span class="editing-button-view">
+              <i class="editing-icon editing-right" title="delete">&#xF038;</i>
+            </span>
+
+            <span class="editing-button-view">
+              <i class="editing-icon" title="table view">&#xF03E;</i>
+            </span>
+
+            <span class="editing-button-view"
+              onClick="$('.editing-mediabrowser-thumbnails').removeClass('small big large').addClass('large');$('.editing-button-view').removeClass('active');$(this).addClass('active');">
+              <i class="editing-icon" title="large tumbnails">&#xF042;</i>
+            </span>
+           <span class="editing-button-view"
+              onClick="$('.editing-mediabrowser-thumbnails').removeClass('small big large').addClass('big');$('.editing-button-view').removeClass('active');$(this).addClass('active');">
+              <i class="editing-icon" title="big tumbnails">&#xF041;</i>
+            </span>
+            <span class="editing-button-view active"
+              onClick="$('.editing-mediabrowser-thumbnails').removeClass('small big large');$('.editing-button-view').removeClass('active');$(this).addClass('active');">
+              <i class="editing-icon" title="normal tumbnails">&#xF040;</i>
+            </span>
+            <span class="editing-button-view"
+              onClick="$('.editing-mediabrowser-thumbnails').removeClass('small big large').addClass('small');$('.editing-button-view').removeClass('active');$(this).addClass('active');">
+              <i class="editing-icon" title="small tumbnails">&#xF03F;</i>
+            </span>
+
+          </div>
+
+          <div class="editing-mediabrowser-filter">
+
+
+            <ul class="editing-mediabrowser-filter-items" >
+              <li onClick="$(this).toggleClass('active');">
+                <span class="editing-mediabrowser-filter-name">Alle Ergebnisse<span class="editing-mediabrowser-counter">1233</span></span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="Bilder">&#xF02D;</i>
+                <span class="editing-mediabrowser-filter-name">Bilder</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="Kontakte">&#xF02C;</i>
+                <span class="editing-mediabrowser-filter-name">Kontakte</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="generic">&#xF02E;</i>
+                <span class="editing-mediabrowser-filter-name">generic</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="PDF">&#xF02F;</i>
+                <span class="editing-mediabrowser-filter-name">PDF</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="Texte">&#xF030;</i>
+                <span class="editing-mediabrowser-filter-name">Texte</span>
+              </li>
+
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="ZIP">&#xF031;</i>
+                <span class="editing-mediabrowser-filter-name">ZIP</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="DOC">&#xF032;</i>
+                <span class="editing-mediabrowser-filter-name">DOC</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="XLS">&#xF033;</i>
+                <span class="editing-mediabrowser-filter-name">XLS</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="PPT">&#xF034;</i>
+                <span class="editing-mediabrowser-filter-name">PPT</span>
+              </li>
+
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="Video">&#xF036;</i>
+                <span class="editing-mediabrowser-filter-name">Video</span>
+              </li>
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="Audio">&#xF037;</i>
+                <span class="editing-mediabrowser-filter-name">Audio</span>
+              </li>
+
+              <li onClick="$(this).toggleClass('active');">
+                <i class="editing-icon" title="Uploads">&#xF035;</i>
+                <span class="editing-mediabrowser-filter-name">Uploads</span>
+              </li>
+
+              <li class="separator"></li>
+
+              <li onClick="$(this).toggleClass('active');" class="selected-items">
+                <i title="Selected" class="editing-icon editing-icon-ok-box"></i>
+                <span class="editing-mediabrowser-filter-name">Selected<span class="editing-mediabrowser-counter selected-total">0</span></span>
+              </li>
+
+            </ul>
+
+
+
+
+
+          </div>
+
+          <div class="editing-mediabrowser-items">
+
+          <div class="editing-mediabrowser-loading">
+            <i class="editing-icon editing-icon-refresh"></i>
+          </div>
+          <div class="editing-mediabrowser-progress-wrapper">
+
+            <div class="editing-mediabrowser-progress-file">
+              <p>font-squirrel.png</p>
+              <div class="editing-mediabrowser-progress">
+                <div class="editing-mediabrowser-progress-bar" style="width: 83%;"></div>
+              </div>
+            </div>
+            <div class="editing-mediabrowser-progress-file">
+              <p>ghfdgjdfhgjdfhgjdfhjghdfjghfdjghjfdhgjfdhgjkdfhgjdfhgkhfdjhgjfdghfdghdfkghjdfhgkdf</p>
+              <div class="editing-mediabrowser-progress">
+                <div class="editing-mediabrowser-progress-bar" style="width: 23%;"></div>
+              </div>
+            </div>
+            <div class="editing-mediabrowser-progress-file">
+              <p>Datei.png</p>
+              <div class="editing-mediabrowser-progress">
+                <div class="editing-mediabrowser-progress-bar" style="width: 12%;"></div>
+              </div>
+            </div>
+            <div class="editing-mediabrowser-progress-file">
+              <p>font-squirrel.png</p>
+              <div class="editing-mediabrowser-progress">
+                <div class="editing-mediabrowser-progress-bar" style="width: 83%;"></div>
+              </div>
+            </div>
+            <div class="editing-mediabrowser-progress-file">
+              <p>viel-zu-langer-dateiname.xls</p>
+              <div class="editing-mediabrowser-progress">
+                <div class="editing-mediabrowser-progress-bar" style="width: 23%;"></div>
+              </div>
+            </div>
+            <div class="editing-mediabrowser-progress-file">
+              <p>Datei.png</p>
+              <div class="editing-mediabrowser-progress">
+                <div class="editing-mediabrowser-progress-bar" style="width: 12%;"></div>
+              </div>
+            </div>
+            <div class="editing-mediabrowser-progress-file">
+              <p>font-squirrel.png</p>
+              <div class="editing-mediabrowser-progress">
+                <div class="editing-mediabrowser-progress-bar" style="width: 83%;"></div>
+              </div>
+            </div>
+            <div class="editing-mediabrowser-progress-file">
+              <p>viel-zu-langer-dateiname.xls</p>
+              <div class="editing-mediabrowser-progress">
+                <div class="editing-mediabrowser-progress-bar" style="width: 23%;"></div>
+              </div>
+            </div>
+            <div class="editing-mediabrowser-progress-file">
+              <p>Datei.png</p>
+              <div class="editing-mediabrowser-progress">
+                <div class="editing-mediabrowser-progress-bar" style="width: 12%;"></div>
+              </div>
+            </div>
+
+
+          </div>
+
+
+
+
+          </div>
+
+        </div>
+
+        <div class="editing-mediabrowser-inspector">
+
+          <h3>
+            <i class="editing-icon" title="Details">&#xF029;</i>
+            Details for...
+            <i class="editing-icon editing-right" title="delete">&#xF038;</i>
+          </h3>
+
+          <div class="editing-mediabrowser-loading">
+            <i class="editing-icon">&#xF03D;</i>
+          </div>
+
+          <form>
+            <div class="control-group">
+              <label for="inputEmail" class="control-label">Label</label>
+              <div class="controls">
+                <input type="text" placeholder="Email" id="inputEmail">
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="inputPassword" class="control-label">Password</label>
+              <div class="controls">
+                <input type="password" placeholder="Password" id="inputPassword">
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <label class="checkbox">
+                  <input type="checkbox"> Remember me
+                </label>
+              </div>
+            </div>
+          </form>
+
+
+        </div>
+
+      </div>
+
+
+
+
+      <div class="editing-mediabrowser-footer">
+        <a href="#" class="editing-button" onClick="editing_mediabrowser_toggle();">Close</a>
+        <a href="#" class="editing-button editing-red"><i class="editing-icon" title="Objekt löschen">&#61464;</i>Delete changes</a>
+      </div>
+
+    </div>
+    <!-- modal_big:end -->
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
